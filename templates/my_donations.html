@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Donations | CharityBridge</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/donate.css') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", Arial, sans-serif;
+            min-height: 100vh;
+            color: #17212b;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(240, 250, 250, 0.95),
+                    rgba(239, 234, 255, 0.95)
+                ),
+                url("{{ url_for('static', filename='images/landing-bg.jpeg') }}")
+                center/cover fixed;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(104, 226, 213, 0.25),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 75%,
+                    rgba(173, 137, 255, 0.22),
+                    transparent 32%
+                );
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: sticky;
+            top: 18px;
+            z-index: 100;
+
+            width: calc(100% - 40px);
+            max-width: 1400px;
+            margin: 18px auto;
+
+            min-height: 78px;
+            padding: 12px 22px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+
+            border: 1px solid rgba(255,255,255,0.65);
+            border-radius: 24px;
+
+            background: rgba(255,255,255,0.55);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+
+            box-shadow:
+                0 15px 50px rgba(42, 58, 80, 0.12);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            color: #17212b;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .brand img {
+            width: 54px;
+            height: 54px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: #27343d;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 700;
+
+            transition: 0.25s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #008f87;
+        }
+
+        .logout-btn {
+            padding: 12px 20px;
+            border-radius: 14px;
+
+            text-decoration: none;
+            color: white;
+            background: #17212b;
+
+            font-weight: 800;
+        }
+
+        /* MAIN */
+
+        .page {
+            width: min(1180px, calc(100% - 40px));
+            margin: 60px auto 100px;
+        }
+
+        .heading {
+            margin-bottom: 35px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 9px 15px;
+            border-radius: 30px;
+
+            color: #008f87;
+            background: rgba(255,255,255,0.65);
+
+            border: 1px solid rgba(255,255,255,0.8);
+
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .heading h1 {
+            margin-top: 18px;
+
+            font-size: clamp(42px, 6vw, 76px);
+            line-height: 0.95;
+            letter-spacing: -3px;
+        }
+
+        .heading h1 span {
+            color: #008f87;
+        }
+
+        .heading p {
+            margin-top: 20px;
+            max-width: 700px;
+
+            font-size: 19px;
+            line-height: 1.7;
+            color: #52606a;
+        }
+
+        /* SUMMARY */
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 55px;
+        }
+
+        .summary-card {
+            position: relative;
+            overflow: hidden;
+
+            padding: 28px;
+
+            min-height: 150px;
+
+            border-radius: 28px;
+            border: 1px solid rgba(255,255,255,0.8);
+
+            background: rgba(255,255,255,0.52);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            box-shadow:
+                0 20px 55px rgba(38, 53, 70, 0.10);
+
+            transition: transform 0.3s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-7px);
+        }
+
+        .summary-card small {
+            display: block;
+            color: #68757d;
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.3px;
+        }
+
+        .summary-card strong {
+            display: block;
+            margin-top: 15px;
+
+            font-size: 39px;
+            color: #17212b;
+        }
+
+        .summary-card:nth-child(1) strong {
+            color: #008f87;
+        }
+
+        .summary-card:nth-child(2) strong {
+            color: #7655c7;
+        }
+
+        .summary-card:nth-child(3) strong {
+            color: #d06b51;
+        }
+
+        /* CONTENT */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.7fr 0.8fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        .glass-panel {
+            border-radius: 32px;
+            padding: 32px;
+
+            background: rgba(255,255,255,0.54);
+            border: 1px solid rgba(255,255,255,0.8);
+
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+
+            box-shadow:
+                0 25px 70px rgba(38,53,70,0.10);
+        }
+
+        .panel-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 32px;
+        }
+
+        .panel-title h2 {
+            font-size: 28px;
+        }
+
+        .panel-title span {
+            color: #008f87;
+            font-weight: 800;
+        }
+
+        /* TIMELINE */
+
+        .timeline {
+            position: relative;
+            padding-left: 48px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 8px;
+            bottom: 8px;
+
+            width: 2px;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    #66d8cf,
+                    #9c83e9,
+                    transparent
+                );
+        }
+
+        .donation {
+            position: relative;
+            margin-bottom: 32px;
+            padding: 24px;
+
+            border-radius: 22px;
+
+            background: rgba(255,255,255,0.62);
+            border: 1px solid rgba(255,255,255,0.85);
+
+            box-shadow: 0 12px 35px rgba(35,48,60,0.07);
+
+            transition: 0.3s ease;
+        }
+
+        .donation:hover {
+            transform: translateX(7px);
+        }
+
+        .donation::before {
+            content: "₹";
+
+            position: absolute;
+            left: -47px;
+            top: 20px;
+
+            width: 32px;
+            height: 32px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            color: white;
+            background: #008f87;
+
+            font-weight: 900;
+
+            box-shadow: 0 5px 20px rgba(0,143,135,0.3);
+        }
+
+        .donation-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .donation-title {
+            font-size: 19px;
+            font-weight: 900;
+        }
+
+        .donation-amount {
+            color: #008f87;
+            font-size: 23px;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .donation p {
+            margin-top: 10px;
+            color: #65727b;
+            line-height: 1.6;
+        }
+
+        .donation-date {
+            display: inline-block;
+            margin-top: 15px;
+
+            padding: 7px 12px;
+
+            border-radius: 10px;
+
+            background: rgba(0,143,135,0.08);
+            color: #008f87;
+
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        /* SIDE CARD */
+
+        .impact-card {
+            text-align: center;
+        }
+
+        .impact-circle {
+            width: 170px;
+            height: 170px;
+
+            margin: 10px auto 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.9),
+                    rgba(222,250,247,0.6)
+                );
+
+            border: 12px solid rgba(255,255,255,0.65);
+
+            box-shadow:
+                0 15px 50px rgba(0,143,135,0.15);
+        }
+
+        .impact-circle strong {
+            font-size: 38px;
+            color: #008f87;
+        }
+
+        .impact-card h3 {
+            font-size: 24px;
+        }
+
+        .impact-card p {
+            margin-top: 12px;
+            color: #68757d;
+            line-height: 1.6;
+        }
+
+        .donate-more {
+            display: inline-block;
+            margin-top: 25px;
+
+            padding: 14px 24px;
+
+            border-radius: 15px;
+
+            background: #17212b;
+            color: white;
+
+            text-decoration: none;
+            font-weight: 900;
+
+            transition: 0.3s ease;
+        }
+
+        .donate-more:hover {
+            transform: translateY(-3px);
+        }
+
+        /* EMPTY */
+
+        .empty {
+            padding: 55px 25px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .empty h3 {
+            font-size: 25px;
+        }
+
+        .empty p {
+            margin: 10px auto;
+            color: #69757d;
+            max-width: 450px;
+            line-height: 1.6;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 900px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .heading h1 {
+                letter-spacing: -2px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                width: calc(100% - 20px);
+            }
+
+            .page {
+                width: calc(100% - 25px);
+                margin-top: 35px;
+            }
+
+            .glass-panel {
+                padding: 22px;
+            }
+
+            .timeline {
+                padding-left: 38px;
+            }
+
+            .donation-top {
+                flex-direction: column;
+            }
+
+            .donation::before {
+                left: -38px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a href="{{ url_for('home') }}" class="brand">
+
+        <img src="{{ url_for('static',
+                 filename='images/charitybridge-horizontal-logo.jpeg') }}"
+             alt="CharityBridge">
+
+        <span>CharityBridge</span>
+
+    </a>
+
+    <nav class="nav-links">
+
+        <a href="{{ url_for('home') }}">Home</a>
+
+        <a href="{{ url_for('about') }}">About</a>
+
+        <a href="{{ url_for('how_it_works') }}">
+            How It Works
+        </a>
+
+        <a href="{{ url_for('donate') }}">
+            Donate
+        </a>
+
+        <a href="{{ url_for('volunteer') }}">
+            Volunteer
+        </a>
+
+        <a href="{{ url_for('my_donations') }}"
+           class="active">
+            My Donations
+        </a>
+
+        <a href="{{ url_for('contact') }}">
+            Contact
+        </a>
+
+    </nav>
+
+    <a href="{{ url_for('logout') }}" class="logout-btn">
+        Logout
+    </a>
+
+</header>
+
+
+<main class="page">
+
+    <section class="heading">
+
+        <span class="eyebrow">
+            YOUR CHARITYBRIDGE ACTIVITY
+        </span>
+
+        <h1>
+            My <span>Donations.</span>
+        </h1>
+
+        <p>
+            Every contribution you make becomes part of a
+            real story of support. Track your donations,
+            see your contribution history and understand
+            the impact you're creating.
+        </p>
+
+    </section>
+
+
+    <!-- SUMMARY -->
+
+    <section class="summary">
+
+        <div class="summary-card">
+
+            <small>Total Donated</small>
+
+            <strong>
+                ₹{{ "%.2f"|format(total_amount) }}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <small>Total Contributions</small>
+
+            <strong>
+                {{ donation_count }}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <small>Average Donation</small>
+
+            <strong>
+                ₹{{ "%.2f"|format(average_amount) }}
+            </strong>
+
+        </div>
+
+    </section>
+
+
+    <section class="content-grid">
+
+        <!-- TIMELINE -->
+
+        <div class="glass-panel">
+
+            <div class="panel-title">
+
+                <h2>
+                    Donation Journey
+                </h2>
+
+                <span>
+                    {{ donation_count }} records
+                </span>
+
+            </div>
+
+
+            {% if donations %}
+
+            <div class="timeline">
+
+                {% for donation in donations %}
+
+                <article class="donation">
+
+                    <div class="donation-top">
+
+                        <div class="donation-title">
+
+                            {{ donation.description or
+                               "Community Contribution" }}
+
+                        </div>
+
+                        <div class="donation-amount">
+
+                            ₹{{ "%.2f"|format(
+                                donation.amount or 0
+                            ) }}
+
+                        </div>
+
+                    </div>
+
+
+                    <p>
+                        Your contribution was recorded
+                        through CharityBridge and added
+                        to your impact history.
+                    </p>
+
+
+                    <span class="donation-date">
+
+                        {{ donation.created_at }}
+
+                    </span>
+
+                </article>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    ♡
+                </div>
+
+                <h3>
+                    Your journey starts here.
+                </h3>
+
+                <p>
+                    You haven't made a donation yet.
+                    Start your first contribution and
+                    become part of the CharityBridge
+                    community.
+                </p>
+
+                <a href="{{ url_for('donate') }}"
+                   class="donate-more">
+                    Make My First Donation →
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- IMPACT -->
+
+        <aside class="glass-panel impact-card">
+
+            <div class="impact-circle">
+
+                <strong>
+                    {{ donation_count }}
+                </strong>
+
+            </div>
+
+            <h3>
+                Contributions
+            </h3>
+
+            <p>
+                Each contribution is more than a
+                transaction. It is a step toward
+                helping someone in need.
+            </p>
+
+            <a href="{{ url_for('donate') }}"
+               class="donate-more">
+                Donate Again →
+            </a>
+
+        </aside>
+
+    </section>
+
+</main>
+
+
+<script>
+
+    /* Small entrance animation */
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const cards =
+            document.querySelectorAll(
+                ".summary-card, .donation, .glass-panel"
+            );
+
+        cards.forEach((card, index) => {
+
+            card.style.opacity = "0";
+            card.style.transform = "translateY(20px)";
+
+            setTimeout(() => {
+
+                card.style.transition =
+                    "opacity .6s ease, transform .6s ease";
+
+                card.style.opacity = "1";
+                card.style.transform = "translateY(0)";
+
+            }, index * 100);
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>

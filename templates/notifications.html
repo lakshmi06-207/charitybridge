@@ -1,0 +1,748 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications | CharityBridge</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: #6479d8 #060916;
+        }
+
+        :root {
+            --cyan: #67e8f9;
+            --blue: #60a5fa;
+            --purple: #a78bfa;
+            --pink: #f0abfc;
+            --text: #f1f5ff;
+            --muted: #b9c5df;
+            --glass: rgba(12, 19, 42, 0.72);
+            --border: rgba(148, 190, 255, 0.19);
+        }
+
+        html {
+            min-height: 100%;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: var(--text);
+            background: #060916;
+            overflow-x: hidden;
+            position: relative;
+            isolation: isolate;
+        }
+
+        /* =====================================
+           ANIMATED AURORA BACKGROUND
+           ===================================== */
+
+        .space-background {
+            position: fixed;
+            inset: 0;
+            z-index: -5;
+            pointer-events: none;
+            overflow: hidden;
+            background:
+                radial-gradient(
+                    ellipse at 15% 10%,
+                    rgba(31, 72, 145, 0.22),
+                    transparent 43%
+                ),
+                radial-gradient(
+                    ellipse at 85% 85%,
+                    rgba(92, 39, 139, 0.20),
+                    transparent 42%
+                ),
+                linear-gradient(
+                    135deg,
+                    #060916 0%,
+                    #0a1025 45%,
+                    #08091a 100%
+                );
+        }
+
+        .aurora {
+            position: absolute;
+            width: 65vw;
+            height: 65vw;
+            min-width: 420px;
+            min-height: 420px;
+            border-radius: 50%;
+            filter: blur(95px);
+            opacity: 0.19;
+            will-change: transform;
+        }
+
+        .aurora-one {
+            top: -35%;
+            left: -18%;
+            background: radial-gradient(
+                circle,
+                rgba(37, 99, 235, 0.9),
+                rgba(34, 211, 238, 0.25) 45%,
+                transparent 70%
+            );
+            animation: auroraMoveOne 24s ease-in-out infinite alternate;
+        }
+
+        .aurora-two {
+            right: -25%;
+            top: 5%;
+            background: radial-gradient(
+                circle,
+                rgba(147, 51, 234, 0.85),
+                rgba(192, 38, 211, 0.24) 48%,
+                transparent 72%
+            );
+            animation: auroraMoveTwo 29s ease-in-out infinite alternate;
+        }
+
+        .aurora-three {
+            left: 20%;
+            bottom: -48%;
+            background: radial-gradient(
+                circle,
+                rgba(8, 145, 178, 0.72),
+                rgba(59, 130, 246, 0.22) 48%,
+                transparent 72%
+            );
+            animation: auroraMoveThree 26s ease-in-out infinite alternate;
+        }
+
+        .space-glow {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            filter: blur(85px);
+            opacity: 0.23;
+            animation: glowFloat 17s ease-in-out infinite alternate;
+        }
+
+        .glow-cyan {
+            top: 25%;
+            left: -110px;
+            background: #06b6d4;
+        }
+
+        .glow-purple {
+            top: 45%;
+            right: -120px;
+            background: #9333ea;
+            animation-delay: -6s;
+        }
+
+        .glow-pink {
+            bottom: -100px;
+            left: 45%;
+            background: #db2777;
+            animation-delay: -10s;
+        }
+
+        .star-field,
+        .star-field-two {
+            position: absolute;
+            inset: -100px 0 0;
+            opacity: 0.42;
+            background-image:
+                radial-gradient(1.5px 1.5px at 40px 60px, #fff 55%, transparent 100%),
+                radial-gradient(1px 1px at 130px 180px, #a5e8ff 55%, transparent 100%),
+                radial-gradient(2px 2px at 250px 100px, #fff 45%, transparent 100%),
+                radial-gradient(1px 1px at 310px 250px, #c4b5fd 55%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 430px 160px, #fff 50%, transparent 100%),
+                radial-gradient(1px 1px at 520px 300px, #67e8f9 55%, transparent 100%);
+            background-size: 560px 360px;
+            animation: starDrift 65s linear infinite;
+        }
+
+        .star-field-two {
+            opacity: 0.22;
+            transform: scale(1.25);
+            background-position: 150px 120px;
+            animation-duration: 95s;
+            animation-direction: reverse;
+        }
+
+        .floating-orb {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow:
+                0 0 12px rgba(103, 232, 249, 0.9),
+                0 0 32px rgba(103, 232, 249, 0.35);
+            opacity: 0.65;
+            animation: orbFloat 12s ease-in-out infinite;
+        }
+
+        .orb-one {
+            top: 23%;
+            left: 8%;
+        }
+
+        .orb-two {
+            top: 63%;
+            right: 9%;
+            width: 6px;
+            height: 6px;
+            background: var(--purple);
+            box-shadow: 0 0 24px rgba(167, 139, 250, 0.85);
+            animation-delay: -4s;
+        }
+
+        .orb-three {
+            top: 83%;
+            left: 28%;
+            width: 5px;
+            height: 5px;
+            background: var(--pink);
+            box-shadow: 0 0 22px rgba(240, 171, 252, 0.8);
+            animation-delay: -7s;
+        }
+
+        @keyframes auroraMoveOne {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(13vw, 12vh) scale(1.15); }
+        }
+
+        @keyframes auroraMoveTwo {
+            from { transform: translate(0, 0) scale(1.05); }
+            to { transform: translate(-12vw, 15vh) scale(0.9); }
+        }
+
+        @keyframes auroraMoveThree {
+            from { transform: translate(0, 0) scale(0.95); }
+            to { transform: translate(9vw, -12vh) scale(1.12); }
+        }
+
+        @keyframes glowFloat {
+            from { transform: translate3d(0, 0, 0); }
+            to { transform: translate3d(45px, -55px, 0); }
+        }
+
+        @keyframes starDrift {
+            from { transform: translateY(0); }
+            to { transform: translateY(360px); }
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-24px) translateX(12px); }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =====================================
+           PAGE LAYOUT
+           ===================================== */
+
+        .notifications-page {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 35px 22px 60px;
+            min-height: 100vh;
+        }
+
+        .notifications-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+            animation: fadeIn 0.65s ease-out both;
+        }
+
+        .notifications-topbar h1 {
+            margin: 0 0 8px;
+            color: #f1f5ff;
+            font-size: clamp(27px, 4vw, 35px);
+            text-shadow: 0 0 25px rgba(96, 165, 250, 0.18);
+        }
+
+        .notifications-topbar p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .notifications-back {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 11px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #e8f2ff;
+            border: 1px solid rgba(148, 190, 255, 0.25);
+            background: rgba(18, 31, 61, 0.55);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition: all 0.25s ease;
+        }
+
+        .notifications-back:hover {
+            color: #fff;
+            border-color: rgba(103, 232, 249, 0.65);
+            background: rgba(34, 71, 110, 0.48);
+            box-shadow: 0 0 22px rgba(34, 211, 238, 0.10);
+        }
+
+        /* =====================================
+           MAIN GLASS PANEL
+           ===================================== */
+
+        .glass-panel.notifications-panel {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            padding: 26px;
+            border-radius: 22px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+
+            backdrop-filter: blur(20px) saturate(135%);
+            -webkit-backdrop-filter: blur(20px) saturate(135%);
+
+            box-shadow:
+                0 14px 40px rgba(0, 0, 0, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.055);
+
+            animation: fadeIn 0.75s ease-out both;
+        }
+
+        .glass-panel.notifications-panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            z-index: -1;
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(34, 211, 238, 0.075),
+                    transparent 48%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    rgba(168, 85, 247, 0.07),
+                    transparent 48%
+                );
+        }
+
+        .notifications-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+            padding-bottom: 19px;
+            border-bottom: 1px solid rgba(148, 190, 255, 0.13);
+        }
+
+        .notifications-heading h2 {
+            margin: 0 0 8px;
+            color: #f1f5ff;
+            font-size: 23px;
+        }
+
+        .notifications-heading p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        /* =====================================
+           UNREAD BADGES
+           ===================================== */
+
+        .notification-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 7px 12px;
+            border-radius: 20px;
+
+            color: #a5f3fc;
+            background: rgba(8, 145, 178, 0.15);
+            border: 1px solid rgba(103, 232, 249, 0.30);
+
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+
+            box-shadow: 0 0 16px rgba(34, 211, 238, 0.045);
+        }
+
+        /* =====================================
+           NOTIFICATION CARDS
+           ===================================== */
+
+        .notification-card {
+            position: relative;
+            padding: 20px;
+            margin-top: 15px;
+            border-radius: 16px;
+            border: 1px solid rgba(148, 190, 255, 0.16);
+            background: rgba(7, 15, 32, 0.65);
+
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.17),
+                inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+            overflow-wrap: anywhere;
+            animation: fadeIn 0.55s ease-out both;
+
+            transition:
+                border-color 0.3s ease,
+                transform 0.3s ease,
+                box-shadow 0.3s ease,
+                background 0.3s ease;
+        }
+
+        .notification-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(103, 232, 249, 0.34);
+            background: rgba(9, 21, 43, 0.78);
+            box-shadow:
+                0 12px 30px rgba(0, 0, 0, 0.23),
+                0 0 18px rgba(34, 211, 238, 0.055);
+        }
+
+        .notification-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .notification-card-header strong {
+            color: #dff8ff;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .notification-card p {
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            color: #cbd7ee;
+            line-height: 1.8;
+            margin: 14px 0;
+            font-size: 14px;
+        }
+
+        .muted {
+            color: #8fa2c3;
+        }
+
+        .notification-status {
+            font-size: 12px;
+            padding: 5px 10px;
+            border-radius: 18px;
+            border: 1px solid rgba(148, 163, 184, 0.19);
+            background: rgba(148, 163, 184, 0.07);
+        }
+
+        .notification-card small {
+            display: block;
+            font-size: 12px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        /* =====================================
+           MARK AS READ BUTTON
+           ===================================== */
+
+        .notification-read-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            margin-top: 16px;
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font: inherit;
+            font-size: 13px;
+            font-weight: 700;
+
+            color: #e6fbff;
+            border: 1px solid rgba(103, 232, 249, 0.34);
+            background: linear-gradient(
+                110deg,
+                rgba(14, 116, 144, 0.55),
+                rgba(79, 70, 229, 0.55)
+            );
+
+            box-shadow: 0 5px 18px rgba(59, 130, 246, 0.09);
+            transition: all 0.25s ease;
+        }
+
+        .notification-read-button:hover {
+            transform: translateY(-2px);
+            border-color: rgba(103, 232, 249, 0.70);
+            filter: brightness(1.15);
+            box-shadow: 0 8px 23px rgba(34, 211, 238, 0.12);
+        }
+
+        .notification-read-button:active {
+            transform: translateY(0);
+        }
+
+        /* =====================================
+           EMPTY NOTIFICATIONS STATE
+           ===================================== */
+
+        .notification-empty {
+            padding: 40px 18px;
+            text-align: center;
+            border: 1px dashed rgba(148, 190, 255, 0.22);
+            border-radius: 16px;
+            background: rgba(10, 18, 38, 0.45);
+        }
+
+        .notification-empty h3 {
+            margin: 0 0 12px;
+            color: #a5f3fc;
+            font-size: 21px;
+        }
+
+        .notification-empty p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        /* =====================================
+           SCROLLBAR AND RESPONSIVENESS
+           ===================================== */
+
+        ::-webkit-scrollbar {
+            width: 9px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #060916;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(
+                180deg,
+                rgba(34, 211, 238, 0.7),
+                rgba(124, 92, 220, 0.7),
+                rgba(192, 132, 252, 0.65)
+            );
+            border-radius: 20px;
+            border: 2px solid #060916;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #67e8f9, #a78bfa);
+        }
+
+        @media (max-width: 650px) {
+            .notifications-page {
+                padding: 22px 13px 40px;
+            }
+
+            .notifications-topbar {
+                align-items: flex-start;
+                margin-bottom: 24px;
+            }
+
+            .notifications-topbar > div {
+                min-width: 0;
+            }
+
+            .notifications-back {
+                padding: 10px 12px;
+            }
+
+            .glass-panel.notifications-panel {
+                padding: 18px;
+                border-radius: 18px;
+            }
+
+            .notifications-heading h2 {
+                font-size: 21px;
+            }
+
+            .notification-card {
+                padding: 16px;
+            }
+
+            .aurora {
+                filter: blur(75px);
+                opacity: 0.16;
+            }
+
+            .space-glow {
+                opacity: 0.16;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Animated background -->
+    <div class="space-background" aria-hidden="true">
+        <div class="aurora aurora-one"></div>
+        <div class="aurora aurora-two"></div>
+        <div class="aurora aurora-three"></div>
+
+        <div class="space-glow glow-cyan"></div>
+        <div class="space-glow glow-purple"></div>
+        <div class="space-glow glow-pink"></div>
+
+        <div class="star-field"></div>
+        <div class="star-field-two"></div>
+
+        <div class="floating-orb orb-one"></div>
+        <div class="floating-orb orb-two"></div>
+        <div class="floating-orb orb-three"></div>
+    </div>
+
+    <main class="notifications-page">
+
+        <header class="notifications-topbar">
+            <div>
+                <h1>🔔 Notifications</h1>
+                <p>Hello, {{ user_name }}. Your CharityBridge updates.</p>
+            </div>
+
+            <a class="notifications-back"
+               href="{{ url_for('dashboard') }}">
+                ← Back to Dashboard
+            </a>
+        </header>
+
+        <section class="glass-panel notifications-panel">
+
+            <div class="notifications-heading">
+                <div>
+                    <h2>All Notifications</h2>
+                    <p>Your messages and updates from CharityBridge</p>
+                </div>
+
+                {% if unread_notifications|int > 0 %}
+                    <span class="notification-badge">
+                        {{ unread_notifications }} unread
+                    </span>
+                {% endif %}
+            </div>
+
+            <div class="notification-list">
+
+                {% if recent_notifications %}
+
+                    {% for notification in recent_notifications %}
+
+                        <article class="notification-card">
+
+                            <div class="notification-card-header">
+                                <strong>
+                                    {% if notification.title == "Message from the Founder" %}
+                                        📩
+                                    {% else %}
+                                        🔔
+                                    {% endif %}
+
+                                    {{ notification.title }}
+                                </strong>
+
+                                {% if not notification.is_read %}
+                                    <span class="notification-badge">
+                                        New
+                                    </span>
+                                {% else %}
+                                    <span class="muted notification-status">
+                                        Read
+                                    </span>
+                                {% endif %}
+                            </div>
+
+                            <p>{{ notification.message }}</p>
+
+                            <small class="muted">
+                                {{ notification.created_at or "" }}
+                            </small>
+
+                            {% if not notification.is_read %}
+                                <form method="POST"
+                                      action="{{ url_for('mark_notification_read', notification_id=notification.id) }}">
+
+                                    <button type="submit"
+                                            class="notification-read-button">
+                                        ✓ Mark as Read
+                                    </button>
+
+                                </form>
+                            {% endif %}
+
+                        </article>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="notification-empty">
+                        <h3>✨ You're all caught up!</h3>
+                        <p class="muted">
+                            No notifications yet. New updates will appear here.
+                        </p>
+                    </div>
+
+                {% endif %}
+
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>

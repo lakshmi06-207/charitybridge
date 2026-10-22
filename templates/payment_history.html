@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payment History | CharityBridge</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 32px 18px;
+            font-family: Arial, sans-serif;
+            color: #252044;
+            background:
+                radial-gradient(circle at 10% 10%, #e4dcff, transparent 35%),
+                radial-gradient(circle at 90% 80%, #f9dff2, transparent 35%),
+                linear-gradient(135deg, #f8f7ff, #edf3ff);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .brand {
+            font-size: 23px;
+            font-weight: 800;
+            color: #6246d8;
+        }
+
+        a {
+            color: #6246d8;
+            text-decoration: none;
+        }
+
+        .back-link {
+            padding: 10px 16px;
+            border: 1px solid #ddd6ff;
+            border-radius: 12px;
+            background: rgba(255,255,255,.75);
+        }
+
+        .heading {
+            margin-bottom: 22px;
+        }
+
+        .heading h1 {
+            margin: 0 0 8px;
+            font-size: clamp(27px, 5vw, 36px);
+        }
+
+        .heading p {
+            color: #716b88;
+            line-height: 1.6;
+        }
+
+        .summary {
+            padding: 23px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255,255,255,.9);
+            border-radius: 20px;
+            background: rgba(255,255,255,.72);
+            box-shadow: 0 12px 35px rgba(73, 57, 135, .08);
+        }
+
+        .summary-label {
+            color: #716b88;
+            font-size: 14px;
+        }
+
+        .summary-number {
+            display: block;
+            margin-top: 8px;
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .summary-note {
+            margin-top: 8px;
+            color: #716b88;
+            font-size: 13px;
+        }
+
+        .payment-list {
+            display: grid;
+            gap: 16px;
+        }
+
+        .payment-card {
+            padding: 22px;
+            border: 1px solid rgba(255,255,255,.9);
+            border-radius: 20px;
+            background: rgba(255,255,255,.8);
+            box-shadow: 0 10px 28px rgba(73, 57, 135, .07);
+            overflow-wrap: anywhere;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .request-title {
+            font-size: 17px;
+            font-weight: 750;
+        }
+
+        .amount {
+            margin-top: 10px;
+            font-size: 27px;
+            font-weight: 800;
+            color: #5e43ce;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: capitalize;
+        }
+
+        .status-verified {
+            color: #147747;
+            background: #dff8e9;
+        }
+
+        .status-created {
+            color: #875b00;
+            background: #fff0c9;
+        }
+        .status-reported {
+    color: #80520a;
+    background: #fff0c9;
+}
+
+.status-pending {
+    color: #80520a;
+    background: #fff0c9;
+}
+
+        .status-failed {
+            color: #a22a40;
+            background: #ffe1e7;
+        }
+
+        .status-other {
+            color: #5e43ce;
+            background: #ece7ff;
+        }
+
+        .details {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 17px;
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid #eeeaf9;
+        }
+
+        .detail-label {
+            display: block;
+            margin-bottom: 6px;
+            color: #817b95;
+            font-size: 12px;
+        }
+
+        .detail-value {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .notice {
+            margin-top: 17px;
+            color: #777087;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .empty {
+            padding: 45px 20px;
+            text-align: center;
+            border-radius: 20px;
+            background: rgba(255,255,255,.8);
+        }
+
+        .empty h2 {
+            margin-top: 0;
+        }
+
+        .flash {
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            background: #fff0c9;
+            color: #795600;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .payment-card {
+                padding: 17px;
+            }
+
+            .details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <div class="topbar">
+        <div class="brand">CharityBridge</div>
+        <a class="back-link" href="{{ url_for('dashboard') }}">
+            ← Back to Dashboard
+        </a>
+    </div>
+
+    <header class="heading">
+        <h1>Payment History</h1>
+        <p>View payments associated with your help requests and contributions.</p>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="flash">{{ message }}</div>
+        {% endfor %}
+    {% endwith %}
+
+
+<section class="summary">
+    <span class="summary-label">Payment History Entries</span>
+
+    <span class="summary-number">
+        {{ payments|length }}
+    </span>
+
+    <div class="summary-note">
+        Includes reported, pending, and verified payment records.
+        Reported payments are not automatically verified.
+    </div>
+</section>
+
+
+    {% if payments %}
+        <div class="payment-list">
+
+            {% for payment in payments %}
+                {% set status = (payment.status or 'unknown')|lower %}
+
+                <article class="payment-card">
+                    <div class="card-top">
+                        <div>
+                            <div class="request-title">
+                                Help Request #{{ payment.request_id }}
+                            </div>
+
+                           
+<div class="amount">
+    ₹{{ "%.2f"|format(payment.amount_paise / 100) }}
+</div>
+
+
+<div class="summary-note">
+    Total reported across {{ payment.record_count or 1 }} record(s).
+    This is not proof of payment received.
+</div>
+
+<div style="margin-top: 12px;">
+    <span class="detail-label">Original requested amount</span>
+    <span class="detail-value">
+        {% if payment.requested_amount is not none %}
+            ₹{{ "%.2f"|format(payment.requested_amount|float) }}
+        {% else %}
+            Not available
+        {% endif %}
+    </span>
+</div>
+
+                        </div>
+
+                        
+<span class="status
+    {% if status == 'verified' %}
+        status-verified
+    {% elif status in ['created', 'pending'] %}
+        status-pending
+    {% elif status == 'reported' %}
+        status-reported
+    {% elif status in ['failed', 'rejected'] %}
+        status-failed
+    {% else %}
+        status-other
+    {% endif %}">
+    {{ status|replace('_', ' ')|title }}
+</span>
+
+                    </div>
+
+                    <div class="details">
+                        <div>
+                            <span class="detail-label">Your role</span>
+                            <span class="detail-value">
+                                {% if payment.helper_id == current_user_id %}
+                                    Helper / Payer
+                                {% else %}
+                                    Requester
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div>
+    <span class="detail-label">Payment Receipt</span>
+    <span class="detail-value">
+        {% if payment.receipt_id %}
+            <a
+                href="{{ url_for('view_payment_receipt',
+                    payment_id=payment.payment_id) }}"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                View Uploaded Receipt ↗
+            </a>
+        {% else %}
+            Receipt not available
+        {% endif %}
+    </span>
+</div>
+
+                        <div>
+                            <span class="detail-label">Request type</span>
+                            <span class="detail-value">
+                                {{ payment.request_type or 'Not specified' }}
+                            </span>
+                        </div>
+
+                        <div>
+                            <span class="detail-label">Helper</span>
+                            <span class="detail-value">
+                                {{ payment.helper_name or 'Unavailable' }}
+                            </span>
+                        </div>
+
+                        <div>
+                            <span class="detail-label">Requester</span>
+                            <span class="detail-value">
+                                {{ payment.requester_name or 'Unavailable' }}
+                            </span>
+                        </div>
+
+                        <div>
+                            <span class="detail-label">Created date</span>
+                            <span class="detail-value">
+                                {% if payment.created_at %}
+                                    {{ payment.created_at.strftime('%d %b %Y, %I:%M %p') }}
+                                {% else %}
+                                    Not available
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+                    <p class="notice">
+    A reported payment has not been independently verified.
+    Confirm receipt only after checking your bank account or UPI app.
+    Grouped entries may contain multiple payment reports.
+</p>
+                    
+{% if payment.helper_id != current_user_id
+      and status == 'reported'
+      and payment.record_count == 1 %}
+
+    <form
+        method="POST"
+        action="{{ url_for(
+            'confirm_payment_received',
+            payment_id=payment.id
+        ) }}"
+        onsubmit="return confirm(
+            'Have you checked your UPI or bank account and confirmed that this money was received?'
+        );"
+        style="margin-top: 18px;"
+    >
+        <button
+            type="submit"
+            class="view-response-button"
+            style="
+                border: none;
+                padding: 12px 18px;
+                border-radius: 12px;
+                background: #6246d8;
+                color: white;
+                font-weight: 700;
+                cursor: pointer;
+            "
+        >
+            Confirm Payment Received
+        </button>
+    </form>
+
+{% endif %}
+
+                </article>
+            {% endfor %}
+
+        </div>
+    {% else %}
+        <section class="empty">
+            <h2>No payment records yet</h2>
+            <p>Your payment records will appear here when available.</p>
+            <a href="{{ url_for('dashboard') }}">Return to Dashboard</a>
+        </section>
+    {% endif %}
+
+</div>
+</body>
+</html>

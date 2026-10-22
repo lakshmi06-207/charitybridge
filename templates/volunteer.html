@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="CharityBridge Volunteer Mission Hub"
+    >
+
+    <title>Volunteer | CharityBridge</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/volunteer.css') }}"
+    >
+</head>
+
+<body>
+
+    <!-- =========================================================
+         AURORA SPATIAL BACKGROUND
+    ========================================================== -->
+
+    <div class="space-background" aria-hidden="true">
+
+        <div class="aurora aurora-one"></div>
+        <div class="aurora aurora-two"></div>
+        <div class="aurora aurora-three"></div>
+
+        <div class="space-glow glow-one"></div>
+        <div class="space-glow glow-two"></div>
+        <div class="space-glow glow-three"></div>
+
+        <div class="star-field star-field-one"></div>
+        <div class="star-field star-field-two"></div>
+
+        <div class="floating-orb orb-one"></div>
+        <div class="floating-orb orb-two"></div>
+        <div class="floating-orb orb-three"></div>
+
+    </div>
+
+
+    <!-- =========================================================
+         PAGE WRAPPER
+    ========================================================== -->
+
+    <div class="volunteer-page">
+
+
+        <!-- =====================================================
+             TOP NAVIGATION
+        ====================================================== -->
+
+        <header class="top-navigation">
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="dashboard-button"
+                aria-label="Return to Dashboard"
+            >
+                <span class="dashboard-button-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+
+            <div class="brand-area">
+
+                <div class="brand-mark">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="brand-text">
+                    <strong>CHARITYBRIDGE</strong>
+                    <small>CONNECT • CARE • CHANGE</small>
+                </div>
+
+            </div>
+
+
+            <div class="top-status">
+
+                <span class="status-light"></span>
+
+                <span>
+                    {% if volunteer_registered %}
+                        Volunteer Active
+                    {% else %}
+                        Volunteer Space
+                    {% endif %}
+                </span>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================================
+             HERO SECTION
+        ====================================================== -->
+
+        <main class="main-content">
+
+            <section class="hero-section">
+
+                <div class="hero-copy">
+
+                    <div class="hero-eyebrow">
+                        <span class="eyebrow-line"></span>
+                        CHARITYBRIDGE • VOLUNTEER NETWORK
+                    </div>
+
+
+                    <h1>
+                        VOLUNTEER
+                        <span>MISSION HUB</span>
+                    </h1>
+
+
+                    <p>
+                        Be the connection between someone who needs help
+                        and someone ready to give it.
+                    </p>
+
+
+                    <div class="hero-mini-status">
+
+                        <span class="mini-pulse"></span>
+
+                        <span>
+                            {% if volunteer_registered %}
+                                Your volunteer profile is connected.
+                            {% else %}
+                                Join the volunteer network and make an impact.
+                            {% endif %}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SPATIAL VOLUNTEER ORB -->
+
+                <div class="volunteer-orbit-area">
+
+                    <div class="orbit-ring orbit-ring-one"></div>
+                    <div class="orbit-ring orbit-ring-two"></div>
+                    <div class="orbit-ring orbit-ring-three"></div>
+
+                    <div class="volunteer-core">
+
+                        <div class="core-glass"></div>
+
+                        <div class="core-icon">
+                            🤝
+                        </div>
+
+                        <strong>HELP</strong>
+
+                        <span>FLOWS HERE</span>
+
+                    </div>
+
+                    <div class="orbit-dot orbit-dot-one"></div>
+                    <div class="orbit-dot orbit-dot-two"></div>
+                    <div class="orbit-dot orbit-dot-three"></div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 REAL USER GLASS CARD
+            ================================================== -->
+
+            <section class="profile-glass-card">
+
+                <div class="profile-card-light"></div>
+
+
+                <div class="profile-avatar">
+
+                    {% if avatar_url %}
+
+                        <img
+                            src="{{ avatar_url }}"
+                            alt="{{ user_name }}"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        >
+
+                        <div
+                            class="avatar-fallback"
+                            style="display: none;"
+                        >
+                            {{ user_name[:1]|upper }}
+                        </div>
+
+                    {% else %}
+
+                        <div class="avatar-fallback">
+                            {{ user_name[:1]|upper }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="profile-information">
+
+                    <span class="profile-label">
+                        VOLUNTEER PROFILE
+                    </span>
+
+                    <h2>
+                        {{ user_name }}
+                    </h2>
+
+                    <p>
+                        {{ user_email }}
+                    </p>
+
+                    {% if user_location %}
+
+                        <span class="profile-location">
+                            📍 {{ user_location }}
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="profile-status">
+
+                    {% if volunteer_status == "Available" %}
+
+                        <span class="availability-dot available"></span>
+                        <strong>AVAILABLE</strong>
+
+                    {% elif volunteer_status == "Busy" %}
+
+                        <span class="availability-dot busy"></span>
+                        <strong>BUSY</strong>
+
+                    {% elif volunteer_status == "Not Available" %}
+
+                        <span class="availability-dot unavailable"></span>
+                        <strong>NOT AVAILABLE</strong>
+
+                    {% else %}
+
+                        <span class="availability-dot neutral"></span>
+                        <strong>NOT REGISTERED</strong>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 REAL STATISTICS
+            ================================================== -->
+
+            <section class="statistics-section">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            LIVE NETWORK
+                        </span>
+
+                        <h2>
+                            Your Volunteer Space
+                        </h2>
+
+                    </div>
+
+
+                    <span class="live-indicator">
+                        <i></i>
+                        LIVE DATA
+                    </span>
+
+                </div>
+
+
+                <div class="statistics-grid">
+
+
+                    <!-- ACTIVE REQUESTS -->
+
+                    <article class="stat-glass-card">
+
+                        <div class="stat-icon request-icon">
+                            ♡
+                        </div>
+
+                        <div class="stat-content">
+
+                            <span>
+                                ACTIVE REQUESTS
+                            </span>
+
+                            <strong>
+                                {{ active_requests }}
+                            </strong>
+
+                            <small>
+                                Current help requests
+                            </small>
+
+                        </div>
+
+                        <div class="stat-glow"></div>
+
+                    </article>
+
+
+
+                    <!-- TOTAL VOLUNTEERS -->
+
+                    <article class="stat-glass-card">
+
+                        <div class="stat-icon volunteer-icon">
+                            ✦
+                        </div>
+
+                        <div class="stat-content">
+
+                            <span>
+                                VOLUNTEERS
+                            </span>
+
+                            <strong>
+                                {{ total_volunteers }}
+                            </strong>
+
+                            <small>
+                                People in the network
+                            </small>
+
+                        </div>
+
+                        <div class="stat-glow"></div>
+
+                    </article>
+
+
+
+                    <!-- MY REQUESTS -->
+
+                    <article class="stat-glass-card">
+
+                        <div class="stat-icon connection-icon">
+                            ↗
+                        </div>
+
+                        <div class="stat-content">
+
+                            <span>
+                                MY REQUESTS
+                            </span>
+
+                            <strong>
+                                {{ my_requests }}
+                            </strong>
+
+                            <small>
+                                Requests created by you
+                            </small>
+
+                        </div>
+
+                        <div class="stat-glow"></div>
+
+                    </article>
+
+
+
+                    <!-- COMPLETED SUPPORT -->
+
+                    <article class="stat-glass-card">
+
+                        <div class="stat-icon impact-icon">
+                            ✨
+                        </div>
+
+                        <div class="stat-content">
+
+                            <span>
+                                COMPLETED SUPPORT
+                            </span>
+
+                            <strong>
+                                {{ completed_support }}
+                            </strong>
+
+                            <small>
+                                Recorded completed activities
+                            </small>
+
+                        </div>
+
+                        <div class="stat-glow"></div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 VOLUNTEER REGISTRATION / UPDATE
+            ================================================== -->
+
+            <section class="mission-registration-section">
+
+                <div class="mission-glass-panel">
+
+                    <div class="panel-liquid-light"></div>
+
+
+                    <div class="panel-heading">
+
+                        <div class="heading-icon">
+                            🪐
+                        </div>
+
+                        <div>
+
+                            <span>
+                                VOLUNTEER CONNECTION
+                            </span>
+
+                            <h2>
+
+                                {% if volunteer_registered %}
+                                    Update Your Mission Profile
+                                {% else %}
+                                    Join the Volunteer Network
+                                {% endif %}
+
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <p class="panel-description">
+
+                        {% if volunteer_registered %}
+
+                            Keep your availability and skills updated
+                            so CharityBridge can connect you with suitable
+                            opportunities.
+
+                        {% else %}
+
+                            Tell the CharityBridge community when you are
+                            available and what you can help with.
+
+                        {% endif %}
+
+                    </p>
+
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('volunteer') }}"
+                        class="volunteer-form"
+                    >
+
+                        <!-- AVAILABILITY -->
+
+                        <div class="form-group">
+
+                            <label for="availability">
+
+                                <span>01</span>
+                                YOUR AVAILABILITY
+
+                            </label>
+
+
+                            <div class="select-shell">
+
+                                <select
+                                    id="availability"
+                                    name="availability"
+                                    required
+                                >
+
+                                    <option
+                                        value=""
+                                        {% if not volunteer_registered %}
+                                            selected
+                                        {% endif %}
+                                    >
+                                        Select availability
+                                    </option>
+
+
+                                    <option
+                                        value="Available"
+                                        {% if volunteer_status == "Available" %}
+                                            selected
+                                        {% endif %}
+                                    >
+                                        Available
+                                    </option>
+
+
+                                    <option
+                                        value="Busy"
+                                        {% if volunteer_status == "Busy" %}
+                                            selected
+                                        {% endif %}
+                                    >
+                                        Busy
+                                    </option>
+
+
+                                    <option
+                                        value="Not Available"
+                                        {% if volunteer_status == "Not Available" %}
+                                            selected
+                                        {% endif %}
+                                    >
+                                        Not Available
+                                    </option>
+
+                                </select>
+
+
+                                <span class="select-arrow">
+                                    ↓
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- SKILLS -->
+
+                        <div class="form-group">
+
+                            <label for="skills">
+
+                                <span>02</span>
+                                YOUR SKILLS
+
+                            </label>
+
+
+                            <div class="input-shell">
+
+                                <input
+                                    type="text"
+                                    id="skills"
+                                    name="skills"
+                                    value="{{ volunteer_skills }}"
+                                    maxlength="255"
+                                    placeholder="Example: Teaching, Food distribution, IT support"
+                                >
+
+                                <span class="input-symbol">
+                                    ✦
+                                </span>
+
+                            </div>
+
+
+                            <small class="field-hint">
+                                Add the skills you can offer to the community.
+                            </small>
+
+                        </div>
+
+
+
+                        <!-- SUBMIT -->
+
+                        <button
+                            type="submit"
+                            class="mission-button"
+                        >
+
+                            <span class="button-shine"></span>
+
+
+                            <span class="button-icon">
+
+                                {% if volunteer_registered %}
+                                    ↻
+                                {% else %}
+                                    ✦
+                                {% endif %}
+
+                            </span>
+
+
+                            <span>
+
+                                {% if volunteer_registered %}
+                                    UPDATE VOLUNTEER PROFILE
+                                {% else %}
+                                    BECOME A VOLUNTEER
+                                {% endif %}
+
+                            </span>
+
+
+                            <span class="button-arrow">
+                                →
+                            </span>
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 HELP REQUESTS
+            ================================================== -->
+
+            <section class="requests-section">
+
+              
+<div class="section-heading request-heading">
+
+    <div>
+
+        <span class="section-kicker">
+            COMMUNITY SUPPORT
+        </span>
+
+        <h2>
+            Help Someone Today
+        </h2>
+
+        <p>
+            Discover real non-money requests for food, clothes,
+            furniture, blood and other community needs.
+        </p>
+
+    </div>
+
+</div>
+
+
+
+                    <div class="request-counter">
+
+                        <strong>
+                            {{ active_requests }}
+                        </strong>
+
+                        <span>
+                            ACTIVE
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                {% if help_requests %}
+
+                    <div class="request-grid">
+
+                        {% for request in help_requests %}
+
+                            <article
+                                class="request-glass-card"
+                                data-request-id="{{ request.id }}"
+                            >
+
+                                <div class="request-card-liquid"></div>
+
+
+                                <!-- TOP -->
+
+                                <div class="request-card-top">
+
+                                    <div class="request-type">
+
+                                        <span class="type-orb">
+
+                                            {% if request.request_type == "Food" %}
+                                                🍲
+                                            {% elif request.request_type == "Blood" %}
+                                                🩸
+                                            {% elif request.request_type == "Clothes" %}
+                                                👕
+                                            {% elif request.request_type == "Furniture" %}
+                                                🪑
+                                            {% elif request.request_type == "Money" %}
+                                                💰
+                                            {% else %}
+                                                🤝
+                                            {% endif %}
+
+                                        </span>
+
+
+                                        <div>
+
+                                            <span>
+                                                HELP REQUEST
+                                            </span>
+
+                                            <strong>
+                                                {{ request.request_type }}
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <span class="request-status">
+
+                                        {% if request.status == "Pending" %}
+
+                                            <i class="status-pending"></i>
+                                            PENDING
+
+                                        {% elif request.status == "Available" %}
+
+                                            <i class="status-available"></i>
+                                            AVAILABLE
+
+                                        {% else %}
+
+                                            <i></i>
+                                            {{ request.status|upper }}
+
+                                        {% endif %}
+
+                                    </span>
+
+                                </div>
+
+
+
+                                <!-- REQUEST DESCRIPTION -->
+
+                                <div class="request-body">
+
+                                    <h3>
+                                        {{ request.request_type }} Support
+                                    </h3>
+
+                                    <p>
+                                        {{ request.description or "Help has been requested through the CharityBridge community." }}
+                                    </p>
+
+                                </div>
+
+
+
+                                <!-- REQUEST DETAILS -->
+
+                                <div class="request-details">
+
+                                    <div class="detail-item">
+
+                                        <span class="detail-icon">
+                                            📍
+                                        </span>
+
+                                        <div>
+
+                                            <small>
+                                                LOCATION
+                                            </small>
+
+                                            <strong>
+                                                {{ request.location or "Location not provided" }}
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="detail-item">
+
+                                        <span class="detail-icon">
+                                            👤
+                                        </span>
+
+                                        <div>
+
+                                            <small>
+                                                REQUESTED BY
+                                            </small>
+
+                                            <strong>
+                                                {{ request.requester_name or "Community Member" }}
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="detail-item">
+
+                                        <span class="detail-icon">
+                                            ◷
+                                        </span>
+
+                                        <div>
+
+                                            <small>
+                                                REQUESTED
+                                            </small>
+
+                                            <strong>
+                                                {{ request.created_at.strftime('%d %b %Y, %I:%M %p') if request.created_at else 'Recently' }}
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- ACTION -->
+
+                                <div class="request-action">
+
+                                    <button
+                                        type="button"
+                                        class="help-button"
+                                        data-request-id="{{ request.id }}"
+                                        data-request-type="{{ request.request_type }}"
+                                        data-request-location="{{ request.location or 'Location not provided' }}"
+                                        data-requester="{{ request.requester_name or 'Community Member' }}"
+                                    >
+
+                                        <span>
+                                            🤝
+                                        </span>
+
+                                        I WANT TO HELP
+
+                                        <b>
+                                            →
+                                        </b>
+
+                                    </button>
+
+                                </div>
+
+                            </article>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+                    <!-- EMPTY STATE -->
+
+                    <div class="empty-request-glass">
+
+                        <div class="empty-orbit">
+
+                            <div class="empty-orbit-ring"></div>
+
+                            <div class="empty-icon">
+                                🌌
+                            </div>
+
+                        </div>
+
+
+                        <span class="empty-kicker">
+                            MISSION BOARD
+                        </span>
+
+
+                        <h3>
+                            No Active Requests Right Now
+                        </h3>
+
+
+                        <p>
+                            New community requests will appear here
+                            when someone asks for help.
+                        </p>
+
+
+                        <a
+                            href="{{ url_for('dashboard') }}"
+                            class="empty-dashboard-button"
+                        >
+                            RETURN TO DASHBOARD
+                            <span>→</span>
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+            </section>
+
+
+
+            <!-- =================================================
+                 MY VOLUNTEER JOURNEY
+            ================================================== -->
+
+            <section class="journey-section">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            SPATIAL JOURNEY
+                        </span>
+
+                        <h2>
+                            Your Volunteer Connection
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="journey-glass-panel">
+
+                    <div class="journey-line"></div>
+
+
+                    <div class="journey-step">
+
+                        <div class="journey-node">
+                            01
+                        </div>
+
+                        <div class="journey-content">
+
+                            <span>
+                                PROFILE
+                            </span>
+
+                            <h3>
+                                Create your volunteer connection
+                            </h3>
+
+                            <p>
+                                Tell the CharityBridge network when
+                                you are available and what skills
+                                you can offer.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="journey-step">
+
+                        <div class="journey-node">
+                            02
+                        </div>
+
+                        <div class="journey-content">
+
+                            <span>
+                                DISCOVER
+                            </span>
+
+                            <h3>
+                                Find a community request
+                            </h3>
+
+                            <p>
+                                Explore real help requests shared
+                                through the CharityBridge network.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="journey-step">
+
+                        <div class="journey-node">
+                            03
+                        </div>
+
+                        <div class="journey-content">
+
+                            <span>
+                                CONNECT
+                            </span>
+
+                            <h3>
+                                Become the bridge
+                            </h3>
+
+                            <p>
+                                Connect your time and skills with
+                                someone who needs support.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="journey-step">
+
+                        <div class="journey-node">
+                            04
+                        </div>
+
+                        <div class="journey-content">
+
+                            <span>
+                                IMPACT
+                            </span>
+
+                            <h3>
+                                Create meaningful change
+                            </h3>
+
+                            <p>
+                                Every genuine connection strengthens
+                                the CharityBridge community.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 SKILLS GLASS
+            ================================================== -->
+
+            <section class="skills-section">
+
+                <div class="skills-glass-card">
+
+                    <div class="skills-icon">
+                        ✦
+                    </div>
+
+
+                    <div class="skills-content">
+
+                        <span>
+                            YOUR CURRENT SKILLS
+                        </span>
+
+
+                        {% if volunteer_skills %}
+
+                            <div class="skill-tags">
+
+                                {% for skill in volunteer_skills.split(',') %}
+
+                                    <span class="skill-tag">
+                                        {{ skill.strip() }}
+                                    </span>
+
+                                {% endfor %}
+
+                            </div>
+
+                        {% else %}
+
+                            <p>
+                                No skills added yet. Add your skills above
+                                to help CharityBridge understand how you
+                                can contribute.
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 CONNECTION MESSAGE
+            ================================================== -->
+
+            <section class="connection-section">
+
+                <div class="connection-glass">
+
+                    <div class="connection-stars"></div>
+
+
+                    <div class="connection-content">
+
+                        <span class="connection-small">
+                            CHARITYBRIDGE
+                        </span>
+
+                        <h2>
+                            Someone needs help.
+                            <span>You can be the bridge.</span>
+                        </h2>
+
+                        <p>
+                            Your time, your skills and your willingness
+                            to help can turn a request into a real
+                            human connection.
+                        </p>
+
+                    </div>
+
+
+                    <div class="connection-orb">
+
+                        <div>
+                            🤝
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+        
+<!-- =====================================================
+     CHARITYBRIDGE FOOD DELIVERY TRACKING
+     ===================================================== -->
+
+<section class="food-delivery-section" id="food-deliveries">
+
+    <div class="section-heading">
+        <div>
+            <span class="section-kicker">FOOD DELIVERY</span>
+            <h2>Food Delivery Tracking</h2>
+            <p>
+                View delivery offers, respond to requests,
+                and track food deliveries.
+            </p>
+        </div>
+    </div>
+
+    {% if food_deliveries %}
+
+        <div class="food-delivery-grid">
+
+            {% for delivery in food_deliveries %}
+
+                <article class="food-delivery-card">
+
+                    <div class="food-delivery-card-header">
+                        <div>
+                            <span class="delivery-id">
+                                DELIVERY #{{ delivery.delivery_id }}
+                            </span>
+
+                            <h3>
+                                {{ delivery.request_type or 'Food Donation' }}
+                            </h3>
+                        </div>
+
+                        <span class="delivery-status status-{{ delivery.delivery_status }}">
+                            {{ delivery.delivery_status|replace('_', ' ')|title }}
+                        </span>
+                    </div>
+
+                    <p class="delivery-description">
+                        {{ delivery.food_description or 'Food donation delivery' }}
+                    </p>
+
+                    <div class="delivery-details">
+
+                        <p>
+                            <strong>Recipient:</strong>
+                            {{ delivery.recipient_name }}
+                        </p>
+
+                        <p>
+                            <strong>Phone:</strong>
+                            {{ delivery.recipient_phone }}
+                        </p>
+
+                        <p>
+                            <strong>Delivery address:</strong>
+                            {{ delivery.recipient_address }}
+                        </p>
+
+                        <p>
+                            <strong>Volunteer:</strong>
+                            {{ delivery.volunteer_name }}
+                        </p>
+
+                        {% if delivery.delivery_message %}
+                            <p>
+                                <strong>Message:</strong>
+                                {{ delivery.delivery_message }}
+                            </p>
+                        {% endif %}
+
+                    </div>
+
+                    <div class="delivery-actions">
+
+                        {% if delivery.volunteer_user_id == session.get('user_id')
+                              and delivery.delivery_status == 'pending_confirmation' %}
+
+                            <form method="POST"
+                                  action="{{ url_for('respond_to_food_delivery', delivery_id=delivery.delivery_id) }}">
+
+                                <input type="hidden"
+                                       name="response"
+                                       value="accepted">
+
+                                <button type="submit" class="delivery-button accept-button">
+                                    Accept Delivery
+                                </button>
+                            </form>
+
+                            <form method="POST"
+                                  action="{{ url_for('respond_to_food_delivery', delivery_id=delivery.delivery_id) }}">
+
+                                <input type="hidden"
+                                       name="response"
+                                       value="declined">
+
+                                <button type="submit" class="delivery-button decline-button">
+                                    Decline
+                                </button>
+                            </form>
+
+                        {% endif %}
+
+                        {% if is_founder
+                              and delivery.founder_user_id == session.get('user_id')
+                              and delivery.delivery_status == 'accepted' %}
+
+                            <form method="POST"
+                                  action="{{ url_for('assign_food_delivery', delivery_id=delivery.delivery_id) }}">
+
+                                <button type="submit" class="delivery-button assign-button">
+                                    Confirm Assignment
+                                </button>
+                            </form>
+
+                        {% endif %}
+
+                        {% if delivery.volunteer_user_id == session.get('user_id')
+                              and delivery.delivery_status == 'assigned' %}
+
+                            <form method="POST"
+                                  action="{{ url_for('update_food_delivery_status', delivery_id=delivery.delivery_id) }}">
+
+                                <input type="hidden"
+                                       name="status"
+                                       value="in_progress">
+
+                                <button type="submit" class="delivery-button accept-button">
+                                    Start Delivery
+                                </button>
+                            </form>
+
+                        {% endif %}
+
+                        {% if delivery.volunteer_user_id == session.get('user_id')
+                              and delivery.delivery_status == 'in_progress' %}
+
+                            <form method="POST"
+                                  action="{{ url_for('update_food_delivery_status', delivery_id=delivery.delivery_id) }}">
+
+                                <input type="hidden"
+                                       name="status"
+                                       value="delivered">
+
+                                <button type="submit" class="delivery-button assign-button">
+                                    Mark as Delivered
+                                </button>
+                            </form>
+
+                        {% endif %}
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="food-delivery-empty">
+            <h3>No food deliveries yet</h3>
+            <p>
+                New delivery offers and assignments will appear here.
+            </p>
+        </div>
+
+    {% endif %}
+
+</section>
+
+<!-- =====================================================
+     FOUNDER FOOD DELIVERY OFFER FORM
+     ===================================================== -->
+{% if is_founder %}
+<section class="food-delivery-section" id="send-food-delivery">
+
+    <div class="section-heading">
+        <div>
+            <span class="section-kicker">FOUNDER PANEL</span>
+            <h2>Arrange a Food Delivery</h2>
+            <p>Select a food request and offer the delivery to an available volunteer.</p>
+        </div>
+    </div>
+
+    <form method="POST"
+          action="{{ url_for('send_food_delivery_offer') }}"
+          class="food-delivery-card">
+
+        <div class="delivery-details">
+
+            <label for="food_request_id"><strong>Food Request</strong></label>
+            <select id="food_request_id" name="request_id" required>
+                <option value="">Select a food request</option>
+                {% for item in food_help_requests %}
+                <option value="{{ item.id }}">
+                    #{{ item.id }} —
+                    {{ item.request_type or 'Food Request' }}
+                    {% if item.requester_name %} | {{ item.requester_name }}{% endif %}
+                    {% if item.location %} | {{ item.location }}{% endif %}
+                </option>
+                {% endfor %}
+            </select>
+
+            {% if not food_help_requests %}
+            <p>No pending food requests were found. Check that a request's type or description contains the word "food".</p>
+            {% endif %}
+
+            <label for="food_volunteer_id"><strong>Available Volunteer</strong></label>
+            <select id="food_volunteer_id" name="volunteer_user_id" required>
+                <option value="">Select an available volunteer</option>
+                {% for volunteer in registered_volunteers %}
+                    {% if volunteer.availability == 'Available' %}
+                    <option value="{{ volunteer.user_id }}">
+                        {{ volunteer.name }}
+                        {% if volunteer.skills %} — {{ volunteer.skills }}{% endif %}
+                    </option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+            <label for="recipient_name"><strong>Recipient Name</strong></label>
+            <input id="recipient_name"
+                   type="text"
+                   name="recipient_name"
+                   maxlength="100"
+                   placeholder="Enter recipient's full name"
+                   required>
+
+            <label for="recipient_phone"><strong>Recipient Phone</strong></label>
+            <input id="recipient_phone"
+                   type="tel"
+                   name="recipient_phone"
+                   maxlength="20"
+                   placeholder="Enter recipient's phone number"
+                   required>
+
+            <label for="recipient_address"><strong>Delivery Address</strong></label>
+            <textarea id="recipient_address"
+                      name="recipient_address"
+                      maxlength="500"
+                      rows="3"
+                      placeholder="Enter the complete delivery address"
+                      required></textarea>
+
+            <label for="delivery_message"><strong>Instructions (optional)</strong></label>
+            <textarea id="delivery_message"
+                      name="delivery_message"
+                      rows="2"
+                      placeholder="Add delivery instructions"></textarea>
+
+        </div>
+
+        <div class="delivery-actions">
+            <button type="submit" class="delivery-button assign-button"
+                    {% if not food_help_requests %}disabled{% endif %}>
+                Send Delivery Offer
+            </button>
+        </div>
+
+    </form>
+</section>
+{% endif %}
+
+
+
+
+
+        <!-- =====================================================
+             FOOTER
+             
+             ONLY CHANGE:
+             Footer Dashboard → button has been removed.
+        ====================================================== -->
+
+        <footer class="volunteer-footer">
+
+            <div class="footer-brand">
+                CHARITYBRIDGE
+            </div>
+
+            <div class="footer-message">
+                CONNECT • CARE • CHANGE
+            </div>
+
+        </footer>
+
+    </div>
+
+
+
+    <!-- =========================================================
+         HELP REQUEST MODAL
+    ========================================================== -->
+
+    <div
+        class="help-modal"
+        id="helpModal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="modal-backdrop"
+            data-close-modal
+        ></div>
+
+
+        <div
+            class="modal-glass"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="helpModalTitle"
+        >
+
+            <button
+                type="button"
+                class="modal-close"
+                id="modalClose"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+
+            <div class="modal-orb">
+                🤝
+            </div>
+
+
+            <span class="modal-kicker">
+                VOLUNTEER CONNECTION
+            </span>
+
+
+            <h2 id="helpModalTitle">
+                Ready to Help?
+            </h2>
+
+
+            <p>
+                You selected a community help request.
+                Review the details below before continuing.
+            </p>
+
+
+            <div class="modal-request-details">
+
+                <div>
+
+                    <span>
+                        REQUEST TYPE
+                    </span>
+
+                    <strong id="modalRequestType">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        REQUESTED BY
+                    </span>
+
+                    <strong id="modalRequester">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        LOCATION
+                    </span>
+
+                    <strong id="modalLocation">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-note">
+
+                <span>
+                    ✦
+                </span>
+
+                <p>
+                    Your interest will be prepared for the
+                    CharityBridge connection workflow.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="modal-action"
+                id="modalContinue"
+            >
+
+                <span>
+                    CONTINUE
+                </span>
+
+                <b>
+                    →
+                </b>
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================================
+         FLASH MESSAGES
+    ========================================================== -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            <div
+                class="flash-container"
+                id="flashContainer"
+            >
+
+                {% for category, message in messages %}
+
+                    <div
+                        class="flash-message flash-{{ category }}"
+                    >
+
+                        <span class="flash-icon">
+
+                            {% if category == "success" %}
+                                ✓
+                            {% else %}
+                                !
+                            {% endif %}
+
+                        </span>
+
+
+                        <span>
+                            {{ message }}
+                        </span>
+
+
+                        <button
+                            type="button"
+                            class="flash-close"
+                            aria-label="Close message"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <script
+        src="{{ url_for('static', filename='js/volunteer.js') }}"
+    ></script>
+
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>CharityBridge - Make Payment</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/payment.css') }}"
+    >
+</head>
+
+<body>
+
+    <div class="page-background"></div>
+
+    <main class="payment-wrapper">
+
+        <section class="payment-card">
+
+            <!-- TOP -->
+            <div class="payment-top">
+
+                <a
+                    href="{{ url_for('response_page') }}"
+                    class="back-button"
+                >
+                    ←
+                </a>
+
+                <div class="payment-icon">
+                    ₹
+                </div>
+
+                <div class="payment-title">
+                    <span>CHARITYBRIDGE</span>
+                    <h1>Make a Payment</h1>
+                    <p>Complete your help securely through UPI.</p>
+                </div>
+
+            </div>
+
+
+            <!-- PAYMENT DETAILS -->
+            <div class="payment-details">
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        HELPING
+                    </span>
+
+                    <strong>
+                        {{ requester_name }}
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        AMOUNT
+                    </span>
+
+                    <strong class="amount">
+                        ₹{{ amount }}
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        UPI ID
+                    </span>
+
+                    <strong class="upi-id">
+                        {{ requester_upi }}
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        REQUEST ID
+                    </span>
+
+                    <strong>
+                        #{{ request_id }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- INFORMATION -->
+            <div class="payment-info">
+
+                <div class="info-icon">
+                    ✓
+                </div>
+
+                <div>
+                    <strong>
+                        UPI payment
+                    </strong>
+
+                    <p>
+                        Click the button below to open your
+                        installed UPI application and make the
+                        payment to the requester.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- PAY BUTTON -->
+            <a
+                href="{{ upi_link }}"
+                class="pay-button"
+            >
+                <span class="pay-icon">₹</span>
+
+                <span>
+                    PAY ₹{{ amount }} NOW
+                </span>
+
+                <span class="arrow">
+                    →
+                </span>
+            </a>
+
+
+            <!-- MANUAL UPI -->
+            <div class="manual-payment">
+
+                <span class="manual-title">
+                    UPI ID
+                </span>
+
+                <div class="upi-copy-row">
+
+                    <code id="upiValue">
+                        {{ requester_upi }}
+                    </code>
+
+                    <button
+                        type="button"
+                        onclick="copyUPI()"
+                    >
+                        COPY
+                    </button>
+
+                </div>
+
+                <p id="copyMessage"></p>
+
+            </div>
+
+
+            <!-- WARNING -->
+            <div class="payment-warning">
+
+                <span>ⓘ</span>
+
+                <p>
+                    CharityBridge does not automatically verify
+                    UPI payments from this page. After completing
+                    the payment, return to CharityBridge and
+                    continue with the help request.
+                </p>
+
+            </div>
+
+
+            <!-- FOOTER -->
+            <div class="payment-footer">
+
+                <span>
+                    CharityBridge
+                </span>
+
+                <span>
+                    CONNECT • CARE • CHANGE
+                </span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+        function copyUPI() {
+
+            const upi = document.getElementById("upiValue");
+            const message = document.getElementById("copyMessage");
+
+            const text = upi.innerText.trim();
+
+            navigator.clipboard.writeText(text)
+                .then(function () {
+
+                    message.textContent =
+                        "UPI ID copied successfully ✓";
+
+                    setTimeout(function () {
+                        message.textContent = "";
+                    }, 2500);
+
+                })
+                .catch(function () {
+
+                    message.textContent =
+                        "Unable to copy. Please copy it manually.";
+
+                });
+        }
+    </script>
+
+</body>
+</html>

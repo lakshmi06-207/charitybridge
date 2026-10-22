@@ -1,0 +1,689 @@
+/* =========================================================
+   CHARITYBRIDGE - INDEX / HOME PAGE
+   ========================================================= */
+
+.home-page {
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    background: #03040b;
+    color: #ffffff;
+}
+
+/* =========================================================
+   HERO SECTION
+   ========================================================= */
+
+.hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 30px 80px;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(0, 255, 200, 0.12),
+        transparent 68%
+    );
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 5;
+    max-width: 950px;
+}
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.bridge-logo {
+    margin-bottom: 25px;
+    animation: logoFloat 4s ease-in-out infinite;
+}
+
+.bridge-arch {
+    width: 210px;
+    height: 100px;
+    margin: 0 auto 15px;
+    border: 3px solid #00ffd5;
+    border-bottom: none;
+    border-radius: 120px 120px 0 0;
+    position: relative;
+    box-shadow:
+        0 0 15px rgba(0, 255, 213, 0.5),
+        0 0 45px rgba(0, 255, 213, 0.2);
+}
+
+.bridge-arch::before,
+.bridge-arch::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    width: 18px;
+    height: 70px;
+    background: #00ffd5;
+    box-shadow: 0 0 20px rgba(0, 255, 213, 0.6);
+}
+
+.bridge-arch::before {
+    left: -10px;
+}
+
+.bridge-arch::after {
+    right: -10px;
+}
+
+.bridge-logo h1 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    font-weight: 700;
+    letter-spacing: 5px;
+    margin: 0;
+    color: #ffffff;
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.3),
+        0 0 35px rgba(0, 255, 213, 0.3);
+}
+
+.tagline {
+    margin-top: 12px;
+    color: #00ffd5;
+    font-size: 0.85rem;
+    letter-spacing: 7px;
+    font-weight: 600;
+}
+
+/* =========================================================
+   HERO TEXT
+   ========================================================= */
+
+.hero-description {
+    max-width: 700px;
+    margin: 30px auto;
+    color: #b9c5d0;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.start-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 190px;
+    padding: 16px 30px;
+    border: 1px solid #00ffd5;
+    border-radius: 4px;
+    background: #00ffd5;
+    color: #02040a;
+    text-decoration: none;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 0 25px rgba(0, 255, 213, 0.25);
+}
+
+.start-btn:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 0 20px rgba(0, 255, 213, 0.6),
+        0 0 50px rgba(0, 255, 213, 0.25);
+}
+
+/* =========================================================
+   BOTTOM IMPACT NUMBERS
+   ========================================================= */
+
+.home-bottom {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(900px, 90%);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    z-index: 5;
+}
+
+.home-stat {
+    text-align: center;
+}
+
+.home-stat strong {
+    display: block;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 2rem;
+    color: #00ffd5;
+}
+
+.home-stat span {
+    color: #7f8c98;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* =========================================================
+   IMPACT FLOW
+   ========================================================= */
+
+.impact-flow {
+    position: relative;
+    min-height: 850px;
+    padding: 120px 7%;
+    background:
+        linear-gradient(
+            180deg,
+            #03040b 0%,
+            #071018 50%,
+            #03040b 100%
+        );
+    overflow: hidden;
+}
+
+.flow-grid {
+    max-width: 1250px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 70px;
+    align-items: center;
+}
+
+.flow-content {
+    position: relative;
+    z-index: 5;
+}
+
+.flow-label {
+    color: #00ffd5;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.flow-content h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    line-height: 1;
+    margin-bottom: 25px;
+}
+
+.flow-content p {
+    color: #9aa8b5;
+    line-height: 1.8;
+    max-width: 550px;
+}
+
+/* =========================================================
+   PEOPLE SCENE
+   ========================================================= */
+
+.people-scene {
+    min-height: 450px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.person {
+    position: absolute;
+    width: 90px;
+    height: 210px;
+    border-radius: 50px 50px 20px 20px;
+    background: linear-gradient(
+        180deg,
+        #16212b,
+        #070b10
+    );
+    border: 1px solid rgba(0, 255, 213, 0.35);
+    box-shadow: 0 0 25px rgba(0, 255, 213, 0.12);
+}
+
+.person::before {
+    content: "";
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: #101820;
+    border: 1px solid #00ffd5;
+    top: -65px;
+    left: 17px;
+}
+
+.person-1 {
+    left: 5%;
+    bottom: 60px;
+    transform: rotate(-7deg);
+}
+
+.person-2 {
+    left: 40%;
+    bottom: 20px;
+    transform: scale(1.15);
+}
+
+.person-3 {
+    right: 5%;
+    bottom: 60px;
+    transform: rotate(7deg);
+}
+
+/* =========================================================
+   IMPACT NETWORK
+   ========================================================= */
+
+.impact-network {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.node {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #00ffd5;
+    box-shadow:
+        0 0 10px #00ffd5,
+        0 0 30px rgba(0, 255, 213, 0.7);
+    animation: nodePulse 2s ease-in-out infinite;
+}
+
+.node-1 {
+    top: 20%;
+    left: 20%;
+}
+
+.node-2 {
+    top: 40%;
+    right: 20%;
+}
+
+.node-3 {
+    bottom: 25%;
+    left: 35%;
+}
+
+.node-4 {
+    bottom: 15%;
+    right: 35%;
+}
+
+.connection {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #00ffd5,
+        transparent
+    );
+    transform-origin: left center;
+    opacity: 0.5;
+}
+
+.connection-1 {
+    width: 300px;
+    top: 25%;
+    left: 22%;
+    transform: rotate(25deg);
+}
+
+.connection-2 {
+    width: 250px;
+    top: 43%;
+    right: 22%;
+    transform: rotate(-25deg);
+}
+
+.connection-3 {
+    width: 300px;
+    bottom: 28%;
+    left: 32%;
+    transform: rotate(-15deg);
+}
+
+/* =========================================================
+   FLOW BRIDGE
+   ========================================================= */
+
+.flow-bridge {
+    position: absolute;
+    width: 330px;
+    height: 150px;
+    border: 3px solid rgba(0, 255, 213, 0.7);
+    border-bottom: none;
+    border-radius: 330px 330px 0 0;
+    bottom: 75px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow:
+        0 0 20px rgba(0, 255, 213, 0.25),
+        inset 0 0 20px rgba(0, 255, 213, 0.08);
+}
+
+/* =========================================================
+   PARTICLES
+   ========================================================= */
+
+.flow-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.flow-particles::before,
+.flow-particles::after {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #00ffd5;
+    box-shadow:
+        100px 100px 0 #00ffd5,
+        240px 300px 0 #00ffd5,
+        500px 180px 0 #00ffd5,
+        750px 400px 0 #00ffd5;
+    animation: particleMove 8s linear infinite;
+}
+
+/* =========================================================
+   LOGIN OVERLAY
+   ========================================================= */
+
+.login-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    background: rgba(1, 3, 8, 0.96);
+}
+
+.login-overlay.active {
+    display: flex;
+    animation: loginAppear 0.6s ease forwards;
+}
+
+.login-container {
+    width: min(1050px, 95vw);
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    border: 1px solid rgba(0, 255, 213, 0.25);
+    background: #060b11;
+    box-shadow:
+        0 0 60px rgba(0, 255, 213, 0.12),
+        0 30px 100px rgba(0, 0, 0, 0.6);
+}
+
+/* =========================================================
+   LOGIN INTRO
+   ========================================================= */
+
+.login-introduction {
+    padding: 70px;
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid rgba(0, 255, 213, 0.15);
+}
+
+.login-introduction h2 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    line-height: 0.95;
+    margin-bottom: 25px;
+}
+
+.login-introduction p {
+    color: #8d9aa6;
+    max-width: 450px;
+    line-height: 1.8;
+}
+
+/* =========================================================
+   MINI FLOW
+   ========================================================= */
+
+.mini-flow {
+    margin-top: 45px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mini-node {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #00ffd5;
+    box-shadow: 0 0 15px #00ffd5;
+}
+
+.mini-line {
+    width: 70px;
+    height: 1px;
+    background: #00ffd5;
+    opacity: 0.6;
+}
+
+/* =========================================================
+   LOGIN BOX
+   ========================================================= */
+
+.login-box {
+    padding: 55px 40px;
+}
+
+.login-heading {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 2rem;
+    margin-bottom: 35px;
+}
+
+.input-group {
+    margin-bottom: 22px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #8e9ba7;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px;
+    background: #03070c;
+    color: #ffffff;
+    border: 1px solid #26333d;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: #00ffd5;
+    box-shadow: 0 0 15px rgba(0, 255, 213, 0.15);
+}
+
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    color: #788691;
+    font-size: 0.8rem;
+}
+
+.login-submit {
+    width: 100%;
+    padding: 16px;
+    border: 0;
+    background: #00ffd5;
+    color: #02040a;
+    font-weight: 800;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.login-submit:hover {
+    box-shadow: 0 0 30px rgba(0, 255, 213, 0.4);
+    transform: translateY(-2px);
+}
+
+.register-link {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    color: #00ffd5;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes logoFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes nodePulse {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+}
+
+@keyframes particleMove {
+    0% {
+        transform: translateY(0);
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-250px);
+        opacity: 0;
+    }
+}
+
+@keyframes loginAppear {
+    from {
+        opacity: 0;
+        transform: scale(1.03);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+    .flow-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .people-scene {
+        min-height: 400px;
+    }
+
+    .login-container {
+        grid-template-columns: 1fr;
+    }
+
+    .login-introduction {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero {
+        padding: 110px 20px 150px;
+    }
+
+    .bridge-logo h1 {
+        letter-spacing: 2px;
+    }
+
+    .tagline {
+        letter-spacing: 3px;
+    }
+
+    .hero-description {
+        font-size: 0.95rem;
+    }
+
+    .home-bottom {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        bottom: 20px;
+    }
+
+    .impact-flow {
+        padding: 80px 20px;
+    }
+
+    .flow-bridge {
+        width: 250px;
+    }
+
+    .login-overlay {
+        padding: 15px;
+    }
+
+    .login-box {
+        padding: 40px 25px;
+    }
+}

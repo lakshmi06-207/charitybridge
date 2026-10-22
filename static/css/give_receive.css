@@ -1,0 +1,72 @@
+body {
+    margin: 0;
+    background: #f5f8f7;
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar */
+.navbar-brand {
+    font-size: 23px;
+}
+
+/* Header */
+.give-header {
+    background: linear-gradient(135deg, #087f5b, #0ca678);
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.give-header h1 {
+    font-size: 42px;
+    font-weight: bold;
+}
+
+/* Cards */
+.give-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    height: 100%;
+}
+
+.give-card h3 {
+    color: #087f5b;
+}
+
+.give-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Icons */
+.icon {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+/* Buttons */
+.btn-success {
+    background: #087f5b;
+    border: none;
+    border-radius: 8px;
+}
+
+.btn-success:hover {
+    background: #065f46;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+
+    .give-header h1 {
+        font-size: 34px;
+    }
+
+    .give-card {
+        padding: 25px;
+    }
+
+}

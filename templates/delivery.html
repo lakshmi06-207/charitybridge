@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Delivery | CharityBridge</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="cb-page">
+
+<nav class="navbar landing-nav">
+<div class="container">
+<a href="{{ url_for('dashboard') }}" class="brand-logo">
+<img src="{{ url_for('static', filename='images/charitybridge-horizontal-logo.jpeg') }}">
+</a>
+<a href="{{ url_for('dashboard') }}" class="secondary-btn">Dashboard</a>
+</div>
+</nav>
+
+<div class="container py-5">
+
+<span class="eyebrow">DELIVERY</span>
+
+<h1 class="display-4 fw-bold mt-3">
+Donation <span class="text-success">Delivery</span>
+</h1>
+
+<div class="module-card mt-4">
+
+<h4>📦 Track Your Donation</h4>
+
+<p>
+CharityBridge can connect donors, volunteers and recipients
+to coordinate donation delivery.
+</p>
+
+<div class="progress mt-4">
+<div class="progress-bar bg-success"
+style="width:50%">
+In Progress
+</div>
+</div>
+
+</div>
+
+</div>
+
+<style>
+.module-card {
+background:rgba(255,255,255,.9);
+border:1px solid #dfede6;
+border-radius:25px;
+padding:35px;
+}
+</style>
+
+</body>
+</html>

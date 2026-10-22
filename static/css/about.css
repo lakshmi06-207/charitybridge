@@ -1,0 +1,2416 @@
+/* =========================================================
+   CHARITYBRIDGE — PREMIUM FUTURISTIC ABOUT PAGE
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #050817;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   MAIN BACKGROUND IMAGE
+   about-bg.png = static/images/about-bg.png
+========================================================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(6, 5, 25, 0.42),
+            rgba(4, 8, 25, 0.28),
+            rgba(0, 18, 30, 0.42)
+        ),
+        linear-gradient(
+            to bottom,
+            rgba(5, 7, 20, 0.18),
+            rgba(5, 7, 20, 0.58)
+        ),
+        url("../images/about-bg.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    z-index: -20;
+
+    transform: scale(1.02);
+
+    animation: backgroundMove 18s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundMove {
+    0% {
+        transform: scale(1.02);
+        background-position: center center;
+    }
+
+    100% {
+        transform: scale(1.07);
+        background-position: center 45%;
+    }
+}
+
+
+/* =========================================================
+   SOFT LIGHT OVERLAY
+========================================================= */
+
+.background-overlay {
+    position: fixed;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 18% 28%,
+            rgba(125, 75, 255, 0.25),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 82% 35%,
+            rgba(0, 220, 255, 0.22),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 50% 80%,
+            rgba(100, 60, 255, 0.15),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            to bottom,
+            rgba(4, 5, 17, 0.12),
+            rgba(3, 5, 15, 0.55),
+            rgba(3, 5, 15, 0.82)
+        );
+
+    z-index: -19;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   FUTURISTIC GRID
+========================================================= */
+
+.grid-background {
+    position: fixed;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(100, 220, 255, 0.045) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(100, 220, 255, 0.045) 1px,
+            transparent 1px
+        );
+
+    background-size: 70px 70px;
+
+    mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent 90%
+    );
+
+    z-index: -18;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   FLOATING LIGHTS
+========================================================= */
+
+.floating-orb {
+    position: fixed;
+
+    border-radius: 50%;
+
+    filter: blur(85px);
+
+    opacity: 0.32;
+
+    z-index: -17;
+
+    pointer-events: none;
+}
+
+.orb-one {
+    width: 300px;
+    height: 300px;
+
+    background: #7048ff;
+
+    top: 12%;
+    left: -120px;
+
+    animation:
+        orbFloatOne 11s ease-in-out infinite alternate;
+}
+
+.orb-two {
+    width: 340px;
+    height: 340px;
+
+    background: #00d9ff;
+
+    right: -150px;
+    top: 42%;
+
+    animation:
+        orbFloatTwo 14s ease-in-out infinite alternate;
+}
+
+.orb-three {
+    width: 220px;
+    height: 220px;
+
+    background: #7455ff;
+
+    bottom: 8%;
+    left: 45%;
+
+    animation:
+        orbFloatThree 10s ease-in-out infinite alternate;
+}
+
+@keyframes orbFloatOne {
+    from {
+        transform: translate(0, -20px);
+    }
+
+    to {
+        transform: translate(80px, 50px);
+    }
+}
+
+@keyframes orbFloatTwo {
+    from {
+        transform: translate(0, 20px);
+    }
+
+    to {
+        transform: translate(-80px, -50px);
+    }
+}
+
+@keyframes orbFloatThree {
+    from {
+        transform: translateY(20px);
+    }
+
+    to {
+        transform: translateY(-50px);
+    }
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+    position: sticky;
+
+    top: 0;
+
+    width: 100%;
+
+    height: 78px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 5%;
+
+    background: rgba(5, 7, 18, 0.72);
+
+    backdrop-filter: blur(22px);
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    z-index: 100;
+}
+
+.logo {
+    text-decoration: none;
+
+    color: #ffffff;
+
+    font-size: 21px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    transition: 0.3s;
+}
+
+.logo:hover {
+    transform: translateY(-2px);
+}
+
+.logo-heart {
+    color: #916bff;
+
+    margin-right: 6px;
+
+    text-shadow:
+        0 0 15px #916bff;
+}
+
+.logo span:last-child {
+    color: #55eaff;
+
+    text-shadow:
+        0 0 15px rgba(85, 234, 255, 0.6);
+}
+
+
+/* =========================================================
+   NAV LINKS
+========================================================= */
+
+.navbar nav {
+    display: flex;
+
+    gap: 34px;
+}
+
+.navbar nav a {
+    position: relative;
+
+    color: rgba(255, 255, 255, 0.7);
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    padding: 10px 0;
+
+    transition: 0.3s;
+}
+
+.navbar nav a:hover,
+.navbar nav a.active {
+    color: #ffffff;
+}
+
+.navbar nav a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: 0;
+
+    width: 0;
+
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #9365ff,
+            #54eaff
+        );
+
+    box-shadow:
+        0 0 12px #54eaff;
+
+    transition: 0.35s;
+}
+
+.navbar nav a:hover::after,
+.navbar nav a.active::after {
+    width: 100%;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.about-container {
+    width: 100%;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.about-hero {
+    min-height: calc(100vh - 78px);
+
+    max-width: 1350px;
+
+    margin: auto;
+
+    padding:
+        80px 55px
+        100px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 40px;
+
+    position: relative;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.hero-content {
+    max-width: 720px;
+
+    animation:
+        heroEnter 1.2s ease forwards;
+}
+
+@keyframes heroEnter {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   HERO BADGE
+========================================================= */
+
+.hero-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding:
+        10px 18px;
+
+    border-radius: 50px;
+
+    border:
+        1px solid rgba(100, 225, 255, 0.42);
+
+    background:
+        rgba(30, 40, 75, 0.38);
+
+    backdrop-filter: blur(15px);
+
+    color: #76f4ff;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    box-shadow:
+        0 0 35px rgba(50, 220, 255, 0.12);
+
+    margin-bottom: 30px;
+}
+
+.badge-dot {
+    width: 8px;
+
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #59efff;
+
+    box-shadow:
+        0 0 15px #59efff;
+
+    animation:
+        pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        transform: scale(1);
+
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.7);
+
+        opacity: 0.45;
+    }
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.about-hero h1 {
+    font-size:
+        clamp(62px, 8vw, 125px);
+
+    line-height: 0.88;
+
+    letter-spacing: -5px;
+
+    font-weight: 900;
+
+    margin-bottom: 38px;
+
+    text-transform: uppercase;
+
+    text-shadow:
+        0 10px 50px rgba(0, 0, 0, 0.45);
+}
+
+.about-hero h1 span {
+    display: inline-block;
+
+    font-style: italic;
+
+    background:
+        linear-gradient(
+            100deg,
+            #a178ff,
+            #4edcff,
+            #72ffe0
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+
+    filter:
+        drop-shadow(
+            0 0 25px rgba(70, 225, 255, 0.3)
+        );
+
+    animation:
+        titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    from {
+        filter:
+            brightness(0.92)
+            drop-shadow(
+                0 0 20px rgba(70, 225, 255, 0.2)
+            );
+    }
+
+    to {
+        filter:
+            brightness(1.2)
+            drop-shadow(
+                0 0 35px rgba(70, 225, 255, 0.38)
+            );
+    }
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
+
+.hero-description {
+    max-width: 680px;
+
+    color:
+        rgba(255, 255, 255, 0.78);
+
+    font-size: 17px;
+
+    line-height: 1.8;
+
+    margin-bottom: 30px;
+
+    text-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+
+/* =========================================================
+   SYSTEM BADGE
+========================================================= */
+
+.hero-system {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding:
+        12px 18px;
+
+    background:
+        rgba(255, 255, 255, 0.065);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.13);
+
+    border-radius: 13px;
+
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.25);
+}
+
+.system-light {
+    width: 9px;
+
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: #50e8ff;
+
+    box-shadow:
+        0 0 16px #50e8ff;
+}
+
+.hero-system small,
+.hero-system strong {
+    display: block;
+}
+
+.hero-system small {
+    color:
+        rgba(255, 255, 255, 0.48);
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+}
+
+.hero-system strong {
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* =========================================================
+   SCROLL
+========================================================= */
+
+.scroll-indicator {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 60px;
+}
+
+.scroll-indicator span {
+    width: 40px;
+
+    height: 2px;
+
+    background: #58eaff;
+
+    box-shadow:
+        0 0 12px #58eaff;
+}
+
+.scroll-indicator p {
+    font-size: 9px;
+
+    color:
+        rgba(255, 255, 255, 0.5);
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   HERO VISUAL
+========================================================= */
+
+.hero-visual {
+    position: relative;
+
+    width: 420px;
+
+    height: 420px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    opacity: 0.95;
+}
+
+
+/* =========================================================
+   CENTER CIRCLE
+========================================================= */
+
+.core-circle {
+    width: 135px;
+
+    height: 135px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(85, 239, 255, 0.28),
+            rgba(100, 70, 220, 0.2),
+            transparent 72%
+        );
+
+    border:
+        1px solid rgba(100, 235, 255, 0.8);
+
+    box-shadow:
+        0 0 45px rgba(67, 223, 255, 0.35),
+        inset 0 0 40px rgba(100, 80, 255, 0.25);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 3;
+}
+
+.core-heart {
+    font-size: 50px;
+
+    color: #61eaff;
+
+    text-shadow:
+        0 0 30px #61eaff;
+
+    animation:
+        heartPulse 2s infinite;
+}
+
+@keyframes heartPulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
+}
+
+.core-circle span {
+    font-size: 8px;
+
+    letter-spacing: 3px;
+
+    color:
+        rgba(255, 255, 255, 0.75);
+}
+
+
+/* =========================================================
+   ORBITS
+========================================================= */
+
+.orbit {
+    position: absolute;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(80, 220, 255, 0.28);
+
+    box-shadow:
+        0 0 25px rgba(70, 200, 255, 0.08);
+}
+
+.orbit-one {
+    width: 210px;
+
+    height: 210px;
+
+    animation:
+        rotate 8s linear infinite;
+}
+
+.orbit-two {
+    width: 300px;
+
+    height: 300px;
+
+    border-color:
+        rgba(142, 92, 255, 0.35);
+
+    animation:
+        rotateReverse 12s linear infinite;
+}
+
+.orbit-three {
+    width: 390px;
+
+    height: 390px;
+
+    border-style: dashed;
+
+    animation:
+        rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotateReverse {
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+
+/* =========================================================
+   FOUNDERS SECTION
+========================================================= */
+
+.founders-section {
+    max-width: 1350px;
+
+    margin: auto;
+
+    padding:
+        110px 55px
+        130px;
+}
+
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.section-heading {
+    margin-bottom: 55px;
+}
+
+.heading-small {
+    color: #6eeeff;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    font-weight: 800;
+}
+
+.section-heading h2 {
+    font-size:
+        clamp(45px, 6vw, 82px);
+
+    line-height: 1;
+
+    margin-top: 15px;
+
+    letter-spacing: -3px;
+}
+
+.section-heading h2 strong {
+    font-style: italic;
+
+    background:
+        linear-gradient(
+            90deg,
+            #a06cff,
+            #50efff
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+
+    filter:
+        drop-shadow(
+            0 0 20px rgba(70, 230, 255, 0.2)
+        );
+}
+
+.section-heading p {
+    margin-top: 20px;
+
+    color:
+        rgba(255, 255, 255, 0.55);
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   FOUNDERS GRID
+========================================================= */
+
+.founders-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 30px;
+}
+
+
+/* =========================================================
+   FOUNDER CARD
+========================================================= */
+
+.founder-card {
+    position: relative;
+
+    min-height: 410px;
+
+    padding: 38px;
+
+    overflow: hidden;
+
+    border-radius: 30px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.17);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.105),
+            rgba(255, 255, 255, 0.035)
+        );
+
+    backdrop-filter: blur(24px);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.5s cubic-bezier(.2,.8,.2,1),
+        border-color 0.5s,
+        box-shadow 0.5s;
+
+    animation:
+        cardEnter 1s ease both;
+}
+
+.founder-card:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+@keyframes cardEnter {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+.founder-card:hover {
+    transform:
+        translateY(-12px);
+
+    border-color:
+        rgba(82, 234, 255, 0.55);
+
+    box-shadow:
+        0 30px 90px rgba(0, 0, 0, 0.5),
+        0 0 55px rgba(58, 220, 255, 0.12);
+}
+
+
+/* =========================================================
+   CARD LIGHT
+========================================================= */
+
+.card-shine {
+    position: absolute;
+
+    width: 320px;
+
+    height: 320px;
+
+    right: -120px;
+
+    top: -140px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(55, 231, 255, 0.16);
+
+    filter: blur(50px);
+
+    transition: 0.7s;
+}
+
+.founder-card:hover .card-shine {
+    transform: scale(1.45);
+
+    background:
+        rgba(80, 231, 255, 0.23);
+}
+
+
+/* =========================================================
+   FOUNDER TOP
+========================================================= */
+
+.founder-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+}
+
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+.founder-avatar {
+    width: 82px;
+
+    height: 82px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.avatar-ring {
+    width: 82px;
+
+    height: 82px;
+
+    padding: 3px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #58eaff,
+            #7757ff
+        );
+
+    box-shadow:
+        0 0 30px rgba(80, 220, 255, 0.25);
+}
+
+.avatar-core {
+    width: 100%;
+
+    height: 100%;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        rgba(7, 10, 24, 0.95);
+
+    color: #72efff;
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   FOUNDER NUMBER
+========================================================= */
+
+.founder-number {
+    font-size: 80px;
+
+    line-height: 0.8;
+
+    font-weight: 900;
+
+    color:
+        rgba(255, 255, 255, 0.045);
+}
+
+
+/* =========================================================
+   FOUNDER INFORMATION
+========================================================= */
+
+.founder-info {
+    margin-top: 45px;
+}
+
+.role {
+    color: #65eeff;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+.founder-info h2 {
+    margin-top: 10px;
+
+    font-size:
+        clamp(38px, 4vw, 58px);
+
+    letter-spacing: -2px;
+
+    font-style: italic;
+}
+
+.founder-info h2 span {
+    color: #5df1e2;
+
+    text-shadow:
+        0 0 22px rgba(80, 240, 220, 0.4);
+}
+
+.founder-info p {
+    margin-top: 18px;
+
+    color:
+        rgba(255, 255, 255, 0.68);
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    max-width: 570px;
+}
+
+
+/* =========================================================
+   CLICK PROFILE
+========================================================= */
+
+.click-profile {
+    position: absolute;
+
+    left: 38px;
+
+    bottom: 32px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color:
+        rgba(255, 255, 255, 0.55);
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    transition: 0.3s;
+}
+
+.click-profile b {
+    color: #62eaff;
+
+    font-size: 20px;
+
+    transition: 0.3s;
+}
+
+.founder-card:hover .click-profile {
+    color: #ffffff;
+}
+
+.founder-card:hover .click-profile b {
+    transform:
+        translateX(8px);
+}
+
+
+/* =========================================================
+   MISSION SECTION
+========================================================= */
+
+.mission-section {
+    max-width: 1150px;
+
+    margin:
+        50px auto
+        150px;
+
+    padding:
+        0 30px;
+
+    position: relative;
+}
+
+.mission-line {
+    position: absolute;
+
+    left: 50%;
+
+    top: -80px;
+
+    width: 1px;
+
+    height: 80px;
+
+    background:
+        linear-gradient(
+            transparent,
+            #58eaff
+        );
+
+    box-shadow:
+        0 0 10px #58eaff;
+}
+
+
+/* =========================================================
+   MISSION GLASS
+========================================================= */
+
+.glass-mission {
+    position: relative;
+
+    padding:
+        75px 80px;
+
+    text-align: center;
+
+    border-radius: 35px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.105),
+            rgba(255, 255, 255, 0.035)
+        );
+
+    border:
+        1px solid rgba(255, 255, 255, 0.15);
+
+    backdrop-filter: blur(28px);
+
+    overflow: hidden;
+
+    box-shadow:
+        0 35px 110px rgba(0, 0, 0, 0.4);
+}
+
+.glass-mission::before {
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+
+    height: 350px;
+
+    left: -180px;
+
+    top: -180px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(100, 75, 255, 0.2);
+
+    filter: blur(70px);
+}
+
+.glass-mission::after {
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+
+    height: 350px;
+
+    right: -180px;
+
+    bottom: -180px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(55, 225, 255, 0.16);
+
+    filter: blur(70px);
+}
+
+
+/* =========================================================
+   MISSION ICON
+========================================================= */
+
+.mission-icon {
+    position: relative;
+
+    width: 55px;
+
+    height: 55px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #695cff,
+            #42eaff
+        );
+
+    box-shadow:
+        0 0 35px rgba(60, 220, 255, 0.35);
+
+    z-index: 2;
+}
+
+.mission-label {
+    display: block;
+
+    margin-top: 30px;
+
+    color: #66efff;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 4px;
+}
+
+.glass-mission h2 {
+    position: relative;
+
+    z-index: 2;
+
+    margin-top: 18px;
+
+    font-size:
+        clamp(40px, 5vw, 70px);
+
+    letter-spacing: -3px;
+}
+
+.glass-mission h2 strong {
+    display: block;
+
+    font-style: italic;
+
+    color: #5ff2e5;
+
+    text-shadow:
+        0 0 30px rgba(80, 240, 220, 0.35);
+}
+
+.glass-mission > p {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 800px;
+
+    margin:
+        25px auto 0;
+
+    color:
+        rgba(255, 255, 255, 0.67);
+
+    line-height: 1.8;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   MISSION POINTS
+========================================================= */
+
+.mission-points {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 65px;
+
+    margin-top: 45px;
+}
+
+.mission-points div {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.mission-points span {
+    color: #66eaff;
+
+    font-size: 10px;
+}
+
+.mission-points p {
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    color:
+        rgba(255, 255, 255, 0.6);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    max-width: 1350px;
+
+    margin: auto;
+
+    padding:
+        55px 55px
+        30px;
+
+    border-top:
+        1px solid rgba(255, 255, 255, 0.09);
+}
+
+.footer-brand h3 {
+    font-size: 22px;
+
+    letter-spacing: 1px;
+}
+
+.footer-brand h3 span {
+    color: #56eaff;
+
+    text-shadow:
+        0 0 15px rgba(80, 230, 255, 0.4);
+}
+
+.footer-brand p {
+    color:
+        rgba(255, 255, 255, 0.5);
+
+    margin-top: 10px;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   CONTACT GLASS
+========================================================= */
+
+.contact-glass {
+    position: relative;
+
+    margin-top: 35px;
+
+    min-height: 130px;
+
+    padding: 30px;
+
+    border-radius: 28px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.16);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.085),
+            rgba(255, 255, 255, 0.025)
+        );
+
+    backdrop-filter: blur(28px);
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    transition:
+        min-height 0.7s cubic-bezier(.2,.8,.2,1),
+        border-color 0.5s,
+        box-shadow 0.5s;
+}
+
+.contact-glass:hover {
+    border-color:
+        rgba(83, 232, 255, 0.45);
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.4),
+        0 0 45px rgba(70, 220, 255, 0.1);
+}
+
+.contact-glass.open {
+    min-height: 350px;
+
+    border-color:
+        rgba(90, 235, 255, 0.55);
+
+    box-shadow:
+        0 30px 100px rgba(0, 0, 0, 0.5),
+        inset 0 0 45px rgba(80, 220, 255, 0.04);
+}
+
+
+/* =========================================================
+   CONTACT LIGHT LINES
+========================================================= */
+
+.glass-fragments {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    transition: 0.5s;
+}
+
+.contact-glass.open .glass-fragments {
+    opacity: 1;
+}
+
+.glass-fragments::before,
+.glass-fragments::after {
+    content: "";
+
+    position: absolute;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(100, 240, 255, 0.7),
+            transparent
+        );
+
+    width: 70%;
+
+    left: 15%;
+}
+
+.glass-fragments::before {
+    top: 35%;
+
+    transform:
+        rotate(8deg);
+}
+
+.glass-fragments::after {
+    top: 65%;
+
+    transform:
+        rotate(-6deg);
+}
+
+
+/* =========================================================
+   CLOSED CONTACT
+========================================================= */
+
+.contact-closed {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    transition:
+        opacity 0.35s,
+        transform 0.5s;
+}
+
+.closed-icon {
+    width: 45px;
+
+    height: 45px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #684dff,
+            #38ddff
+        );
+
+    box-shadow:
+        0 0 28px rgba(65, 220, 255, 0.35);
+}
+
+.contact-closed span,
+.contact-closed strong {
+    display: block;
+}
+
+.contact-closed span {
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    color: #ffffff;
+}
+
+.contact-closed strong {
+    margin-top: 5px;
+
+    font-size: 12px;
+
+    color:
+        rgba(255, 255, 255, 0.5);
+}
+
+.closed-arrow {
+    margin-left: auto;
+
+    font-size: 25px;
+
+    color: #65eaff;
+
+    transition: 0.4s;
+}
+
+.contact-glass:hover .closed-arrow {
+    transform:
+        translate(5px, -5px);
+}
+
+.contact-glass.open .contact-closed {
+    opacity: 0;
+
+    transform:
+        translateY(-20px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CONTACT DETAILS
+========================================================= */
+
+.contact-hidden {
+    position: absolute;
+
+    inset: 30px;
+
+    opacity: 0;
+
+    transform:
+        translateY(35px);
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.5s 0.2s,
+        transform 0.6s 0.15s;
+}
+
+.contact-glass.open .contact-hidden {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+
+    pointer-events: auto;
+}
+
+.contact-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+.contact-title > span {
+    color: #62efff;
+
+    font-size: 25px;
+
+    text-shadow:
+        0 0 15px #62efff;
+}
+
+.contact-title small {
+    color: #65eaff;
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+}
+
+.contact-title h3 {
+    font-size: 22px;
+
+    margin-top: 3px;
+}
+
+
+/* =========================================================
+   CONTACT GRID
+========================================================= */
+
+.contact-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 15px;
+
+    margin-top: 30px;
+}
+
+.contact-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 18px;
+
+    border-radius: 17px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.09);
+
+    background:
+        rgba(255, 255, 255, 0.04);
+
+    text-decoration: none;
+
+    color: #ffffff;
+
+    transition: 0.35s;
+}
+
+.contact-item:hover {
+    transform:
+        translateY(-5px);
+
+    border-color:
+        rgba(86, 232, 255, 0.4);
+
+    background:
+        rgba(86, 232, 255, 0.07);
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.25);
+}
+
+.contact-icon {
+    width: 38px;
+
+    height: 38px;
+
+    flex-shrink: 0;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        rgba(85, 230, 255, 0.09);
+
+    color: #63eaff;
+
+    border:
+        1px solid rgba(85, 230, 255, 0.22);
+}
+
+.contact-item small,
+.contact-item strong,
+.contact-item span {
+    display: block;
+}
+
+.contact-item small {
+    color:
+        rgba(255, 255, 255, 0.42);
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+}
+
+.contact-item strong {
+    margin-top: 5px;
+
+    font-size: 12px;
+}
+
+.contact-item span {
+    margin-top: 4px;
+
+    color:
+        rgba(255, 255, 255, 0.5);
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   FOOTER BOTTOM
+========================================================= */
+
+.footer-bottom {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding-top: 30px;
+
+    margin-top: 35px;
+
+    border-top:
+        1px solid rgba(255, 255, 255, 0.07);
+
+    color:
+        rgba(255, 255, 255, 0.3);
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   FOUNDER PROFILE MODAL
+========================================================= */
+
+.founder-modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 500;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 25px;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition:
+        opacity 0.4s,
+        visibility 0.4s;
+}
+
+.founder-modal.show {
+    opacity: 1;
+
+    visibility: visible;
+}
+
+
+/* =========================================================
+   MODAL BACKGROUND
+========================================================= */
+
+.modal-backdrop {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        rgba(2, 4, 15, 0.72);
+
+    backdrop-filter: blur(22px);
+}
+
+
+/* =========================================================
+   MODAL BOX
+========================================================= */
+
+.founder-modal-box {
+    position: relative;
+
+    width:
+        min(700px, 100%);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    padding: 55px;
+
+    border-radius: 32px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(28, 32, 55, 0.97),
+            rgba(7, 11, 25, 0.96)
+        );
+
+    border:
+        1px solid rgba(100, 230, 255, 0.35);
+
+    box-shadow:
+        0 45px 130px rgba(0, 0, 0, 0.7),
+        0 0 70px rgba(65, 210, 255, 0.12);
+
+    transform:
+        translateY(40px)
+        scale(0.94);
+
+    transition:
+        transform 0.5s cubic-bezier(.2,.8,.2,1);
+}
+
+.founder-modal.show
+.founder-modal-box {
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =========================================================
+   MODAL GLOW
+========================================================= */
+
+.modal-glow {
+    position: absolute;
+
+    width: 280px;
+
+    height: 280px;
+
+    right: -110px;
+
+    top: -110px;
+
+    border-radius: 50%;
+
+    background: #3ceaff;
+
+    filter: blur(110px);
+
+    opacity: 0.13;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.modal-close {
+    position: absolute;
+
+    right: 25px;
+
+    top: 20px;
+
+    width: 40px;
+
+    height: 40px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.18);
+
+    background:
+        rgba(255, 255, 255, 0.06);
+
+    color: #ffffff;
+
+    font-size: 25px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.modal-close:hover {
+    background:
+        rgba(90, 230, 255, 0.14);
+
+    border-color:
+        #5deaff;
+
+    transform:
+        rotate(90deg);
+
+    box-shadow:
+        0 0 20px rgba(90, 230, 255, 0.2);
+}
+
+
+/* =========================================================
+   MODAL AVATAR
+========================================================= */
+
+.modal-avatar {
+    width: 85px;
+
+    height: 85px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    border:
+        2px solid #62eaff;
+
+    color: #6deaff;
+
+    background:
+        rgba(80, 220, 255, 0.05);
+
+    box-shadow:
+        0 0 35px rgba(80, 225, 255, 0.28);
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.modal-role {
+    display: block;
+
+    margin-top: 25px;
+
+    color: #65eaff;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    font-weight: 800;
+}
+
+.founder-modal-box h2 {
+    font-size: 52px;
+
+    margin-top: 8px;
+
+    font-style: italic;
+}
+
+.founder-modal-box h2 span {
+    color: #60eadd;
+
+    text-shadow:
+        0 0 22px rgba(80, 240, 220, 0.35);
+}
+
+
+/* =========================================================
+   MODAL LINE
+========================================================= */
+
+.modal-line {
+    height: 1px;
+
+    width: 100%;
+
+    margin: 25px 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #55eaff,
+            transparent
+        );
+
+    box-shadow:
+        0 0 10px rgba(85, 234, 255, 0.3);
+}
+
+
+/* =========================================================
+   MODAL CONTENT
+========================================================= */
+
+.modal-content {
+    display: grid;
+
+    gap: 24px;
+}
+
+.modal-content span {
+    color: #63eaff;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    font-weight: 800;
+}
+
+.modal-content p {
+    margin-top: 7px;
+
+    color:
+        rgba(255, 255, 255, 0.65);
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .about-hero {
+        padding:
+            80px 35px
+            90px;
+    }
+
+    .hero-visual {
+        width: 330px;
+
+        height: 330px;
+    }
+
+    .orbit-three {
+        width: 310px;
+
+        height: 310px;
+    }
+
+    .orbit-two {
+        width: 245px;
+
+        height: 245px;
+    }
+
+    .orbit-one {
+        width: 175px;
+
+        height: 175px;
+    }
+
+    .founders-section {
+        padding:
+            90px 35px
+            110px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .hero-visual {
+        display: none;
+    }
+
+    .about-hero {
+        min-height: auto;
+
+        padding:
+            80px 25px
+            100px;
+    }
+
+    .founders-section {
+        padding:
+            80px 25px
+            100px;
+    }
+
+    .founders-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mission-section {
+        margin:
+            30px 15px
+            100px;
+
+        padding: 0;
+    }
+
+    .glass-mission {
+        padding:
+            55px 25px;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — SMALL MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .navbar {
+        height: 70px;
+
+        padding:
+            0 18px;
+    }
+
+    .logo {
+        font-size: 17px;
+    }
+
+    .navbar nav {
+        gap: 13px;
+    }
+
+    .navbar nav a {
+        font-size: 10px;
+    }
+
+    .about-hero {
+        padding:
+            65px 20px
+            90px;
+    }
+
+    .about-hero h1 {
+        font-size: 55px;
+
+        letter-spacing: -3px;
+    }
+
+    .hero-description {
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+    .hero-badge {
+        font-size: 9px;
+
+        letter-spacing: 1.5px;
+    }
+
+    .founders-section {
+        padding:
+            65px 20px
+            90px;
+    }
+
+    .section-heading h2 {
+        font-size: 48px;
+    }
+
+    .founder-card {
+        min-height: 400px;
+
+        padding: 27px;
+
+        border-radius: 25px;
+    }
+
+    .founder-info {
+        margin-top: 40px;
+    }
+
+    .founder-info h2 {
+        font-size: 38px;
+    }
+
+    .founder-info p {
+        font-size: 13px;
+    }
+
+    .founder-number {
+        font-size: 60px;
+    }
+
+    .click-profile {
+        left: 27px;
+
+        bottom: 25px;
+    }
+
+    .glass-mission {
+        padding:
+            50px 20px;
+    }
+
+    .glass-mission h2 {
+        font-size: 42px;
+    }
+
+    .mission-points {
+        gap: 20px;
+
+        flex-wrap: wrap;
+    }
+
+    .footer {
+        padding:
+            45px 20px
+            25px;
+    }
+
+    .contact-glass.open {
+        min-height: 540px;
+    }
+
+    .contact-hidden {
+        inset: 22px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+    .founder-modal {
+        padding: 15px;
+    }
+
+    .founder-modal-box {
+        padding:
+            45px 25px;
+
+        max-height: 92vh;
+    }
+
+    .founder-modal-box h2 {
+        font-size: 40px;
+    }
+}

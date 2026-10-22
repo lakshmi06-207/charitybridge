@@ -1,0 +1,2411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="theme-color"
+        content="#070914">
+
+    <title>CharityBridge | Connect • Care • Change</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CharityBridge CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+
+<body>
+
+<!-- =========================================================
+     CINEMATIC INTRO
+     ========================================================= -->
+
+<div id="introScreen">
+
+    <div class="intro-grid"></div>
+
+    <div class="intro-stars">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+
+    <div class="intro-connection">
+
+        <div class="connection-left"></div>
+
+        <div class="connection-point">
+            <span class="connection-core"></span>
+        </div>
+
+        <div class="connection-right"></div>
+
+    </div>
+
+
+    <div class="intro-content">
+
+        <div class="intro-small">
+            CONNECT • CARE • CHANGE
+        </div>
+
+        <h1>
+            CHARITY<span>BRIDGE</span>
+        </h1>
+
+        <p>
+            Together, we build a bridge to hope.
+        </p>
+
+        <div class="intro-loader">
+            <div></div>
+        </div>
+
+        <button
+            type="button"
+            id="enterButton"
+            class="intro-enter">
+
+            ENTER CHARITYBRIDGE
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     MAIN WEBSITE
+     ========================================================= -->
+
+<div id="mainSite">
+
+
+<!-- =========================================================
+     NAVIGATION
+     ========================================================= -->
+
+<nav class="navbar">
+
+    <div class="nav-glass">
+
+
+        <!-- BRAND -->
+
+        <a
+            href="{{ url_for('home') }}"
+            class="brand">
+
+            <div class="brand-symbol">
+
+                <i class="fa-solid fa-heart"></i>
+
+            </div>
+
+
+            <div class="brand-text">
+
+                <strong>
+                    CHARITY<span>BRIDGE</span>
+                </strong>
+
+                <small>
+                    CONNECT • CARE • CHANGE
+                </small>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- MAIN NAVIGATION -->
+
+        <div class="main-nav">
+
+            <a
+                href="{{ url_for('home') }}"
+                class="nav-item active">
+
+                HOME
+
+            </a>
+
+
+            <a
+                href="{{ url_for('about') }}"
+                class="nav-item">
+
+                ABOUT US
+
+            </a>
+
+
+            <a
+                href="{{ url_for('how_it_works') }}"
+                class="nav-item">
+
+                HOW IT WORKS
+
+            </a>
+
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="nav-item">
+
+                DASHBOARD
+
+            </a>
+
+        </div>
+
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="nav-right">
+
+            <a
+                href="{{ url_for('login') }}"
+                class="login-button">
+
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+
+                LOGIN
+
+            </a>
+
+
+            <a
+                href="{{ url_for('register') }}"
+                class="register-button">
+
+                REGISTER
+
+            </a>
+
+
+            <button
+                type="button"
+                id="menuButton"
+                class="menu-button"
+                aria-label="Open menu"
+                aria-expanded="false">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+     THREE DOT POPUP
+     ========================================================= -->
+
+<div
+    id="menuOverlay"
+    class="menu-overlay">
+</div>
+
+
+<div
+    id="sideMenu"
+    class="side-menu"
+    aria-hidden="true">
+
+
+    <div class="side-header">
+
+        <div>
+
+            <span>
+                CHARITYBRIDGE
+            </span>
+
+            <small>
+                CONNECT • CARE • CHANGE
+            </small>
+
+        </div>
+
+
+        <button
+            type="button"
+            id="closeMenu"
+            class="close-menu"
+            aria-label="Close menu">
+
+            ×
+
+        </button>
+
+    </div>
+
+
+
+    <!-- MENU ITEMS -->
+
+    <div class="side-menu-links">
+
+        <button
+            type="button"
+            class="popup-link"
+            data-modal="contactModal">
+
+            <i class="fa-solid fa-envelope"></i>
+
+            <span>
+                Contact
+            </span>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="popup-link"
+            data-modal="privacyModal">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            <span>
+                Privacy Policy
+            </span>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="popup-link"
+            data-modal="termsModal">
+
+            <i class="fa-solid fa-file-contract"></i>
+
+            <span>
+                Terms & Conditions
+            </span>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </button>
+
+    </div>
+
+
+
+    <!-- THEME -->
+
+    <div class="theme-area">
+
+        <div class="settings-label">
+            APPEARANCE
+        </div>
+
+
+        <div class="theme-buttons">
+
+            <button
+                type="button"
+                data-theme="blue">
+
+                <span class="theme-dot blue"></span>
+                Blue
+
+            </button>
+
+
+            <button
+                type="button"
+                data-theme="purple">
+
+                <span class="theme-dot purple"></span>
+                Purple
+
+            </button>
+
+
+            <button
+                type="button"
+                data-theme="pink">
+
+                <span class="theme-dot pink"></span>
+                Pink
+
+            </button>
+
+
+            <button
+                type="button"
+                data-theme="maroon">
+
+                <span class="theme-dot maroon"></span>
+                Maroon
+
+            </button>
+
+
+            <button
+                type="button"
+                data-theme="emerald">
+
+                <span class="theme-dot emerald"></span>
+                Emerald
+
+            </button>
+
+
+            <button
+                type="button"
+                data-theme="gold">
+
+                <span class="theme-dot gold"></span>
+                Gold
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="hero">
+
+
+    <!-- BACKGROUND -->
+
+    <div class="hero-image"></div>
+
+
+    <!-- DARK CINEMATIC OVERLAY -->
+
+    <div class="hero-shade"></div>
+
+
+    <!-- THEME LIGHT -->
+
+    <div class="hero-theme-glow"></div>
+
+
+    <!-- MOVING LIGHT -->
+
+    <div class="hero-light"></div>
+
+
+    <!-- PARTICLES -->
+
+    <div class="floating-particles">
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </div>
+
+
+
+    <!-- LEFT QUOTE -->
+
+    <div class="floating-quote">
+
+        <div class="quote-mark">
+            “
+        </div>
+
+        <p>
+            When people connect,
+            kindness becomes
+            something greater.
+        </p>
+
+        <span>
+            — CHARITYBRIDGE
+        </span>
+
+    </div>
+
+
+
+    <!-- RIGHT LIVE COMMUNITY -->
+
+    <div class="live-card">
+
+        <div class="live-top">
+
+            <span class="live-dot"></span>
+
+            LIVE COMMUNITY
+
+        </div>
+
+
+        <strong>
+            {{ lives_impacted | default(0) }}
+        </strong>
+
+
+        <small>
+            HELP REQUESTS
+        </small>
+
+
+        <div class="live-line"></div>
+
+
+        <div class="live-bottom">
+
+            <span>
+
+                <i class="fa-solid fa-heart"></i>
+
+                {{ donations_count | default(0) }}
+
+                donations
+
+            </span>
+
+
+            <span>
+
+                <i class="fa-solid fa-people-group"></i>
+
+                {{ volunteers_count | default(0) }}
+
+                volunteers
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         HERO CONTENT — LEFT CORNER
+         ===================================================== -->
+
+    <div class="hero-content">
+
+
+        <div class="hero-label">
+
+            <span></span>
+
+            INTELLIGENT COMMUNITY CONNECTION
+
+        </div>
+
+
+        <div class="hero-kicker">
+            CONNECT • CARE • CHANGE
+        </div>
+
+
+        <h1>
+
+            Make a
+            <span>Difference.</span>
+
+        </h1>
+
+
+        <h2>
+
+            One Donation
+            <span>at a Time.</span>
+
+        </h2>
+
+
+        <p class="hero-message">
+
+            Together, we build a bridge to hope.
+
+        </p>
+
+
+        <p class="hero-description">
+
+            CharityBridge connects people who want to give
+            with people who need support — turning generosity,
+            volunteering and community action into real-world impact.
+
+        </p>
+
+
+        <!-- HERO MINI STATS -->
+
+        <div class="hero-mini-stats">
+
+            <div>
+
+                <strong>
+                    {{ donations_count | default(0) }}
+                </strong>
+
+                <span>
+                    DONATIONS
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    {{ lives_impacted | default(0) }}
+                </strong>
+
+                <span>
+                    HELP REQUESTS
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    {{ volunteers_count | default(0) }}
+                </strong>
+
+                <span>
+                    VOLUNTEERS
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- SCROLL -->
+
+    <a
+        href="#impact"
+        class="scroll-indicator">
+
+        <span>
+            SCROLL TO EXPLORE
+        </span>
+
+        <i class="fa-solid fa-arrow-down"></i>
+
+    </a>
+
+</section>
+
+
+
+<!-- =========================================================
+     REAL IMPACT
+     ========================================================= -->
+
+<section
+    class="impact-section"
+    id="impact">
+
+
+    <div class="section-top">
+
+        <div>
+
+            <span class="section-label">
+                REAL-TIME COMMUNITY DATA
+            </span>
+
+            <h2>
+                Our <span>Impact.</span>
+            </h2>
+
+        </div>
+
+
+        <p>
+
+            Every number represents a real action
+            taken through CharityBridge.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- IMPACT CARDS -->
+
+    <div class="impact-cards">
+
+
+        <!-- DONATIONS -->
+
+        <div class="impact-card reveal">
+
+            <div class="impact-card-top">
+
+                <div class="impact-icon">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <span class="impact-status">
+                    LIVE
+                </span>
+
+            </div>
+
+
+            <strong class="impact-number">
+
+                {{ donations_count | default(0) }}
+
+            </strong>
+
+
+            <span class="impact-title">
+                Successful Donations
+            </span>
+
+
+            <div class="impact-mini-line"></div>
+
+
+            <small>
+                Contributions received
+            </small>
+
+        </div>
+
+
+
+        <!-- HELP REQUESTS -->
+
+        <div class="impact-card reveal">
+
+            <div class="impact-card-top">
+
+                <div class="impact-icon">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                </div>
+
+                <span class="impact-status">
+                    LIVE
+                </span>
+
+            </div>
+
+
+            <strong class="impact-number">
+
+                {{ lives_impacted | default(0) }}
+
+            </strong>
+
+
+            <span class="impact-title">
+                Help Requests
+            </span>
+
+
+            <div class="impact-mini-line"></div>
+
+
+            <small>
+                People reaching out
+            </small>
+
+        </div>
+
+
+
+        <!-- VOLUNTEERS -->
+
+        <div class="impact-card reveal">
+
+            <div class="impact-card-top">
+
+                <div class="impact-icon">
+                    <i class="fa-solid fa-people-group"></i>
+                </div>
+
+                <span class="impact-status">
+                    LIVE
+                </span>
+
+            </div>
+
+
+            <strong class="impact-number">
+
+                {{ volunteers_count | default(0) }}
+
+            </strong>
+
+
+            <span class="impact-title">
+                Volunteers
+            </span>
+
+
+            <div class="impact-mini-line"></div>
+
+
+            <small>
+                People giving their time
+            </small>
+
+        </div>
+
+
+
+        <!-- USERS -->
+
+        <div class="impact-card reveal">
+
+            <div class="impact-card-top">
+
+                <div class="impact-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+
+                <span class="impact-status">
+                    LIVE
+                </span>
+
+            </div>
+
+
+            <strong class="impact-number">
+
+                {{ cities_count | default(0) }}
+
+            </strong>
+
+
+            <span class="impact-title">
+                Registered Users
+            </span>
+
+
+            <div class="impact-mini-line"></div>
+
+
+            <small>
+                Growing community
+            </small>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         ANALYTICS
+         ===================================================== -->
+
+    <div class="analytics-grid">
+
+
+        <!-- GRAPH -->
+
+        <div class="analytics-card graph-card reveal">
+
+            <div class="analytics-header">
+
+                <div>
+
+                    <span>
+                        COMMUNITY ACTIVITY
+                    </span>
+
+                    <h3>
+                        Impact Overview
+                    </h3>
+
+                </div>
+
+
+                <div class="analytics-live">
+
+                    <span></span>
+
+                    LIVE DATA
+
+                </div>
+
+            </div>
+
+
+
+            <div class="bar-chart">
+
+
+                <!-- DONATIONS -->
+
+                <div class="bar-row">
+
+                    <div class="bar-label">
+
+                        <span>
+                            Donations
+                        </span>
+
+                        <strong id="chartDonations">
+                            {{ donations_count | default(0) }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="bar-track">
+
+                        <div
+                            class="bar-fill donation-bar"
+                            data-value="{{ donations_count | default(0) }}">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- HELP -->
+
+                <div class="bar-row">
+
+                    <div class="bar-label">
+
+                        <span>
+                            Help Requests
+                        </span>
+
+                        <strong id="chartHelp">
+                            {{ lives_impacted | default(0) }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="bar-track">
+
+                        <div
+                            class="bar-fill help-bar"
+                            data-value="{{ lives_impacted | default(0) }}">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- VOLUNTEERS -->
+
+                <div class="bar-row">
+
+                    <div class="bar-label">
+
+                        <span>
+                            Volunteers
+                        </span>
+
+                        <strong id="chartVolunteers">
+                            {{ volunteers_count | default(0) }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="bar-track">
+
+                        <div
+                            class="bar-fill volunteer-bar"
+                            data-value="{{ volunteers_count | default(0) }}">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- USERS -->
+
+                <div class="bar-row">
+
+                    <div class="bar-label">
+
+                        <span>
+                            Registered Users
+                        </span>
+
+                        <strong id="chartUsers">
+                            {{ cities_count | default(0) }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="bar-track">
+
+                        <div
+                            class="bar-fill users-bar"
+                            data-value="{{ cities_count | default(0) }}">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TOTAL CONTRIBUTION -->
+
+        <div class="analytics-card amount-card reveal">
+
+            <div class="analytics-header">
+
+                <div>
+
+                    <span>
+                        CONTRIBUTIONS
+                    </span>
+
+                    <h3>
+                        Donation Value
+                    </h3>
+
+                </div>
+
+
+                <i class="fa-solid fa-indian-rupee-sign"></i>
+
+            </div>
+
+
+            <div class="amount-display">
+
+                <small>
+                    TOTAL SUCCESSFUL
+                </small>
+
+
+                <strong>
+
+                    ₹<span
+                        id="totalAmount"
+                        data-value="{{ total_amount | default(0) }}">
+
+                        {{ total_amount | default(0) }}
+
+                    </span>
+
+                </strong>
+
+
+                <p>
+                    Funds contributed through CharityBridge
+                </p>
+
+            </div>
+
+
+            <div class="amount-visual">
+
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     THREE WAYS
+     ========================================================= -->
+
+<section class="change-section">
+
+
+    <div class="section-heading">
+
+        <span class="section-label">
+            YOUR ROLE
+        </span>
+
+        <h2>
+            Be the <span>Change.</span>
+        </h2>
+
+        <p>
+            Choose how you want to create an impact.
+        </p>
+
+    </div>
+
+
+
+    <div class="change-grid">
+
+
+        <!-- DONATE -->
+
+        <div class="change-card reveal">
+
+            <div class="change-number">
+                01
+            </div>
+
+            <i class="fa-solid fa-heart"></i>
+
+            <h3>
+                Donate
+            </h3>
+
+            <p>
+                Turn what you can give into meaningful
+                support for someone who needs it.
+            </p>
+
+          
+        </div>
+
+
+
+        <!-- REQUEST HELP -->
+
+        <div class="change-card reveal">
+
+            <div class="change-number">
+                02
+            </div>
+
+            <i class="fa-solid fa-hand-holding-heart"></i>
+
+            <h3>
+                Request Help
+            </h3>
+
+            <p>
+                Share your need and connect with a
+                community ready to support you.
+            </p>
+
+        </div>
+
+
+
+        <!-- VOLUNTEER -->
+
+        <div class="change-card reveal">
+
+            <div class="change-number">
+                03
+            </div>
+
+            <i class="fa-solid fa-people-group"></i>
+
+            <h3>
+                Volunteer
+            </h3>
+
+            <p>
+                Give your time, skills and energy to
+                help create stronger communities.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FINAL CTA
+     ========================================================= -->
+
+<section class="final-section">
+
+    <div class="final-grid"></div>
+
+    <div class="final-glow"></div>
+
+
+    <div class="final-content">
+
+        <span class="section-label">
+            ONE CONNECTION CAN CHANGE EVERYTHING
+        </span>
+
+
+        <h2>
+            Together, We Build
+            <span>Hope.</span>
+        </h2>
+
+
+        <p>
+            Connect with someone. Care about their journey.
+            Create change that lasts.
+        </p>
+
+
+        <div class="hero-actions">
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer class="footer">
+
+
+    <div class="footer-main">
+
+
+        <div class="footer-brand">
+
+            <div class="brand-symbol">
+
+                <i class="fa-solid fa-heart"></i>
+
+            </div>
+
+
+            <div>
+
+            </div>
+
+        </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="footer-bottom">
+
+        <span>
+            © 2026 CharityBridge
+        </span>
+
+        <span>
+            CONNECT • CARE • CHANGE
+        </span>
+
+    </div>
+
+</footer>
+
+</div>
+
+
+
+<!-- =========================================================
+     HELP MODAL
+     ========================================================= -->
+
+<div
+    id="helpModal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <button
+            type="button"
+            class="modal-close"
+            aria-label="Close">
+
+            ×
+
+        </button>
+
+
+        <div class="modal-icon">
+            <i class="fa-solid fa-circle-question"></i>
+        </div>
+
+
+        <span class="modal-label">
+            CHARITYBRIDGE SUPPORT
+        </span>
+
+
+        <h2>
+            How can we help?
+        </h2>
+
+
+        <p>
+            CharityBridge helps people donate, request support,
+            volunteer and connect with their community.
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     CONTACT MODAL
+     ========================================================= -->
+
+<div
+    id="contactModal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <button
+            type="button"
+            class="modal-close"
+            aria-label="Close">
+
+            ×
+
+        </button>
+
+
+        <div class="modal-icon">
+            <i class="fa-solid fa-envelope"></i>
+        </div>
+
+
+        <span class="modal-label">
+            GET IN TOUCH
+        </span>
+
+
+        <h2>
+            Contact CharityBridge
+        </h2>
+
+
+        <p>
+            Have a question, suggestion or need assistance?
+            Visit our contact page for more information.
+        </p>
+
+
+        <a
+            href="{{ url_for('contact') }}"
+            class="modal-action">
+
+            OPEN CONTACT PAGE
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     PRIVACY MODAL
+     ========================================================= -->
+
+<div
+    id="privacyModal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <button
+            type="button"
+            class="modal-close"
+            aria-label="Close">
+
+            ×
+
+        </button>
+
+
+        <div class="modal-icon">
+            <i class="fa-solid fa-shield-halved"></i>
+        </div>
+
+
+        <span class="modal-label">
+            YOUR PRIVACY
+        </span>
+
+
+        <h2>
+            Privacy Policy
+        </h2>
+
+
+        <p>
+            CharityBridge is designed to protect the information
+            users provide while using donation, help and volunteer
+            services.
+        </p>
+
+
+        <p class="modal-small-text">
+            Please review the complete Privacy Policy for the
+            detailed information applicable to your CharityBridge
+            installation.
+        </p>
+
+
+        <a
+            href="{{ url_for('privacy') }}"
+            class="modal-action">
+
+            VIEW FULL POLICY
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     TERMS MODAL
+     ========================================================= -->
+
+<div
+    id="termsModal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <button
+            type="button"
+            class="modal-close"
+            aria-label="Close">
+
+            ×
+
+        </button>
+
+
+        <div class="modal-icon">
+            <i class="fa-solid fa-file-contract"></i>
+        </div>
+
+
+        <span class="modal-label">
+            CHARITYBRIDGE
+        </span>
+
+
+        <h2>
+            Terms & Conditions
+        </h2>
+
+
+        <p>
+            By using CharityBridge, users agree to use the platform
+            responsibly and provide accurate information when
+            donating, requesting help or volunteering.
+        </p>
+
+
+        <p class="modal-small-text">
+            Please review the complete Terms & Conditions for
+            detailed information.
+        </p>
+
+
+        <a
+            href="{{ url_for('terms') }}"
+            class="modal-action">
+
+            VIEW FULL TERMS
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+    /* =====================================================
+       ELEMENTS
+       ===================================================== */
+
+    const introScreen =
+        document.getElementById("introScreen");
+
+    const mainSite =
+        document.getElementById("mainSite");
+
+    const enterButton =
+        document.getElementById("enterButton");
+
+    const menuButton =
+        document.getElementById("menuButton");
+
+    const closeMenu =
+        document.getElementById("closeMenu");
+
+    const sideMenu =
+        document.getElementById("sideMenu");
+
+    const menuOverlay =
+        document.getElementById("menuOverlay");
+
+    const themeButtons =
+        document.querySelectorAll(
+            ".theme-buttons button"
+        );
+
+    const popupLinks =
+        document.querySelectorAll(
+            ".popup-link"
+        );
+
+    const modals =
+        document.querySelectorAll(
+            ".modal"
+        );
+
+    const modalCloseButtons =
+        document.querySelectorAll(
+            ".modal-close"
+        );
+
+
+
+    /* =====================================================
+       CINEMATIC INTRO
+       ===================================================== */
+
+    const INTRO_TIME = 6500;
+
+    let introClosed = false;
+
+
+    function finishIntro() {
+
+        if (introClosed) {
+            return;
+        }
+
+        introClosed = true;
+
+        introScreen.classList.add(
+            "intro-finished"
+        );
+
+        mainSite.classList.add(
+            "site-ready"
+        );
+
+        sessionStorage.setItem(
+            "charityBridgeIntroSeen",
+            "true"
+        );
+
+    }
+
+
+    if (
+        sessionStorage.getItem(
+            "charityBridgeIntroSeen"
+        ) === "true"
+    ) {
+
+        introScreen.classList.add(
+            "intro-finished"
+        );
+
+        mainSite.classList.add(
+            "site-ready"
+        );
+
+    } else {
+
+        setTimeout(
+            finishIntro,
+            INTRO_TIME
+        );
+
+    }
+
+
+    if (enterButton) {
+
+        enterButton.addEventListener(
+            "click",
+            finishIntro
+        );
+
+    }
+
+
+
+    /* =====================================================
+       THREE DOT MENU
+       ===================================================== */
+
+    function openMenu() {
+
+        sideMenu.classList.add(
+            "active"
+        );
+
+        menuOverlay.classList.add(
+            "active"
+        );
+
+        menuButton.classList.add(
+            "active"
+        );
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+
+        sideMenu.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+    }
+
+
+    function closeSideMenu() {
+
+        sideMenu.classList.remove(
+            "active"
+        );
+
+        menuOverlay.classList.remove(
+            "active"
+        );
+
+        menuButton.classList.remove(
+            "active"
+        );
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+        sideMenu.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+    }
+
+
+    menuButton.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+            if (
+                sideMenu.classList.contains(
+                    "active"
+                )
+            ) {
+
+                closeSideMenu();
+
+            } else {
+
+                openMenu();
+
+            }
+
+        }
+    );
+
+
+    closeMenu.addEventListener(
+        "click",
+        closeSideMenu
+    );
+
+
+    menuOverlay.addEventListener(
+        "click",
+        closeSideMenu
+    );
+
+
+
+    /* =====================================================
+       ESCAPE KEY
+       ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                closeSideMenu();
+                closeAllModals();
+
+            }
+
+        }
+    );
+
+
+
+    /* =====================================================
+       MODALS
+       ===================================================== */
+
+    function openModal(
+        modalId
+    ) {
+
+        const modal =
+            document.getElementById(
+                modalId
+            );
+
+        if (!modal) {
+            return;
+        }
+
+        closeSideMenu();
+
+        modal.classList.add(
+            "active"
+        );
+
+        document.body.classList.add(
+            "modal-open"
+        );
+
+    }
+
+
+    function closeModal(
+        modal
+    ) {
+
+        modal.classList.remove(
+            "active"
+        );
+
+    }
+
+
+    function closeAllModals() {
+
+        modals.forEach(
+            function (modal) {
+
+                modal.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+        document.body.classList.remove(
+            "modal-open"
+        );
+
+    }
+
+
+    popupLinks.forEach(
+        function (link) {
+
+            link.addEventListener(
+                "click",
+                function () {
+
+                    const modalId =
+                        link.dataset.modal;
+
+                    openModal(
+                        modalId
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    modalCloseButtons.forEach(
+        function (button) {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    const modal =
+                        button.closest(
+                            ".modal"
+                        );
+
+                    if (modal) {
+
+                        closeModal(
+                            modal
+                        );
+
+                    }
+
+                    document.body.classList.remove(
+                        "modal-open"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    modals.forEach(
+        function (modal) {
+
+            modal.addEventListener(
+                "click",
+                function (event) {
+
+                    if (
+                        event.target === modal
+                    ) {
+
+                        closeModal(
+                            modal
+                        );
+
+                        document.body.classList.remove(
+                            "modal-open"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+
+    /* =====================================================
+       THEME SWITCHING
+       ===================================================== */
+
+    const allowedThemes = [
+        "blue",
+        "purple",
+        "pink",
+        "maroon",
+        "emerald",
+        "gold"
+    ];
+
+
+    function applyTheme(
+        theme
+    ) {
+
+        if (
+            !allowedThemes.includes(
+                theme
+            )
+        ) {
+
+            theme = "blue";
+
+        }
+
+
+        document.documentElement.setAttribute(
+            "data-theme",
+            theme
+        );
+
+
+        localStorage.setItem(
+            "charitybridgeTheme",
+            theme
+        );
+
+
+        themeButtons.forEach(
+            function (button) {
+
+                button.classList.toggle(
+                    "active",
+                    button.dataset.theme === theme
+                );
+
+            }
+        );
+
+    }
+
+
+    const savedTheme =
+        localStorage.getItem(
+            "charitybridgeTheme"
+        ) || "blue";
+
+
+    applyTheme(
+        savedTheme
+    );
+
+
+    themeButtons.forEach(
+        function (button) {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    applyTheme(
+                        button.dataset.theme
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+
+    /* =====================================================
+       REAL DATA BAR GRAPH
+       ===================================================== */
+
+    const bars =
+        document.querySelectorAll(
+            ".bar-fill"
+        );
+
+
+    let maximum = 0;
+
+
+    bars.forEach(
+        function (bar) {
+
+            const value =
+                Number(
+                    bar.dataset.value
+                ) || 0;
+
+
+            if (
+                value > maximum
+            ) {
+
+                maximum = value;
+
+            }
+
+        }
+    );
+
+
+    bars.forEach(
+        function (bar) {
+
+            const value =
+                Number(
+                    bar.dataset.value
+                ) || 0;
+
+
+            let percentage = 0;
+
+
+            if (
+                maximum > 0
+            ) {
+
+                percentage =
+                    (
+                        value /
+                        maximum
+                    ) * 100;
+
+            }
+
+
+            if (
+                value > 0 &&
+                percentage < 8
+            ) {
+
+                percentage = 8;
+
+            }
+
+
+            setTimeout(
+                function () {
+
+                    bar.style.width =
+                        percentage + "%";
+
+                },
+                700
+            );
+
+        }
+    );
+
+
+
+    /* =====================================================
+       NUMBER ANIMATION
+       ===================================================== */
+
+    const numberElements =
+        document.querySelectorAll(
+            ".impact-number"
+        );
+
+
+    function animateNumber(
+        element
+    ) {
+
+        if (
+            element.dataset.animated === "true"
+        ) {
+
+            return;
+
+        }
+
+
+        element.dataset.animated =
+            "true";
+
+
+        const target =
+            Number(
+                element.textContent
+                    .replace(
+                        /,/g,
+                        ""
+                    )
+                    .trim()
+            ) || 0;
+
+
+        const duration =
+            1200;
+
+
+        const start =
+            performance.now();
+
+
+        function update(
+            time
+        ) {
+
+            const progress =
+                Math.min(
+                    (
+                        time -
+                        start
+                    ) /
+                    duration,
+                    1
+                );
+
+
+            const eased =
+                1 -
+                Math.pow(
+                    1 - progress,
+                    3
+                );
+
+
+            const current =
+                Math.floor(
+                    target *
+                    eased
+                );
+
+
+            element.textContent =
+                current.toLocaleString(
+                    "en-IN"
+                );
+
+
+            if (
+                progress < 1
+            ) {
+
+                requestAnimationFrame(
+                    update
+                );
+
+            } else {
+
+                element.textContent =
+                    target.toLocaleString(
+                        "en-IN"
+                    );
+
+            }
+
+        }
+
+
+        requestAnimationFrame(
+            update
+        );
+
+    }
+
+
+
+    if (
+        "IntersectionObserver" in window
+    ) {
+
+        const numberObserver =
+            new IntersectionObserver(
+                function (
+                    entries,
+                    observer
+                ) {
+
+                    entries.forEach(
+                        function (entry) {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                animateNumber(
+                                    entry.target
+                                );
+
+                                observer.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold: 0.3
+                }
+            );
+
+
+        numberElements.forEach(
+            function (element) {
+
+                numberObserver.observe(
+                    element
+                );
+
+            }
+        );
+
+    } else {
+
+        numberElements.forEach(
+            animateNumber
+        );
+
+    }
+
+
+
+    /* =====================================================
+       SCROLL REVEAL
+       ===================================================== */
+
+    const revealElements =
+        document.querySelectorAll(
+            ".reveal"
+        );
+
+
+    if (
+        "IntersectionObserver" in window
+    ) {
+
+        const revealObserver =
+            new IntersectionObserver(
+                function (
+                    entries,
+                    observer
+                ) {
+
+                    entries.forEach(
+                        function (entry) {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    "visible"
+                                );
+
+                                observer.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold: 0.12
+                }
+            );
+
+
+        revealElements.forEach(
+            function (element) {
+
+                revealObserver.observe(
+                    element
+                );
+
+            }
+        );
+
+    } else {
+
+        revealElements.forEach(
+            function (element) {
+
+                element.classList.add(
+                    "visible"
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       SMOOTH INTERNAL LINKS
+       ===================================================== */
+
+    document
+        .querySelectorAll(
+            'a[href^="#"]'
+        )
+        .forEach(
+            function (link) {
+
+                link.addEventListener(
+                    "click",
+                    function (event) {
+
+                        const targetId =
+                            link.getAttribute(
+                                "href"
+                            );
+
+
+                        if (
+                            !targetId ||
+                            targetId === "#"
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        const target =
+                            document.querySelector(
+                                targetId
+                            );
+
+
+                        if (!target) {
+
+                            return;
+
+                        }
+
+
+                        event.preventDefault();
+
+
+                        target.scrollIntoView(
+                            {
+                                behavior: "smooth",
+                                block: "start"
+                            }
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+
+    /* =====================================================
+       PREVENT ACCIDENTAL PAGE SCROLL
+       WHEN MODAL IS OPEN
+       ===================================================== */
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target.classList.contains(
+                    "modal-action"
+                )
+            ) {
+
+                document.body.classList.remove(
+                    "modal-open"
+                );
+
+            }
+
+        }
+    );
+
+
+    console.log(
+        "CharityBridge Home loaded successfully."
+    );
+
+});
+
+</script>
+
+</body>
+</html>

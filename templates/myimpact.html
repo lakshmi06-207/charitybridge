@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="CharityBridge Founder Impact Observatory"
+    >
+
+    <title>Impact Observatory | CharityBridge</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/myimpact.css') }}"
+    >
+</head>
+
+<body>
+
+    <!-- =========================================================
+         GLASS BREAK INTRO
+    ========================================================== -->
+    <div class="glass-break" id="glassBreak">
+
+        <div class="glass-surface"></div>
+
+        <div class="glass-crack crack-one"></div>
+        <div class="glass-crack crack-two"></div>
+        <div class="glass-crack crack-three"></div>
+        <div class="glass-crack crack-four"></div>
+        <div class="glass-crack crack-five"></div>
+        <div class="glass-crack crack-six"></div>
+
+        <div class="glass-shard shard-one"></div>
+        <div class="glass-shard shard-two"></div>
+        <div class="glass-shard shard-three"></div>
+        <div class="glass-shard shard-four"></div>
+        <div class="glass-shard shard-five"></div>
+        <div class="glass-shard shard-six"></div>
+
+        <div class="break-core">
+            <div class="break-logo-line">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="break-brand">
+                CHARITYBRIDGE
+            </div>
+
+            <div class="break-title">
+                IMPACT OBSERVATORY
+            </div>
+
+            <div class="break-loading">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         SPATIAL BACKGROUND
+    ========================================================== -->
+    <div class="space-background">
+
+        <div class="aurora aurora-one"></div>
+        <div class="aurora aurora-two"></div>
+        <div class="aurora aurora-three"></div>
+
+        <div class="space-grid"></div>
+
+        <div class="stars">
+            <span class="star star-one"></span>
+            <span class="star star-two"></span>
+            <span class="star star-three"></span>
+            <span class="star star-four"></span>
+            <span class="star star-five"></span>
+            <span class="star star-six"></span>
+            <span class="star star-seven"></span>
+            <span class="star star-eight"></span>
+            <span class="star star-nine"></span>
+            <span class="star star-ten"></span>
+            <span class="star star-eleven"></span>
+            <span class="star star-twelve"></span>
+        </div>
+
+        <div class="orb orb-one"></div>
+        <div class="orb orb-two"></div>
+        <div class="orb orb-three"></div>
+
+    </div>
+
+
+    <!-- =========================================================
+         MAIN PAGE
+    ========================================================== -->
+    <main class="observatory-page" id="observatoryPage">
+
+        <!-- =====================================================
+             TOP NAVIGATION
+        ====================================================== -->
+        <header class="observatory-header">
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="dashboard-button"
+            >
+                <span class="dashboard-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+
+            <div class="brand-block">
+
+                <div class="brand-mark">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="brand-text">
+
+                    <div class="brand-name">
+                        CHARITYBRIDGE
+                    </div>
+
+                    <div class="brand-caption">
+                        CONNECT • CARE • CHANGE
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="founder-pill">
+                <span class="founder-dot"></span>
+                <span>FOUNDER ACCESS</span>
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             HERO
+        ====================================================== -->
+        <section class="observatory-hero">
+
+            <div class="hero-copy">
+
+                <span class="eyebrow">
+                    PRIVATE ANALYTICS SPACE
+                </span>
+
+                <h1>
+                    Impact
+                    <span>Observatory</span>
+                </h1>
+
+                <p>
+                    A live visual view of the CharityBridge
+                    community, contributions, requests and
+                    volunteer network.
+                </p>
+
+
+                <!-- FOUNDER PROFILE -->
+                <div class="founder-profile">
+
+                    {% if founder_avatar %}
+
+                        <img
+                            src="{{ founder_avatar }}"
+                            alt="{{ founder_name }}"
+                            class="founder-avatar"
+                        >
+
+                    {% else %}
+
+                        <div class="founder-avatar founder-initials">
+                            {{ founder_name[:1]|upper }}
+                        </div>
+
+                    {% endif %}
+
+
+                    <div class="founder-information">
+
+                        <strong>
+                            {{ founder_name }}
+                        </strong>
+
+                        <span>
+                            {{ founder_email }}
+                        </span>
+
+                        {% if founder_verified %}
+
+                            <small class="verified-text">
+                                ✓ VERIFIED FOUNDER
+                            </small>
+
+                        {% else %}
+
+                            <small>
+                                FOUNDER ACCOUNT
+                            </small>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 IMPACT CORE
+            ================================================== -->
+            <div class="impact-core-area">
+
+                <div class="impact-ring ring-one"></div>
+                <div class="impact-ring ring-two"></div>
+                <div class="impact-ring ring-three"></div>
+
+                <div class="impact-core">
+
+                    <span class="core-label">
+                        COMMUNITY
+                    </span>
+
+                    <strong>
+                        {{ total_users }}
+                    </strong>
+
+                    <span class="core-caption">
+                        REGISTERED USERS
+                    </span>
+
+                </div>
+
+
+                <div class="orbit-node node-users">
+
+                    <span>USERS</span>
+                    <strong>{{ total_users }}</strong>
+
+                </div>
+
+
+                <div class="orbit-node node-volunteers">
+
+                    <span>VOLUNTEERS</span>
+                    <strong>{{ total_volunteers }}</strong>
+
+                </div>
+
+
+                <div class="orbit-node node-requests">
+
+                    <span>REQUESTS</span>
+                    <strong>{{ total_help_requests }}</strong>
+
+                </div>
+
+
+                <div class="orbit-node node-donations">
+
+                    <span>DONATIONS</span>
+                    <strong>{{ total_item_donations }}</strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             REAL DATABASE SUMMARY
+        ====================================================== -->
+        <section class="metric-grid">
+
+            <article class="metric-card">
+
+                <div class="metric-icon">
+                    ◈
+                </div>
+
+                <div class="metric-content">
+
+                    <span>
+                        TOTAL USERS
+                    </span>
+
+                    <strong>
+                        {{ total_users }}
+                    </strong>
+
+                </div>
+
+            </article>
+
+
+            <article class="metric-card">
+
+                <div class="metric-icon">
+                    ✓
+                </div>
+
+                <div class="metric-content">
+
+                    <span>
+                        VERIFIED USERS
+                    </span>
+
+                    <strong>
+                        {{ verified_users }}
+                    </strong>
+
+                </div>
+
+            </article>
+
+
+            <article class="metric-card">
+
+                <div class="metric-icon">
+                    ♢
+                </div>
+
+                <div class="metric-content">
+
+                    <span>
+                        VOLUNTEERS
+                    </span>
+
+                    <strong>
+                        {{ total_volunteers }}
+                    </strong>
+
+                </div>
+
+            </article>
+
+
+            <article class="metric-card">
+
+                <div class="metric-icon">
+                    ♡
+                </div>
+
+                <div class="metric-content">
+
+                    <span>
+                        HELP REQUESTS
+                    </span>
+
+                    <strong>
+                        {{ total_help_requests }}
+                    </strong>
+
+                </div>
+
+            </article>
+
+
+            <article class="metric-card">
+
+                <div class="metric-icon">
+                    ◇
+                </div>
+
+                <div class="metric-content">
+
+                    <span>
+                        ITEM DONATIONS
+                    </span>
+
+                    <strong>
+                        {{ total_item_donations }}
+                    </strong>
+
+                </div>
+
+            </article>
+
+
+            <article class="metric-card money-card">
+
+                <div class="metric-icon">
+                    ₹
+                </div>
+
+                <div class="metric-content">
+
+                    <span>
+                        MONEY DONATED
+                    </span>
+
+                    <strong>
+                        ₹{{ "{:,.2f}".format(total_money_donated) }}
+                    </strong>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- =====================================================
+             ANALYTICS
+        ====================================================== -->
+        <section class="analytics-section">
+
+            <div class="section-heading">
+
+                <span class="eyebrow">
+                    LIVE DATABASE ANALYTICS
+                </span>
+
+                <h2>
+                    Community Intelligence
+                </h2>
+
+                <p>
+                    Every graph below is generated from actual
+                    CharityBridge database records.
+                </p>
+
+            </div>
+
+
+            <!-- USER GROWTH -->
+            <article class="chart-panel chart-wide">
+
+                <div class="chart-header">
+
+                    <div>
+
+                        <span class="chart-kicker">
+                            COMMUNITY
+                        </span>
+
+                        <h3>
+                            User Growth
+                        </h3>
+
+                    </div>
+
+                    <span class="chart-status">
+                        LIVE DATA
+                    </span>
+
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="userGrowthChart"></canvas>
+                </div>
+
+            </article>
+
+
+            <!-- MONEY GROWTH -->
+            <article class="chart-panel chart-wide">
+
+                <div class="chart-header">
+
+                    <div>
+
+                        <span class="chart-kicker">
+                            CONTRIBUTIONS
+                        </span>
+
+                        <h3>
+                            Money Donation Growth
+                        </h3>
+
+                    </div>
+
+                    <span class="chart-status">
+                        SUCCESSFUL
+                    </span>
+
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="moneyGrowthChart"></canvas>
+                </div>
+
+            </article>
+
+
+            <!-- TWO CHARTS -->
+            <div class="chart-two-column">
+
+
+                <!-- DONATION CATEGORIES -->
+                <article class="chart-panel">
+
+                    <div class="chart-header">
+
+                        <div>
+
+                            <span class="chart-kicker">
+                                DONATIONS
+                            </span>
+
+                            <h3>
+                                Donation Categories
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <div class="chart-container chart-small">
+                        <canvas id="donationCategoryChart"></canvas>
+                    </div>
+
+                </article>
+
+
+                <!-- REQUEST STATUS -->
+                <article class="chart-panel">
+
+                    <div class="chart-header">
+
+                        <div>
+
+                            <span class="chart-kicker">
+                                REQUESTS
+                            </span>
+
+                            <h3>
+                                Request Status
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <div class="chart-container chart-small">
+                        <canvas id="requestStatusChart"></canvas>
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <!-- COMMUNITY ACTIVITY -->
+            <article class="chart-panel chart-wide">
+
+                <div class="chart-header">
+
+                    <div>
+
+                        <span class="chart-kicker">
+                            PLATFORM ACTIVITY
+                        </span>
+
+                        <h3>
+                            Community Activity
+                        </h3>
+
+                    </div>
+
+                    <span class="chart-status">
+                        MONTHLY
+                    </span>
+
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="communityActivityChart"></canvas>
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- =====================================================
+             NETWORK FLOW
+        ====================================================== -->
+        <section class="impact-flow">
+
+            <div class="section-heading">
+
+                <span class="eyebrow">
+                    CHARITYBRIDGE NETWORK
+                </span>
+
+                <h2>
+                    From Connection to Impact
+                </h2>
+
+                <p>
+                    The platform connects people, needs,
+                    resources and volunteers.
+                </p>
+
+            </div>
+
+
+            <div class="flow-line">
+
+                <div class="flow-node">
+
+                    <span>01</span>
+
+                    <strong>
+                        USERS
+                    </strong>
+
+                    <small>
+                        People joining the platform
+                    </small>
+
+                </div>
+
+
+                <div class="flow-connector"></div>
+
+
+                <div class="flow-node">
+
+                    <span>02</span>
+
+                    <strong>
+                        REQUESTS
+                    </strong>
+
+                    <small>
+                        Community needs
+                    </small>
+
+                </div>
+
+
+                <div class="flow-connector"></div>
+
+
+                <div class="flow-node">
+
+                    <span>03</span>
+
+                    <strong>
+                        DONATIONS
+                    </strong>
+
+                    <small>
+                        Resources shared
+                    </small>
+
+                </div>
+
+
+                <div class="flow-connector"></div>
+
+
+                <div class="flow-node">
+
+                    <span>04</span>
+
+                    <strong>
+                        VOLUNTEERS
+                    </strong>
+
+                    <small>
+                        People taking action
+                    </small>
+
+                </div>
+
+
+                <div class="flow-connector"></div>
+
+
+                <div class="flow-node final-node">
+
+                    <span>05</span>
+
+                    <strong>
+                        IMPACT
+                    </strong>
+
+                    <small>
+                        Connections becoming change
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             FOOTER
+        ====================================================== -->
+        <footer class="observatory-footer">
+
+            <div class="footer-brand">
+                CHARITYBRIDGE
+            </div>
+
+            <div class="footer-message">
+                CONNECT • CARE • CHANGE
+            </div>
+
+            <div class="footer-access">
+                FOUNDER IMPACT OBSERVATORY
+            </div>
+
+        </footer>
+
+    </main>
+
+
+    <!-- =========================================================
+         DATABASE DATA
+         Stored as HTML data attributes so VS Code does not
+         interpret Jinja expressions as normal JavaScript.
+    ========================================================== -->
+    <div
+        id="impactData"
+        hidden
+        data-user-growth-labels="{{ user_growth_labels | tojson | forceescape }}"
+        data-user-growth-values="{{ user_growth_values | tojson | forceescape }}"
+        data-money-growth-labels="{{ money_growth_labels | tojson | forceescape }}"
+        data-money-growth-values="{{ money_growth_values | tojson | forceescape }}"
+        data-donation-category-labels="{{ donation_category_labels | tojson | forceescape }}"
+        data-donation-category-values="{{ donation_category_values | tojson | forceescape }}"
+        data-request-status-labels="{{ request_status_labels | tojson | forceescape }}"
+        data-request-status-values="{{ request_status_values | tojson | forceescape }}"
+        data-activity-labels="{{ activity_labels | tojson | forceescape }}"
+        data-activity-donations="{{ activity_donations | tojson | forceescape }}"
+        data-activity-requests="{{ activity_requests | tojson | forceescape }}"
+        data-activity-volunteers="{{ activity_volunteers | tojson | forceescape }}">
+    </div>
+
+
+    <!-- Chart.js -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js">
+    </script>
+
+
+    <!-- My Impact JavaScript -->
+    <script
+        src="{{ url_for('static', filename='js/myimpact.js') }}">
+    </script>
+
+</body>
+</html>

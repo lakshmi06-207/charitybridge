@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CharityBridge | Food Delivery Management</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 28px 16px;
+            font-family: Arial, sans-serif;
+            color: #272044;
+            background: linear-gradient(
+                135deg,
+                #f5efff,
+                #e9f4ff,
+                #fff0fa
+            );
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .header, .panel {
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 22px;
+            box-shadow: 0 10px 35px rgba(72, 49, 130, 0.09);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #5636a6;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #5636a6;
+        }
+
+        .muted {
+            color: #716b83;
+            line-height: 1.6;
+        }
+
+        .request-card {
+            border: 1px solid #e4dcf7;
+            border-radius: 15px;
+            padding: 18px;
+            margin-top: 16px;
+            background: #fff;
+        }
+
+        .details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 12px;
+            margin: 14px 0;
+        }
+
+        .detail {
+            padding: 12px;
+            border-radius: 10px;
+            background: #f7f4ff;
+            overflow-wrap: anywhere;
+        }
+
+        label {
+            display: block;
+            margin: 12px 0 6px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d8cdec;
+            border-radius: 10px;
+            font: inherit;
+            background: white;
+        }
+
+        textarea {
+            min-height: 75px;
+            resize: vertical;
+        }
+
+        button, .back-link {
+            display: inline-block;
+            padding: 12px 17px;
+            border: none;
+            border-radius: 10px;
+            background: #6843c6;
+            color: white;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            margin-top: 14px;
+        }
+
+        button:hover, .back-link:hover {
+            background: #4e2da5;
+        }
+
+        .delivery-status {
+            display: inline-block;
+            padding: 6px 10px;
+            background: #eee7ff;
+            color: #5636a6;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .empty {
+            padding: 18px;
+            border-radius: 12px;
+            background: #f7f4ff;
+            color: #716b83;
+        }
+
+        @media (max-width: 600px) {
+            .header, .panel {
+                padding: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <header class="header">
+        <h1>Food Delivery Management</h1>
+        <p class="muted">
+            Founder workspace: review food requests, assign available
+            volunteers, and track delivery progress.
+        </p>
+        <a class="back-link" href="{{ url_for('dashboard') }}">
+            ← Back to Dashboard
+        </a>
+    </header>
+
+    <section class="panel">
+        <h2>Food Requests</h2>
+
+        {% if food_requests %}
+            {% for item in food_requests %}
+                <article class="request-card">
+                    <h3>Food Request #{{ item.request_id }}</h3>
+
+                    <div class="details">
+                        <div class="detail">
+                            <strong>Requester</strong><br>
+                            {{ item.requester_name }}
+                        </div>
+
+                        <div class="detail">
+                            <strong>Location</strong><br>
+                            {{ item.location or "Not provided" }}
+                        </div>
+
+                        <div class="detail">
+                            <strong>Quantity</strong><br>
+                            {{ item.quantity if item.quantity is not none else "Not specified" }}
+                        </div>
+
+                        <div class="detail">
+                            <strong>Request Status</strong><br>
+                            {{ item.request_status }}
+                        </div>
+                    </div>
+
+                    <p>
+                        <strong>Description:</strong>
+                        {{ item.description or "No description provided" }}
+                    </p>
+
+                    {% if item.requester_phone %}
+                        <p>
+                            <strong>Requester contact:</strong>
+                            {{ item.requester_phone }}
+                        </p>
+                    {% endif %}
+
+                    {% if item.request_status|lower in ['pending', 'available'] %}
+                        <form method="POST"
+                              action="{{ url_for('assign_food_volunteer') }}">
+
+                            <input type="hidden"
+                                   name="request_id"
+                                   value="{{ item.request_id }}">
+
+                            <label for="volunteer_{{ item.request_id }}">
+                                Select an available volunteer
+                            </label>
+
+                            <select
+                                id="volunteer_{{ item.request_id }}"
+                                name="volunteer_id"
+                                required>
+                                <option value="">Choose volunteer</option>
+
+                                {% for volunteer in available_volunteers %}
+                                    <option value="{{ volunteer.volunteer_id }}">
+                                        {{ volunteer.name }}
+                                        {% if volunteer.skills %}
+                                            — {{ volunteer.skills }}
+                                        {% endif %}
+                                    </option>
+                                {% endfor %}
+                            </select>
+
+                            <label for="pickup_{{ item.request_id }}">
+                                Pickup or delivery instructions
+                            </label>
+
+                            <textarea
+                                id="pickup_{{ item.request_id }}"
+                                name="pickup_details"
+                                placeholder="Enter necessary pickup instructions"></textarea>
+
+                            <button type="submit"
+                                    {% if not available_volunteers %}disabled{% endif %}>
+                                Assign Volunteer
+                            </button>
+
+                            {% if not available_volunteers %}
+                                <p class="muted">
+                                    No volunteers are currently available.
+                                </p>
+                            {% endif %}
+                        </form>
+                    {% else %}
+                        <p class="muted">
+                            This request is not currently open for assignment.
+                        </p>
+                    {% endif %}
+                </article>
+            {% endfor %}
+        {% else %}
+            <p class="empty">There are no food requests to display.</p>
+        {% endif %}
+    </section>
+    
+<section class="panel">
+    <h2>Send Private Message to Volunteer</h2>
+
+    <p class="muted">
+        Send pickup instructions or other important information
+        directly to one volunteer.
+    </p>
+
+    <form action="{{ url_for('founder_send_volunteer_message') }}"
+          method="POST">
+
+        <label for="volunteer_user_id">
+            Select Volunteer
+        </label>
+
+        <select id="volunteer_user_id"
+                name="volunteer_user_id"
+                required>
+            <option value="">Choose a volunteer</option>
+
+            {% for volunteer in available_volunteers %}
+                <option value="{{ volunteer.user_id }}">
+                    {{ volunteer.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label for="founder_message">
+            Message / Instructions
+        </label>
+
+        <textarea id="founder_message"
+                  name="message"
+                  rows="4"
+                  placeholder="Example: Please collect the food packets from the kitchen at 10 AM."
+                  required></textarea>
+
+        <button type="submit"
+                {% if not available_volunteers %}disabled{% endif %}>
+            Send Private Message
+        </button>
+
+        {% if not available_volunteers %}
+            <p class="muted">
+                No volunteers are currently available.
+            </p>
+        {% endif %}
+    </form>
+</section>
+
+
+    <section class="panel">
+        <h2>Delivery Assignments</h2>
+
+        {% if deliveries %}
+            {% for delivery in deliveries %}
+                <article class="request-card">
+                    <h3>Food Request #{{ delivery.request_id }}</h3>
+
+                    <p>
+                        <strong>Requester:</strong>
+                        {{ delivery.requester_name }}
+                    </p>
+
+                    <p>
+                        <strong>Assigned volunteer:</strong>
+                        {{ delivery.volunteer_name }}
+                    </p>
+
+                    <p>
+                        <strong>Volunteer phone:</strong>
+                        {{ delivery.volunteer_phone or "Not provided" }}
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        <span class="delivery-status">
+                            {{ delivery.delivery_status|replace('_', ' ')|title }}
+                        </span>
+                    </p>
+
+                    <p class="muted">
+                        Assigned:
+                        {{ delivery.assigned_at or "Not available" }}
+                    </p>
+
+                    {% if delivery.delivered_at %}
+                        <p>
+                            <strong>Reported delivered:</strong>
+                            {{ delivery.delivered_at }}
+                        </p>
+                    {% endif %}
+
+                    {% if delivery.verified_at %}
+                        <p>
+                            <strong>Verified:</strong>
+                            {{ delivery.verified_at }}
+                        </p>
+                    {% endif %}
+                </article>
+            {% endfor %}
+        {% else %}
+            <p class="empty">
+                No volunteer assignments have been created yet.
+            </p>
+        {% endif %}
+    </section>
+
+</div>
+</body>
+</html>

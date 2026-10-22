@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CharityBridge Connect</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/chat.css') }}"
+    >
+</head>
+
+<body class="chat-theme-aurora">
+
+    <!-- =========================================================
+         CHAT DATA
+         ========================================================= -->
+
+    <script id="chat-data" type="application/json">
+    {
+        "selectedUserId": {{ selected_user_id|default(None)|tojson }},
+        "currentUserId": {{ current_user.id|default(0)|tojson }}
+    }
+    </script>
+
+
+    <!-- =========================================================
+         BACKGROUND
+         ========================================================= -->
+
+    <div class="space-background">
+
+        <div class="aurora aurora-one"></div>
+        <div class="aurora aurora-two"></div>
+        <div class="aurora aurora-three"></div>
+
+        <div class="star-field"></div>
+
+        <div class="space-orb orb-one"></div>
+        <div class="space-orb orb-two"></div>
+        <div class="space-orb orb-three"></div>
+
+        <div class="space-grid"></div>
+
+    </div>
+
+
+    <!-- =========================================================
+         TOP GLASS BAR
+         ========================================================= -->
+
+    <header class="chat-topbar">
+
+        <!-- DASHBOARD FAB -->
+
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="dashboard-fab"
+            title="Dashboard"
+        >
+            <span class="dashboard-fab-icon">⌂</span>
+            <span class="dashboard-fab-text">Dashboard</span>
+        </a>
+
+
+        <!-- BRAND -->
+
+        <div class="chat-brand">
+
+            <div class="chat-brand-line"></div>
+
+            <div class="chat-brand-name">
+                CHARITYBRIDGE
+            </div>
+
+        </div>
+
+
+        <!-- THEME BUTTON -->
+
+        <button
+            type="button"
+            id="chatThemeButton"
+            class="chat-theme-button"
+            title="Change background"
+        >
+            ◌
+        </button>
+
+    </header>
+
+
+    <!-- =========================================================
+         RIGHT LIQUID GLASS BAR
+         ONLY 3 ITEMS
+         ========================================================= -->
+
+    <aside class="chat-right-bar">
+
+        <a
+            href="{{ url_for('community') }}"
+            class="chat-side-item"
+        >
+            <span class="chat-side-icon">♧</span>
+            <span class="chat-side-text">Community</span>
+        </a>
+
+
+        <a
+            href="{{ url_for('chat') }}"
+            class="chat-side-item active"
+        >
+            <span class="chat-side-icon">◈</span>
+            <span class="chat-side-text">Community Chat</span>
+        </a>
+
+
+        <a
+           href="{{ url_for('profile_page') }}"
+            class="chat-side-item"
+        >
+            <span class="chat-side-icon">♙</span>
+            <span class="chat-side-text">Profile</span>
+        </a>
+
+    </aside>
+
+
+    <!-- =========================================================
+         THEME PANEL
+         ========================================================= -->
+
+    <div
+        id="chatThemePanel"
+        class="chat-theme-panel"
+    >
+
+        <div class="chat-theme-box">
+
+            <button
+                type="button"
+                id="chatThemeClose"
+                class="chat-theme-close"
+            >
+                ×
+            </button>
+
+
+            <div class="chat-theme-heading">
+                Background
+            </div>
+
+            <div class="chat-theme-description">
+                Choose your glass background
+            </div>
+
+
+            <div class="chat-theme-options">
+
+                <button
+                    type="button"
+                    class="chat-theme-option"
+                    data-theme="aurora"
+                >
+                    Aurora
+                </button>
+
+                <button
+                    type="button"
+                    class="chat-theme-option"
+                    data-theme="ocean"
+                >
+                    Ocean
+                </button>
+
+                <button
+                    type="button"
+                    class="chat-theme-option"
+                    data-theme="pink"
+                >
+                    Pink
+                </button>
+
+                <button
+                    type="button"
+                    class="chat-theme-option"
+                    data-theme="violet"
+                >
+                    Violet
+                </button>
+
+                <button
+                    type="button"
+                    class="chat-theme-option"
+                    data-theme="gold"
+                >
+                    Gold
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         MAIN CHAT AREA
+         ========================================================= -->
+
+    <main class="chat-page">
+
+
+        <!-- =====================================================
+             LEFT PEOPLE PANEL
+             ===================================================== -->
+
+        <section class="people-panel glass-panel">
+
+            <div class="panel-heading">
+
+                <div>
+                    <div class="panel-title">
+                        Community
+                    </div>
+
+                    <div class="panel-subtitle">
+                        Connect with people
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <div class="people-search-wrapper">
+
+                <input
+                    type="search"
+                    id="peopleSearch"
+                    class="people-search"
+                    placeholder="Search people..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- CURRENT USER -->
+
+            <div class="current-user-card">
+
+                {% if current_user.profile_image %}
+
+                    <img
+                        src="{{ url_for('static', filename=current_user.profile_image) }}"
+                        class="current-user-image"
+                        alt="{{ current_user.name }}"
+                    >
+
+                {% else %}
+
+                    <div class="current-user-avatar">
+                        {{ current_user.name[:1]|upper }}
+                    </div>
+
+                {% endif %}
+
+
+                <div class="current-user-details">
+
+                    <div class="current-user-name">
+                        {{ current_user.name }}
+                    </div>
+
+                    <div class="current-user-role">
+                        {{ current_user.role|default('Member') }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PEOPLE -->
+
+            <div class="people-list">
+
+                {% for person in community_users %}
+
+                    <div
+                        class="person-card"
+                        data-person-name="{{ person.name|lower }}"
+                        data-person-id="{{ person.id }}"
+                    >
+
+                        {% if person.profile_image %}
+
+                            <img
+                                src="{{ url_for('static', filename=person.profile_image) }}"
+                                class="person-image"
+                                alt="{{ person.name }}"
+                            >
+
+                        {% else %}
+
+                            <div class="person-avatar">
+                                {{ person.name[:1]|upper }}
+                            </div>
+
+                        {% endif %}
+
+
+                        <div class="person-information">
+
+                            <div class="person-name">
+                                {{ person.name }}
+                            </div>
+
+                            <div class="person-role">
+                                {{ person.role|default('Member') }}
+                            </div>
+
+                            {% if person.location %}
+
+                                <div class="person-location">
+                                    {{ person.location }}
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <button
+                            class="person-message-button"
+                            type="button"
+                            data-user-id="{{ person.id }}"
+                            aria-label="Message {{ person.name }}"
+                        >
+                            →
+                        </button>
+
+                    </div>
+
+                {% else %}
+
+                    <div class="empty-people">
+                        No other community members yet.
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CENTER CONVERSATION
+             ===================================================== -->
+
+        <section class="conversation-panel glass-panel">
+
+
+            <!-- CONVERSATION HEADER -->
+
+            <div class="conversation-header">
+
+                <div>
+
+                    <div
+                        id="conversationTitle"
+                        class="conversation-title"
+                    >
+                        {% if selected_user %}
+                            {{ selected_user.name }}
+                        {% else %}
+                            Community Messages
+                        {% endif %}
+                    </div>
+
+                    <div class="conversation-subtitle">
+                        Private community conversation
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MESSAGES -->
+
+            <div
+                id="messagesArea"
+                class="messages-area"
+            >
+
+                {% if messages %}
+
+                    {% for message in messages %}
+
+                        <div
+                            class="message-row {% if message.sender_id == current_user.id %}own-message{% else %}other-message{% endif %}"
+                            data-sender-id="{{ message.sender_id }}"
+                            data-receiver-id="{{ message.receiver_id }}"
+                        >
+
+                            <div class="message-bubble">
+
+                                {% if message.sender_id != current_user.id %}
+
+                                    <div class="message-sender">
+                                        {{ message.sender_name }}
+                                    </div>
+
+                                {% endif %}
+
+                                <div class="message-text">
+                                    {{ message.message }}
+                                </div>
+
+                                <div class="message-time">
+                                    {{ message.created_at }}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="welcome-card">
+
+                        <div class="welcome-icon">
+                            ◈
+                        </div>
+
+                        <div class="welcome-title">
+                            Community Messages
+                        </div>
+
+                        <div class="welcome-text">
+                            Select a person from the community
+                            and start a private conversation.
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- COMPOSER -->
+
+            <div class="message-composer">
+
+                <button
+                    type="button"
+                    id="attachmentButton"
+                    class="composer-button"
+                    title="Attachment"
+                >
+                    +
+                </button>
+
+
+                <input
+                    type="text"
+                    id="messageInput"
+                    class="message-input"
+                    placeholder="Write a message..."
+                    autocomplete="off"
+                >
+
+
+                <button
+                    type="button"
+                    id="voiceButton"
+                    class="composer-button"
+                    title="Voice message"
+                >
+                    ◉
+                </button>
+
+
+                <button
+                    type="button"
+                    id="sendButton"
+                    class="send-button"
+                >
+                    Send
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             RIGHT INFORMATION PANEL
+             ===================================================== -->
+
+        <section class="chat-info-panel glass-panel">
+
+            <div class="info-title">
+                CharityBridge
+            </div>
+
+            <div class="info-subtitle">
+                Community Connect
+            </div>
+
+
+            <div class="info-stat">
+
+                <div class="info-stat-number">
+                    {{ total_users|default(0) }}
+                </div>
+
+                <div class="info-stat-label">
+                    Community Members
+                </div>
+
+            </div>
+
+
+            <div class="info-stat">
+
+                <div class="info-stat-number">
+                    {{ unread_messages|default(0) }}
+                </div>
+
+                <div class="info-stat-label">
+                    Unread Messages
+                </div>
+
+            </div>
+
+
+            <div class="info-note">
+
+                Connect with verified community
+                members and communicate privately.
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         AI RUDDER
+         ========================================================= -->
+
+    <button
+        type="button"
+        id="aiRudder"
+        class="ai-rudder"
+        title="CharityBridge Assistant"
+    >
+        ✦
+    </button>
+
+
+    <aside
+        id="aiPanel"
+        class="ai-panel"
+    >
+
+        <button
+            type="button"
+            id="aiClose"
+            class="ai-close"
+        >
+            ×
+        </button>
+
+        <div class="ai-title">
+            CharityBridge Assistant
+        </div>
+
+        <div
+            id="aiConversation"
+            class="ai-conversation"
+        ></div>
+
+        <div class="ai-composer">
+
+            <input
+                type="text"
+                id="aiInput"
+                class="ai-input"
+                placeholder="Ask something..."
+            >
+
+            <button
+                type="button"
+                id="aiSend"
+                class="ai-send"
+            >
+                →
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================================================
+         NOTIFICATIONS
+         ========================================================= -->
+
+    <aside
+        id="notificationPanel"
+        class="notification-panel"
+    >
+
+        <button
+            type="button"
+            id="notificationClose"
+            class="notification-close"
+        >
+            ×
+        </button>
+
+        <div class="notification-title">
+            Notifications
+        </div>
+
+        {% for notification in notifications %}
+
+            <div class="notification-item">
+
+                <div class="notification-item-title">
+                    {{ notification.title }}
+                </div>
+
+                <div class="notification-item-message">
+                    {{ notification.message }}
+                </div>
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-notifications">
+                No notifications.
+            </div>
+
+        {% endfor %}
+
+    </aside>
+
+
+    <!-- =========================================================
+         TOAST
+         ========================================================= -->
+
+    <div class="page-toast"></div>
+
+
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+
+</body>
+</html>

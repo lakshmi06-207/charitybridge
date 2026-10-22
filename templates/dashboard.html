@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CharityBridge | Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body data-theme="ocean">
+
+<div class="dashboard-page">
+
+    <!-- =========================================================
+         BACKGROUND
+    ========================================================== -->
+    <div class="background-layer"></div>
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+    <div class="background-glow glow-three"></div>
+
+
+    <!-- =========================================================
+         MAIN DASHBOARD
+    ========================================================== -->
+    <main class="dashboard-main">
+
+
+        <!-- =====================================================
+             TOP HEADER
+        ====================================================== -->
+        <header class="top-header glass-panel">
+
+            <div class="brand-area">
+
+                <div class="brand-heart">
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="brand-name">
+                    CharityBridge
+                </div>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <!-- HOME -->
+                <a href="{{ url_for('home') }}"
+                   class="home-button"
+                   aria-label="Home">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M3 10.5L12 3l9 7.5"></path>
+                        <path d="M5.5 9.5V21h13V9.5"></path>
+                        <path d="M9.5 21v-6h5v6"></path>
+                    </svg>
+
+                    <span>Home</span>
+
+                </a>
+
+
+                <!-- THREE DOT / THEME BUTTON -->
+                <button
+                    type="button"
+                    id="themeButton"
+                    class="theme-button"
+                    aria-label="Change background theme">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             WELCOME HERO
+        ====================================================== -->
+        <section class="welcome-section">
+
+            <div class="welcome-content">
+
+                {% if avatar_url %}
+                    <div class="welcome-avatar">
+                        <img
+                            src="{{ avatar_url }}"
+                            alt="Profile picture">
+                    </div>
+                {% endif %}
+
+
+                <div class="welcome-text">
+
+                    <div class="welcome-small">
+                        Welcome back,
+                    </div>
+
+                    <div class="welcome-name">
+
+                        {{ user_name }}
+
+                        {% if user_verified %}
+                            <span class="verified-badge">
+                                ✓
+                            </span>
+                        {% endif %}
+
+                    </div>
+
+                    <div class="welcome-description">
+                        Together we can create a kinder, stronger world.
+                    </div>
+
+                    <div class="kindness-line">
+                        Every act of kindness counts
+                        <span>♥</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- WEATHER STYLE INFO -->
+            <div class="weather-card">
+
+                <div class="weather-icon">
+                    ☀
+                </div>
+
+                <div>
+
+                    {% if weather_temperature %}
+                        <strong>
+                            {{ weather_temperature }}
+                        </strong>
+                    {% endif %}
+
+                    {% if weather_condition %}
+                        <small>
+                            {{ weather_condition }}
+                        </small>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             IMPACT CARDS
+        ====================================================== -->
+        <section class="stats-grid">
+
+
+            <!-- TOTAL DONATIONS -->
+            <article class="stat-card donation-card">
+
+                <div class="stat-icon heart-icon">
+                    ♥
+                </div>
+
+                <div class="stat-information">
+
+                    <div class="stat-title">
+                        Total Donations
+                    </div>
+
+                    <div class="stat-number">
+                        ₹{{ total_donations }}
+                    </div>
+
+                    {% if donation_growth %}
+                        <div class="stat-growth">
+                            ↑ {{ donation_growth }}%
+                        </div>
+                    {% endif %}
+
+                    <div class="stat-subtitle">
+                        from your recorded donations
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- PEOPLE HELPED -->
+            <article class="stat-card people-card">
+
+                <div class="stat-icon people-icon">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="9" cy="8" r="3"></circle>
+                        <circle cx="17" cy="9" r="2.5"></circle>
+                        <path d="M3.5 20c.5-4 2.5-6 5.5-6s5 2 5.5 6"></path>
+                        <path d="M14 15c2.8-.5 5 1.4 5.5 5"></path>
+                    </svg>
+
+                </div>
+
+                <div class="stat-information">
+
+                    <div class="stat-title">
+                        People Helped
+                    </div>
+
+                    <div class="stat-number">
+                        {{ people_helped }}
+                    </div>
+
+                    {% if people_growth %}
+                        <div class="stat-growth">
+                            ↑ {{ people_growth }}%
+                        </div>
+                    {% endif %}
+
+                    <div class="stat-subtitle">
+                        real completed impact
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- VOLUNTEERS -->
+            <article class="stat-card volunteer-card">
+
+                <div class="stat-icon volunteer-icon">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="8" cy="8" r="3"></circle>
+                        <circle cx="17" cy="8" r="3"></circle>
+                        <path d="M2.5 20c.5-4 2.5-6 5.5-6"></path>
+                        <path d="M16 14c3 0 5 2 5.5 6"></path>
+                    </svg>
+
+                </div>
+
+                <div class="stat-information">
+
+                    <div class="stat-title">
+                        Volunteers
+                    </div>
+
+                    <div class="stat-number">
+                        {{ volunteers_count }}
+                    </div>
+
+                    {% if volunteer_label %}
+                        <div class="stat-growth">
+                            {{ volunteer_label }}
+                        </div>
+                    {% endif %}
+
+                    <div class="stat-subtitle">
+                        registered volunteers
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- ITEMS -->
+            <article class="stat-card items-card">
+
+                <div class="stat-icon item-icon">
+                    ♡
+                </div>
+
+                <div class="stat-information">
+
+                    <div class="stat-title">
+                        Items Donated
+                    </div>
+
+                    <div class="stat-number">
+                        {{ items_donated }}
+                    </div>
+
+                    {% if items_growth %}
+                        <div class="stat-growth">
+                            ↑ {{ items_growth }}%
+                        </div>
+                    {% endif %}
+
+                    <div class="stat-subtitle">
+                        recorded donated items
+                    </div>
+
+                </div>
+
+            </article>
+
+        </section>
+        
+       
+
+
+        <!-- =====================================================
+             LOWER DASHBOARD
+        ====================================================== -->
+        <section class="lower-grid">
+
+
+            <!-- YOUR IMPACT -->
+            <article class="impact-panel glass-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h2>
+                            Your Impact
+                        </h2>
+
+                        <p>
+                            Last 6 Months
+                        </p>
+
+                    </div>
+
+                    <div class="impact-badge">
+                        {{ impact_change }}
+                    </div>
+
+                </div>
+
+
+                <div class="chart-wrapper">
+
+                    <canvas id="impactChart"></canvas>
+
+                </div>
+
+            </article>
+
+
+            <!-- RECENT ACTIVITY -->
+            <article class="activity-panel glass-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h2>
+                            Recent Activity
+                        </h2>
+                    </div>
+
+                    <a href="{{ url_for('dashboard') }}"
+                       class="view-all">
+
+                        View All
+                        <span>›</span>
+
+                    </a>
+
+                </div>
+
+
+                <div class="activity-list">
+
+                    {% if recent_activity %}
+
+                        {% for activity in recent_activity %}
+
+                            <div class="activity-item">
+
+                                <div class="activity-icon {{ activity.type_class }}">
+
+                                    {{ activity.icon }}
+
+                                </div>
+
+                                <div class="activity-content">
+
+                                    <strong>
+                                        {{ activity.title }}
+                                    </strong>
+
+                                    <small>
+                                        {{ activity.description }}
+                                    </small>
+
+                                </div>
+
+                                <div class="activity-time">
+                                    {{ activity.time }}
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="empty-activity">
+                            No recent activity yet.
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- =====================================================
+             BOTTOM MESSAGE
+        ====================================================== -->
+        <section class="kindness-card glass-panel">
+
+            <div class="leaf-icon">
+                ❧
+            </div>
+
+            <div>
+
+                <strong>
+                    Small steps create big changes.
+                </strong>
+
+                <span>
+                    Thank you for being a part of this journey.
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             RUDDER BUTTON
+        ====================================================== -->
+        <button
+            type="button"
+            id="rudderButton"
+            class="rudder-button"
+            aria-label="Open navigation">
+
+            <span class="rudder-wheel">
+                ⚙
+            </span>
+
+            <span class="rudder-text">
+                Rudder
+            </span>
+
+            <span class="rudder-arrow">
+                ›
+            </span>
+
+        </button>
+
+    </main>
+
+
+    <!-- =========================================================
+         RIGHT NAVIGATION
+    ========================================================== -->
+    <aside id="sideMenu" class="side-menu">
+
+        <div class="side-menu-inner">
+
+
+            <!-- HOME -->
+            <a href="{{ url_for('home') }}"
+               class="side-home-icon"
+               title="Home"
+               aria-label="Home">
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 10.5L12 3l9 7.5"></path>
+                    <path d="M5.5 9.5V21h13V9.5"></path>
+                    <path d="M9.5 21v-6h5v6"></path>
+                </svg>
+
+            </a>
+
+
+            <!-- USER -->
+            <div class="side-user">
+
+                {% if avatar_url %}
+
+                    <div class="side-avatar">
+
+                        <img
+                            src="{{ avatar_url }}"
+                            alt="Profile">
+
+                    </div>
+
+                {% endif %}
+
+
+                <div class="side-user-details">
+
+                    <strong>
+                        {{ user_name }}
+                    </strong>
+
+                    <span>
+                        {{ user_role }}
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="side-divider"></div>
+
+
+            <!-- PROFILE -->
+            <a href="/profile"
+               class="side-item">
+
+                <span class="side-icon">
+
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="8" r="4"></circle>
+                        <path d="M4 21c.8-4.5 3.5-6.5 8-6.5s7.2 2 8 6.5"></path>
+                    </svg>
+
+                </span>
+
+                <span class="side-label">
+                    Profile
+                </span>
+
+            </a>
+
+
+            <!-- REQUESTS -->
+            <a href="/request"
+               class="side-item">
+
+                <span class="side-icon">
+
+                    <svg viewBox="0 0 24 24">
+                        <path d="M6 3h12v18H6z"></path>
+                        <path d="M9 8h6"></path>
+                        <path d="M9 12h6"></path>
+                        <path d="M9 16h4"></path>
+                    </svg>
+
+                </span>
+
+                <span class="side-label">
+                    Requests
+                </span>
+
+                {% if request_count and request_count|int > 0 %}
+
+                    <span class="notification-badge">
+                        {{ request_count }}
+                    </span>
+
+                {% endif %}
+
+            </a>
+
+
+            <!-- RESPONSES -->
+            <a href="/response"
+               class="side-item">
+
+                <span class="side-icon">
+
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 5h16v11H8l-4 4z"></path>
+                        <path d="M8 9h8"></path>
+                        <path d="M8 12h5"></path>
+                    </svg>
+
+                </span>
+
+                <span class="side-label">
+                    Responses
+                </span>
+
+                {% if response_count and response_count|int > 0 %}
+
+                    <span class="notification-badge">
+                        {{ response_count }}
+                    </span>
+
+                {% endif %}
+
+            </a>
+
+
+            <!-- VOLUNTEERS -->
+            <a href="/volunteer"
+               class="side-item">
+
+                <span class="side-icon">
+
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="8" cy="8" r="3"></circle>
+                        <circle cx="17" cy="8" r="3"></circle>
+                        <path d="M2.5 20c.5-4 2.5-6 5.5-6"></path>
+                        <path d="M16 14c3 0 5 2 5.5 6"></path>
+                    </svg>
+
+                </span>
+
+                <span class="side-label">
+                    Volunteers
+                </span>
+                </a>
+
+<!-- PAYMENT HISTORY -->
+<a href="{{ url_for('payment_history') }}"
+   class="side-item">
+
+    <span class="side-icon">
+
+        <svg viewBox="0 0 24 24">
+            <path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"></path>
+            <path d="M9 8h6"></path>
+            <path d="M9 12h6"></path>
+            <path d="M9 16h3"></path>
+        </svg>
+
+    </span>
+
+    <span class="side-label">
+        Payment History
+    </span>
+
+</a>
+
+            <!-- NOTIFICATIONS -->
+                      <a href="{{ url_for('notifications') }}"
+   class="side-item">
+
+               
+
+                <span class="side-icon">
+
+                    <svg viewBox="0 0 24 24">
+                        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+                        <path d="M10 21h4"></path>
+                    </svg>
+
+                </span>
+
+                <span class="side-label">
+                    Notifications
+                    {% if unread_notifications and unread_notifications > 0 %}
+                        <span class="notification-count">
+                            {{ unread_notifications }}
+                        </span>
+                    {% endif %}
+                </span>
+
+            </a>
+            
+<!-- ELDERLY CARE SUPPORT -->
+<a href="{{ url_for('elderly_care') }}"
+   class="side-item">
+
+    <span class="side-icon">
+        <svg viewBox="0 0 24 24" fill="none"
+             stroke="currentColor"
+             stroke-width="1.8"
+             stroke-linecap="round"
+             stroke-linejoin="round"
+             aria-hidden="true">
+            <circle cx="9" cy="6" r="3"></circle>
+            <path d="M3 20v-2a6 6 0 0 1 12 0v2"></path>
+            <path d="M16 11a3 3 0 1 0 0-6"></path>
+            <path d="M17 14a5 5 0 0 1 4 5v1"></path>
+            <path d="M13 12l2 2 4-4"></path>
+        </svg>
+    </span>
+
+    <span class="side-label">
+        Elderly Care
+    </span>
+
+</a>
+
+
+
+
+            <!-- MY IMPACT -->
+            <a href="/myimpact"
+               class="side-item">
+
+                <span class="side-icon">
+
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 20V10"></path>
+                        <path d="M10 20V5"></path>
+                        <path d="M16 20v-8"></path>
+                        <path d="M22 20H2"></path>
+                    </svg>
+
+                </span>
+
+                <span class="side-label">
+                    My Impact
+                </span>
+
+            </a>
+
+
+            <!-- COMMUNITY CHAT -->
+            <a href="{{ url_for('community') }}"
+               class="side-item">
+
+                <span class="side-icon">
+
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 5h16v11H8l-4 4z"></path>
+                        <circle cx="9" cy="10.5" r="1"></circle>
+                        <circle cx="12" cy="10.5" r="1"></circle>
+                        <circle cx="15" cy="10.5" r="1"></circle>
+                    </svg>
+
+                </span>
+
+                <span class="side-label">
+                    Chat
+                </span>
+
+            </a>
+
+
+            <!-- CONTACT -->
+            <a href="{{ url_for('contact') }}"
+               class="side-item">
+
+                <span class="side-icon">
+
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                        <path d="M4 7l8 6 8-6"></path>
+                    </svg>
+
+                </span>
+
+                <span class="side-label">
+                    Contact
+                </span>
+
+            </a>
+
+
+            <!-- LOGOUT -->
+            <a href="{{ url_for('logout') }}"
+               class="logout-item">
+
+                <span class="side-icon">
+                    ⇥
+                </span>
+
+                <span class="side-label">
+                    Logout
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+</div>
+
+
+<!-- =========================================================
+     DASHBOARD DATA
+     
+     Jinja is placed in HTML data attributes instead of
+     directly inside JavaScript. This prevents VS Code from
+     reporting JavaScript syntax errors.
+========================================================== -->
+
+<div id="charitybridge-data"></div>
+
+
+<script>
+    (function () {
+
+        const dataElement =
+            document.getElementById("charitybridge-data");
+
+        let impactLabels = [];
+        let impactValues = [];
+
+        if (dataElement) {
+
+            try {
+                impactLabels = JSON.parse(
+                    dataElement.getAttribute("data-impact-labels") || "[]"
+                );
+            } catch (error) {
+                impactLabels = [];
+            }
+
+            try {
+                impactValues = JSON.parse(
+                    dataElement.getAttribute("data-impact-values") || "[]"
+                );
+            } catch (error) {
+                impactValues = [];
+            }
+        }
+
+        window.CHARITYBRIDGE_DATA = {
+            impactLabels: impactLabels,
+            impactValues: impactValues
+        };
+
+    })();
+</script>
+
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+
+
+<!-- Founder Message Popup -->
+{% if recent_notifications %}
+    {% for notification in recent_notifications %}
+        {% if notification.title == "Message from the Founder" and not notification.is_read %}
+            <div id="founderMessagePopup"
+                 style="position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.55); display:flex; align-items:center; justify-content:center; padding:20px;">
+
+                <div style="width:100%; max-width:440px; padding:25px; border-radius:18px; background:#fff; color:#222; box-shadow:0 15px 50px rgba(0,0,0,0.3);">
+
+                    <h2 style="margin-top:0;">
+                        📩 Message from the Founder
+                    </h2>
+
+                    <p style="white-space:pre-wrap; overflow-wrap:anywhere;">{{ notification.message }}</p>
+
+                    <form method="POST"
+                          action="{{ url_for('mark_notification_read', notification_id=notification.id) }}">
+
+                        <button type="submit"
+                                style="padding:11px 20px; border:0; border-radius:9px; background:#6654d9; color:white; cursor:pointer;">
+                            Mark as Read
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+</body>
+</html>

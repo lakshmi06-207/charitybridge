@@ -1,0 +1,1101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>CharityBridge | Help Requests</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/response.css') }}"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+<body>
+
+    <!-- =====================================================
+         BACKGROUND
+         ===================================================== -->
+
+    <div class="space-background">
+
+        <div class="aurora aurora-one"></div>
+        <div class="aurora aurora-two"></div>
+        <div class="aurora aurora-three"></div>
+
+        <div class="space-glow glow-one"></div>
+        <div class="space-glow glow-two"></div>
+        <div class="space-glow glow-three"></div>
+
+        <div class="stars stars-one"></div>
+        <div class="stars stars-two"></div>
+
+    </div>
+
+    <!-- =====================================================
+         PARTICLES
+         ===================================================== -->
+
+    <div
+        class="particle-field"
+        aria-hidden="true"
+    >
+
+        <span class="particle particle-1"></span>
+        <span class="particle particle-2"></span>
+        <span class="particle particle-3"></span>
+        <span class="particle particle-4"></span>
+        <span class="particle particle-5"></span>
+        <span class="particle particle-6"></span>
+        <span class="particle particle-7"></span>
+        <span class="particle particle-8"></span>
+        <span class="particle particle-9"></span>
+        <span class="particle particle-10"></span>
+
+    </div>
+
+    <!-- =====================================================
+         TOP NAVIGATION
+         ===================================================== -->
+
+    <header class="top-navigation">
+
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="dashboard-button"
+        >
+
+            <span class="dashboard-icon">
+                ⌂
+            </span>
+
+            <span class="dashboard-text">
+                Dashboard
+            </span>
+
+        </a>
+
+        <div class="brand-mini">
+
+            <span class="brand-symbol">
+                ✦
+            </span>
+
+            <span class="brand-name">
+                CHARITYBRIDGE
+            </span>
+
+        </div>
+
+    </header>
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="response-page">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div
+                            class="flash-message flash-{{ category }}"
+                            role="status"
+                        >
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- =================================================
+             INTRO
+             ================================================= -->
+
+        <section class="page-introduction">
+
+            <div class="intro-kicker">
+
+                <span class="kicker-line"></span>
+
+                <span>
+                    CHARITYBRIDGE • SUPPORT SPACE
+                </span>
+
+                <span class="kicker-line"></span>
+
+            </div>
+
+            <h1 class="page-title">
+
+                <span class="title-small">
+                    People
+                </span>
+
+                <span class="title-main">
+                    Need Help
+                </span>
+
+            </h1>
+
+            <p class="page-description">
+
+                See real help requests shared by CharityBridge
+                users and offer your support when you can.
+
+            </p>
+
+        </section>
+
+        <!-- =================================================
+             MAIN ORB
+             ================================================= -->
+
+        <section class="response-orb-section">
+
+            <div class="liquid-orbit orbit-one"></div>
+            <div class="liquid-orbit orbit-two"></div>
+            <div class="liquid-orbit orbit-three"></div>
+
+            <div class="response-orb">
+
+                <div class="orb-reflection reflection-one"></div>
+                <div class="orb-reflection reflection-two"></div>
+
+                <div class="orb-bubble bubble-one"></div>
+                <div class="orb-bubble bubble-two"></div>
+                <div class="orb-bubble bubble-three"></div>
+
+                <div class="orb-content">
+
+                    <span class="orb-icon">
+                        🤝
+                    </span>
+
+                    <span class="orb-label">
+                        OPEN HELP REQUESTS
+                    </span>
+
+                    <strong class="orb-number">
+                        {{ total_requests | default(0) }}
+                    </strong>
+
+                    <span class="orb-subtitle">
+                        People currently waiting for support
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =================================================
+             SUMMARY
+             ================================================= -->
+
+        <section class="summary-grid">
+
+            <!-- OPEN REQUESTS -->
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    ◈
+                </div>
+
+                <div class="summary-information">
+
+                    <span class="summary-label">
+                        Open Requests
+                    </span>
+
+                    <strong>
+                        {{ total_requests | default(0) }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <!-- PENDING HELP -->
+
+            <div class="summary-card pending-summary">
+
+                <div class="summary-icon">
+                    ◌
+                </div>
+
+                <div class="summary-information">
+
+                    <span class="summary-label">
+                        My Pending Help
+                    </span>
+
+                    <strong>
+                        {{ pending_responses | default(0) }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+            
+           
+<!-- HELPED REQUESTS -->
+
+<div class="summary-card helped-summary">
+
+    <div class="summary-icon">
+        ✓
+    </div>
+
+    <div class="summary-information">
+
+        <span class="summary-label">
+            Helped Requests
+        </span>
+
+        <strong>
+            {{ helped_responses | default(0) }}
+        </strong>
+
+    </div>
+
+</div>
+            
+
+        </section>
+
+        <!-- =================================================
+             HELP REQUESTS
+             ================================================= -->
+
+        <section class="response-history-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-eyebrow">
+                        LIVE REQUESTS
+                    </span>
+
+                    <h2>
+                        People Who Need Help
+                    </h2>
+
+                    <p>
+                        These are real pending requests from
+                        other CharityBridge users.
+                    </p>
+
+                </div>
+
+                <div class="history-status">
+
+                    <span class="status-light"></span>
+
+                    <span>
+                        MySQL Connected
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- =================================================
+                 REQUEST LIST
+                 ================================================= -->
+
+            <div class="response-list">
+
+                {% if help_requests %}
+
+                    {% for item in help_requests %}
+
+                    <article
+                        class="response-card help-request-card"
+                        data-request-id="{{ item.id }}"
+                    >
+
+                        <div class="card-liquid-light"></div>
+
+                        <!-- CARD HEADER -->
+
+                        <div class="response-card-top">
+
+                            <div class="response-category">
+
+                                <div class="category-orb">
+
+                                    {% if item.request_type|lower == "food" %}
+                                        🍱
+                                    {% elif item.request_type|lower == "blood" %}
+                                        🩸
+                                    {% elif item.request_type|lower == "clothes" %}
+                                        👕
+                                    {% elif item.request_type|lower == "furniture" %}
+                                        🪑
+                                    {% elif item.request_type|lower == "money" %}
+                                        ₹
+                                    {% else %}
+                                        ✦
+                                    {% endif %}
+
+                                </div>
+
+                                <div>
+
+                                    <span class="category-label">
+                                        HELP REQUEST
+                                    </span>
+
+                                    <h3>
+                                        {{ item.request_type }}
+                                    </h3>
+
+                                </div>
+
+                            </div>
+
+                            <!-- STATUS -->
+
+                            <div class="status-pill status-pending">
+
+                                <span class="status-dot"></span>
+
+                                <span>
+                                    {{ item.status | default("Pending") }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <!-- REQUESTER -->
+
+                        <div class="responder-section">
+
+                            <div class="responder-avatar">
+
+                                {% if item.requester_name %}
+
+                                    {{ item.requester_name
+                                       | string
+                                       | first
+                                       | upper }}
+
+                                {% else %}
+
+                                    U
+
+                                {% endif %}
+
+                            </div>
+
+                            <div class="responder-details">
+
+                                <span>
+                                    REQUESTED BY
+                                </span>
+
+                                <strong>
+                                    {{ item.requester_name
+                                       | default("CharityBridge User") }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                        <!-- REQUEST INFORMATION -->
+
+                        <div class="response-information">
+
+                            <!-- LOCATION -->
+
+                            <div class="information-item">
+
+                                <span class="information-icon">
+                                    ⌖
+                                </span>
+
+                                <div>
+
+                                    <span>
+                                        LOCATION
+                                    </span>
+
+                                    <strong>
+                                        {{ item.location
+                                           | default("Not provided") }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                            <!-- CATEGORY -->
+
+                            <div class="information-item">
+
+                                <span class="information-icon">
+                                    ◈
+                                </span>
+
+                                <div>
+
+                                    <span>
+                                        CATEGORY
+                                    </span>
+
+                                    <strong>
+                                        {{ item.request_type }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                            <!-- AMOUNT -->
+
+                            {% if item.amount_display %}
+
+                            <div class="information-item">
+
+                                <span class="information-icon">
+                                    ₹
+                                </span>
+
+                                <div>
+
+                                    <span>
+                                        AMOUNT NEEDED
+                                    </span>
+
+                                    <strong>
+                                        {{ item.amount_display }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                            {% endif %}
+
+                            <!-- DATE -->
+
+                            <div class="information-item">
+
+                                <span class="information-icon">
+                                    ◷
+                                </span>
+
+                                <div>
+
+                                    <span>
+                                        REQUESTED
+                                    </span>
+
+                                    <strong>
+
+                                        {% if item.created_at %}
+                                            {{ item.created_at }}
+                                        {% else %}
+                                            Not available
+                                        {% endif %}
+
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- DESCRIPTION -->
+
+                        <div class="response-message">
+
+                            <span class="message-label">
+                                WHAT THEY NEED
+                            </span>
+
+                            <p>
+                                {{ item.description
+                                   | default("No description provided.") }}
+                            </p>
+
+                        </div>
+
+                        <!-- HELP ACTION -->
+
+                        <div class="response-card-footer">
+
+                            <span class="response-id">
+
+                                REQUEST #
+
+                                {{ item.id }}
+
+                            </span>
+
+                            {% if item.already_responded %}
+
+                                <button
+                                    type="button"
+                                    class="view-response-button"
+                                    disabled
+                                >
+
+                                    <span>
+                                        HELP OFFER SENT
+                                    </span>
+
+                                    <span class="button-arrow">
+                                        ✓
+                                    </span>
+
+                                </button>
+
+                            {% else %}
+
+                                <form
+                                    method="POST"
+                                    action="{{ url_for('response_page') }}"
+                                    class="help-response-form"
+                                >
+
+                                    <input
+                                        type="hidden"
+                                        name="request_id"
+                                        value="{{ item.id }}"
+                                    >
+
+                                    <input
+                                        type="text"
+                                        name="message"
+                                        class="help-message-input"
+                                        placeholder="Optional message..."
+                                        maxlength="500"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="view-response-button help-button"
+                                    >
+
+                                        <span>
+                                            I CAN HELP
+                                        </span>
+
+                                        <span class="button-arrow">
+                                            →
+                                        </span>
+
+                                    </button>
+
+                                </form>
+
+                            {% endif %}
+
+                        </div>
+
+                    </article>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <!-- EMPTY STATE -->
+
+                    <div class="empty-response-card">
+
+                        <div class="empty-orb">
+
+                            <span>
+                                ◇
+                            </span>
+
+                        </div>
+
+                        <span class="empty-kicker">
+                            SUPPORT SPACE
+                        </span>
+
+                        <h3>
+                            No open help requests
+                        </h3>
+
+                        <p>
+                            There are currently no pending
+                            requests from other CharityBridge
+                            users.
+                        </p>
+
+                        <a
+                            href="{{ url_for('request_page') }}"
+                            class="create-request-button"
+                        >
+
+                            <span>
+                                Create a Help Request
+                            </span>
+
+                            <span>
+                                →
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+        <!-- =================================================
+             MY HELP RESPONSES
+             ================================================= -->
+
+        <section class="response-history-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-eyebrow">
+                        MY SUPPORT
+                    </span>
+
+                    <h2>
+                        My Help Offers
+                    </h2>
+
+                    <p>
+                        Track the requests you have offered
+                        to help with.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="response-list">
+
+                {% if responses %}
+
+                    {% for response in responses %}
+
+                        {% if response.request_id %}
+
+                        <article
+                            class="response-card"
+                            data-response-id="{{ response.id }}"
+                        >
+
+                            <div class="response-card-top">
+
+                                <div class="response-category">
+
+                                    <div class="category-orb">
+                                        🤝
+                                    </div>
+
+                                    <div>
+
+                                        <span class="category-label">
+                                            MY HELP OFFER
+                                        </span>
+
+                                        <h3>
+                                            {{ response.request_type
+                                               | default("Support") }}
+                                        </h3>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="status-pill status-pending">
+
+                                    <span class="status-dot"></span>
+
+                                    <span>
+                                        {{ response.status
+                                           | default("Pending") }}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="responder-section">
+
+                                <div class="responder-avatar">
+
+                                    {{
+                                        response.requester_name
+                                        | default("U", true)
+                                        | string
+                                        | first
+                                        | upper
+                                    }}
+
+                                </div>
+
+                                <div class="responder-details">
+
+                                    <span>
+                                        HELPING
+                                    </span>
+
+                                    <strong>
+                                        {{ response.requester_name
+                                           | default("CharityBridge User") }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                            <!-- AMOUNT NEEDED -->
+
+                            {% if response.amount_display %}
+
+                            <div class="response-message">
+
+                                <span class="message-label">
+                                    AMOUNT NEEDED
+                                </span>
+
+                                <p>
+                                    {{ response.amount_display }}
+                                </p>
+
+                            </div>
+
+                            {% endif %}
+
+                            <!-- MONEY PAYMENT OPTIONS -->
+
+                            {% if response.request_type
+                                  and response.request_type|lower == "money" %}
+
+                            <!-- RECIPIENT PAYMENT DETAILS -->
+
+                            <div class="response-message">
+
+                                <span class="message-label">
+                                    RECIPIENT PAYMENT DETAILS
+                                </span>
+
+                                {% if response.requester_upi_id %}
+
+                                <p>
+                                    UPI ID: {{ response.requester_upi_id }}
+                                </p>
+
+                                <a
+                                    class="view-response-button"
+                                    href="upi://pay?pa={{ response.requester_upi_id | urlencode }}&am={{ response.amount }}&cu=INR&tn=CharityBridge%20Help"
+                                >
+                                    Pay Now →
+                                </a>
+
+                                {% endif %}
+
+                                {% if response.requester_upi_qr_image %}
+
+                                <p>
+                                    Scan the recipient's QR code:
+                                </p>
+
+                                <button
+                                    type="button"
+                                    class="view-response-button"
+                                    onclick="openPaymentQR(this)"
+                                    data-qr-url="{{ url_for('static', filename='images/upi_qr/' ~ response.requester_upi_qr_image) }}"
+                                >
+                                    View QR Code
+                                </button>
+
+                                {% endif %}
+
+                                {% if not response.requester_upi_id
+                                      and not response.requester_upi_qr_image %}
+
+                                <p>
+                                    Payment details have not been provided yet.
+                                    Contact the requester before paying.
+                                </p>
+
+                                {% endif %}
+
+                            </div>
+
+ 
+<!-- SIMPLE UPI PAYMENT REPORT -->
+
+<div class="response-message payment-report-card">
+
+    <span class="message-label">UPI PAYMENT</span>
+
+    <p>
+        Requested amount:
+        <strong>₹{{ response.amount }}</strong>
+    </p>
+
+    <p>
+        Pay the recipient using their UPI ID or QR code above.
+        After transferring the money, enter the amount you actually paid.
+    </p>
+
+{% if response.has_payment_report %}
+
+    <div class="payment-status-message">
+        Payment details submitted — awaiting recipient confirmation.
+        Your payment details are available in Payment History.
+    </div>
+
+{% else %}
+
+    <form
+        method="POST"
+        action="{{ url_for('confirm_payment') }}"
+        class="payment-report-form"
+        enctype="multipart/form-data"
+        data-response-id="{{ response.id }}"
+    >
+        <input
+            type="hidden"
+            name="response_id"
+            value="{{ response.id }}"
+        >
+
+        <label for="amount_paid_{{ response.id }}">
+            Amount paid (₹)
+        </label>
+
+        <input
+            type="number"
+            id="amount_paid_{{ response.id }}"
+            name="amount_paid"
+            min="0.01"
+            max="{{ response.amount }}"
+            step="0.01"
+            required
+            placeholder="Enter amount in ₹"
+            onwheel="this.blur()"
+        >
+
+        <label for="receipt_file_{{ response.id }}">
+            Upload payment receipt (JPG, PNG or PDF; max 8 MB)
+        </label>
+
+        <input
+            type="file"
+            id="receipt_file_{{ response.id }}"
+            name="receipt_file"
+            accept=".jpg,.jpeg,.png,.pdf"
+            required
+        >
+
+        <button
+            type="submit"
+            class="view-response-button payment-submit-button"
+        >
+            Submit Payment Details →
+        </button>
+    </form>
+
+{% endif %}
+
+
+</div>
+
+<!-- MY MESSAGE -->
+
+{% if response.message %}
+    <div class="response-message">
+        <span class="message-label">MY MESSAGE</span>
+        <p>{{ response.message }}</p>
+    </div>
+{% endif %}
+
+<!-- RESPONSE FOOTER -->
+
+<div class="response-card-footer">
+
+    <span class="response-id">
+        RESPONSE # {{ response.id }}
+    </span>
+
+    <span>{{ response.created_at }}</span>
+
+</div>
+
+{% endif %}
+
+</article>
+
+{% endif %}
+
+{% endfor %}
+
+{% endif %}
+
+        </section>
+
+        <!-- =================================================
+             CONNECTION
+             ================================================= -->
+
+        <section class="connection-glass">
+
+            <div class="connection-light"></div>
+
+            <div class="connection-icon">
+                ✦
+            </div>
+
+            <div class="connection-content">
+
+                <span>
+                    CHARITYBRIDGE CONNECTION
+                </span>
+
+                <h3>
+                    Every response creates a connection.
+                </h3>
+
+                <p>
+                    When someone asks for help, another person
+                    can step forward and build a bridge.
+                </p>
+
+            </div>
+
+            <div class="connection-pulse">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+
+
+<script
+    src="{{ url_for('static', filename='js/response.js') }}"
+></script>
+    <!-- UPI QR POPUP -->
+
+    <div
+        id="paymentQRModal"
+        style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(8,10,30,.85); align-items:center; justify-content:center; padding:20px;"
+        onclick="if(event.target === this) closePaymentQR()"
+    >
+
+        <div
+            style="background:white; color:#222; padding:20px; border-radius:18px; max-width:400px; width:100%; text-align:center;"
+        >
+
+            <button
+                type="button"
+                onclick="closePaymentQR()"
+                style="float:right; cursor:pointer;"
+            >
+                ✕ Close
+            </button>
+
+            <h3>Recipient's UPI QR Code</h3>
+
+            <img
+                id="paymentQRImage"
+                src=""
+                alt="Recipient's UPI QR code"
+                style="display:block; width:100%; max-width:300px; height:auto; margin:20px auto;"
+            >
+
+            <p>Scan this code using your UPI app.</p>
+
+        </div>
+
+    </div>
+
+    <script>
+    function openPaymentQR(button) {
+        const modal = document.getElementById("paymentQRModal");
+        const image = document.getElementById("paymentQRImage");
+
+        image.src = button.dataset.qrUrl;
+        modal.style.display = "flex";
+    }
+
+    function closePaymentQR() {
+        document.getElementById("paymentQRModal").style.display = "none";
+        document.getElementById("paymentQRImage").src = "";
+    }
+    </script>
+<script>
+document.querySelectorAll(".payment-report-form").forEach((form) => {
+    form.addEventListener("submit", function () {
+        if (this.dataset.submitting === "true") {
+            return;
+        }
+
+        this.dataset.submitting = "true";
+
+        const button = this.querySelector(
+            ".payment-submit-button"
+        );
+
+        if (button) {
+            button.disabled = true;
+            button.textContent = "Submitting...";
+        }
+    });
+});
+</script>
+
+</body>
+</html>

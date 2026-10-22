@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CharityBridge | My Profile</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/profile.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- =========================================================
+         LIVING SPACE BACKGROUND
+    ========================================================== -->
+
+    <div class="space-background">
+
+        <div class="stars stars-one"></div>
+        <div class="stars stars-two"></div>
+        <div class="stars stars-three"></div>
+
+        <div class="aurora aurora-one"></div>
+        <div class="aurora aurora-two"></div>
+        <div class="aurora aurora-three"></div>
+
+        <div class="light-orb orb-one"></div>
+        <div class="light-orb orb-two"></div>
+        <div class="light-orb orb-three"></div>
+        <div class="light-orb orb-four"></div>
+
+        <div class="space-grid"></div>
+
+        <div class="particle particle-one"></div>
+        <div class="particle particle-two"></div>
+        <div class="particle particle-three"></div>
+        <div class="particle particle-four"></div>
+        <div class="particle particle-five"></div>
+        <div class="particle particle-six"></div>
+        <div class="particle particle-seven"></div>
+        <div class="particle particle-eight"></div>
+
+    </div>
+
+
+    <!-- =========================================================
+         DASHBOARD BUTTON
+    ========================================================== -->
+
+    <a href="{{ url_for('dashboard') }}" class="home-button">
+        <span class="home-icon">⌂</span>
+        <span>Dashboard</span>
+    </a>
+
+
+    <!-- =========================================================
+         THEME BUTTON
+    ========================================================== -->
+
+    <button
+        class="theme-button"
+        id="themeButton"
+        type="button"
+        aria-label="Change background">
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </button>
+
+
+    <!-- =========================================================
+         THEME PANEL
+    ========================================================== -->
+
+    <div class="theme-panel" id="themePanel">
+
+        <div class="theme-title">
+            <span>✦</span>
+            Background
+        </div>
+
+        <p>Choose your atmosphere</p>
+
+        <div class="theme-options">
+
+            <button
+                type="button"
+                class="theme-option theme-cyan"
+                data-theme="cyan">
+
+                <span></span>
+                Aurora
+
+            </button>
+
+
+            <button
+                type="button"
+                class="theme-option theme-purple"
+                data-theme="purple">
+
+                <span></span>
+                Nebula
+
+            </button>
+
+
+            <button
+                type="button"
+                class="theme-option theme-pink"
+                data-theme="pink">
+
+                <span></span>
+                Galaxy
+
+            </button>
+
+
+            <button
+                type="button"
+                class="theme-option theme-gold"
+                data-theme="gold">
+
+                <span></span>
+                Stardust
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         MAIN PROFILE PAGE
+    ========================================================== -->
+
+    <main class="profile-page">
+
+
+        <!-- =====================================================
+             PROFILE HERO
+        ====================================================== -->
+
+        <section class="profile-hero">
+
+            <div class="hero-glow"></div>
+
+            <div class="hero-content">
+
+
+                <!-- =================================================
+                     PROFILE PHOTO
+                ================================================== -->
+
+                <div class="profile-photo-wrapper">
+
+                    {% if profile_image %}
+
+                        <img
+                            src="{{ profile_image }}"
+                            alt="{{ user_name or 'Profile photo' }}"
+                            class="profile-photo"
+                            id="profilePreview">
+
+                    {% else %}
+
+                        <div
+                            class="profile-initial"
+                            id="profilePreview">
+
+                            {{ (user_name or 'U')[0]|upper }}
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <label
+                        class="photo-edit-button"
+                        for="profileImageInput"
+                        title="Change profile photo">
+
+                        ✦
+
+                    </label>
+
+                </div>
+
+
+                <!-- =================================================
+                     PROFILE INFORMATION
+                ================================================== -->
+
+                <div class="hero-information">
+
+                    <div class="verified-line">
+
+                        <span class="profile-label">
+                            MY CHARITYBRIDGE PROFILE
+                        </span>
+
+                        <span class="verified-badge">
+                            ✓ VERIFIED
+                        </span>
+
+                    </div>
+
+
+                    <h1>
+                        {{ user_name or 'Your Profile' }}
+                    </h1>
+
+
+                    <p class="hero-email">
+                        {{ user_email or 'Email not available' }}
+                    </p>
+
+
+                    <div class="hero-details">
+
+                        {% if user_role %}
+                            <span>
+                                ◈ {{ user_role|title }}
+                            </span>
+                        {% endif %}
+
+
+                        {% if user_location %}
+                            <span>
+                                ⌖ {{ user_location }}
+                            </span>
+                        {% endif %}
+
+
+                        {% if user_gender %}
+                            <span>
+                                ♡ {{ user_gender }}
+                            </span>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             PROFILE CONTENT
+        ====================================================== -->
+
+        <section
+            class="profile-content"
+            id="profileContent">
+
+
+            <!-- =================================================
+                 PERSONAL INFORMATION
+            ================================================== -->
+
+            <section class="glass-card information-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            PERSONAL SPACE
+                        </span>
+
+                        <h2>
+                            Profile Information
+                        </h2>
+
+                        <p>
+                            Keep your CharityBridge information updated.
+                        </p>
+
+                    </div>
+
+                    <span class="heading-icon">
+                        ✦
+                    </span>
+
+                </div>
+
+
+                <form
+                    action="{{ url_for('save_profile') }}"
+                    method="POST"
+                    class="profile-form">
+
+
+                    <div class="form-grid">
+
+
+                        <!-- NAME -->
+
+                        <div class="input-group">
+
+                            <label for="name">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                value="{{ user_name or '' }}"
+                                required>
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+
+                        <div class="input-group">
+
+                            <label for="email">
+                                Email
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value="{{ user_email or '' }}"
+                                required>
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="input-group">
+
+                            <label for="phone">
+                                Contact Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                value="{{ user_phone or '' }}">
+
+                        </div>
+
+
+                        <!-- GENDER -->
+
+                        <div class="input-group">
+
+                            <label for="gender">
+                                Gender
+                            </label>
+
+                            <select
+                                id="gender"
+                                name="gender">
+
+                                <option value="">
+                                    Select gender
+                                </option>
+
+                                <option
+                                    value="Female"
+                                    {% if user_gender == 'Female' %}
+                                        selected
+                                    {% endif %}>
+                                    Female
+                                </option>
+
+                                <option
+                                    value="Male"
+                                    {% if user_gender == 'Male' %}
+                                        selected
+                                    {% endif %}>
+                                    Male
+                                </option>
+
+                                <option
+                                    value="Other"
+                                    {% if user_gender == 'Other' %}
+                                        selected
+                                    {% endif %}>
+                                    Other
+                                </option>
+
+                                <option
+                                    value="Prefer not to say"
+                                    {% if user_gender == 'Prefer not to say' %}
+                                        selected
+                                    {% endif %}>
+                                    Prefer not to say
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- QUALIFICATION -->
+
+                        <div class="input-group">
+
+                            <label for="qualification">
+                                Qualification
+                            </label>
+
+                            <input
+                                type="text"
+                                id="qualification"
+                                name="qualification"
+                                value="{{ user_qualification or '' }}"
+                                placeholder="Your qualification">
+
+                        </div>
+
+
+                        <!-- PROFESSION -->
+
+                        <div class="input-group">
+
+                            <label for="profession">
+                                Work / Profession
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profession"
+                                name="profession"
+                                value="{{ user_profession or '' }}"
+                                placeholder="Your profession">
+
+                        </div>
+
+
+                        <!-- LOCATION -->
+
+                        <div class="input-group full-width">
+
+                            <label for="location">
+                                Location
+                            </label>
+
+                            <input
+                                type="text"
+                                id="location"
+                                name="location"
+                                value="{{ user_location or '' }}"
+                                placeholder="City / Location">
+
+                        </div>
+
+
+                        <!-- BIO -->
+
+                        <div class="input-group full-width">
+
+                            <label for="bio">
+                                About You
+                            </label>
+
+                            <textarea
+                                id="bio"
+                                name="bio"
+                                rows="5"
+                                maxlength="1000"
+                                placeholder="Tell the CharityBridge community a little about yourself...">{{ user_bio or '' }}</textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="save-button">
+
+                        <span>💾</span>
+                        Save Changes
+
+                    </button>
+
+                </form>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PROFILE PHOTO
+            ================================================== -->
+
+            <section class="glass-card photo-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            IDENTITY
+                        </span>
+
+                        <h2>
+                            Profile Photo
+                        </h2>
+
+                        <p>
+                            Add or change your CharityBridge profile photo.
+                        </p>
+
+                    </div>
+
+                    <span class="heading-icon">
+                        📸
+                    </span>
+
+                </div>
+
+
+              <form action="{{ url_for('upload_profile_image') }}"
+      method="POST"
+      enctype="multipart/form-data"
+      class="photo-upload-form"
+      id="profilePhotoForm">
+
+                    <input
+                        type="file"
+                        id="profileImageInput"
+                        name="profile_image"
+                        accept=".png,.jpg,.jpeg,.webp"
+                        hidden>
+
+
+                    <div class="upload-row">
+
+                        <div class="upload-preview">
+
+                            {% if profile_image %}
+
+                                <img
+                                    src="{{ profile_image }}"
+                                    alt="Profile photo preview"
+                                    id="uploadPreview">
+
+                            {% else %}
+
+                                <div
+                                    class="profile-initial upload-initial"
+                                    id="uploadPreview">
+
+                                    {{ (user_name or 'U')[0]|upper }}
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="upload-actions">
+
+                            <label
+                                for="profileImageInput"
+                                class="upload-button">
+
+                                Choose Photo
+
+                            </label>
+
+
+                            <button
+                                type="submit"
+                                class="save-button photo-save-button">
+
+                                Upload Photo
+
+                            </button>
+
+
+                            <small>
+                                PNG, JPG, JPEG or WEBP
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 IMPACT SUMMARY
+            ================================================== -->
+
+            <section class="glass-card impact-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            YOUR JOURNEY
+                        </span>
+
+                        <h2>
+                            CharityBridge Impact
+                        </h2>
+
+                        <p>
+                            Your real activity recorded in CharityBridge.
+                        </p>
+
+                    </div>
+
+                    <span class="heading-icon">
+                        ✨
+                    </span>
+
+                </div>
+
+
+                <div class="impact-grid">
+
+
+                    <!-- MONEY -->
+
+                    <div class="impact-box">
+
+                        <span class="impact-icon">
+                            ₹
+                        </span>
+
+                        <span class="impact-value">
+                            ₹{{ '%.2f'|format(donation_amount|float) }}
+                        </span>
+
+                        <span class="impact-label">
+                            Money Donated
+                        </span>
+
+                    </div>
+
+
+                    <!-- ITEM DONATIONS -->
+
+                    <div class="impact-box">
+
+                        <span class="impact-icon">
+                            📦
+                        </span>
+
+                        <span class="impact-value">
+                            {{ items_donated or 0 }}
+                        </span>
+
+                        <span class="impact-label">
+                            Items Donated
+                        </span>
+
+                    </div>
+
+
+                    <!-- HELP REQUESTS -->
+
+                    <div class="impact-box">
+
+                        <span class="impact-icon">
+                            🤝
+                        </span>
+
+                        <span class="impact-value">
+                            {{ help_requests|length }}
+                        </span>
+
+                        <span class="impact-label">
+                            Help Requests
+                        </span>
+
+                    </div>
+
+
+                    <!-- PEOPLE HELPED -->
+
+                    <div class="impact-box">
+
+                        <span class="impact-icon">
+                            ❤️
+                        </span>
+
+                        <span class="impact-value">
+                            {{ people_helped or 0 }}
+                        </span>
+
+                        <span class="impact-label">
+                            People Helped
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 UPI PAYMENT DETAILS
+            ================================================== -->
+
+            <section class="glass-card payment-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            PAYMENTS
+                        </span>
+
+                        <h2>
+                            UPI Payment Details
+                        </h2>
+
+                        <p>
+                            Add your UPI ID or upload your UPI QR code
+                            so people can send help directly to you.
+                        </p>
+
+                    </div>
+
+                    <span class="heading-icon">
+                        ₹
+                    </span>
+
+                </div>
+
+
+                <form
+                    action="{{ url_for('save_upi_id') }}"
+                    method="POST"
+                    enctype="multipart/form-data"
+                    class="profile-form">
+
+
+                    <!-- UPI ID -->
+
+                    <div class="input-group full-width">
+
+                        <label for="upi_id">
+                            Your UPI ID
+                        </label>
+
+                        <input
+                            type="text"
+                            id="upi_id"
+                            name="upi_id"
+                            value="{{ upi_id or '' }}"
+                            placeholder="example@upi"
+                            maxlength="100"
+                            autocomplete="off">
+
+                        <small>
+                            Example:
+                            yourname@upi,
+                            9876543210@ybl
+                        </small>
+
+                    </div>
+
+
+                    <!-- DIVIDER -->
+
+                    <div class="upi-divider">
+
+                        <span>
+                            OR
+                        </span>
+
+                    </div>
+
+
+                    <!-- QR UPLOAD -->
+
+                    <div class="input-group full-width">
+
+                        <label for="upi_qr_image">
+                            UPI QR Code
+                        </label>
+
+
+                        <div class="qr-upload-box">
+
+                            <input
+                                type="file"
+                                id="upi_qr_image"
+                                name="upi_qr_image"
+                                accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp">
+
+
+                            <label
+                                for="upi_qr_image"
+                                class="qr-upload-label">
+
+                                <span class="qr-upload-icon">
+                                    ▣
+                                </span>
+
+                                <span class="qr-upload-text">
+
+                                    <strong>
+                                        Upload your UPI QR code
+                                    </strong>
+
+                                    <small>
+                                        PNG, JPG, JPEG or WEBP
+                                    </small>
+
+                                </span>
+
+                            </label>
+
+                        </div>
+
+
+                       
+<!-- SAVED QR -->
+
+{% if upi_qr_image %}
+    <div class="saved-qr-box">
+        <div class="saved-qr-title">
+            YOUR SAVED UPI QR CODE
+        </div>
+
+        <img
+            src="{{ url_for('static', filename='images/upi_qr/' ~ upi_qr_image) }}"
+            alt="Saved UPI QR Code"
+            class="saved-qr-image">
+
+        <p class="saved-qr-text">
+            People can scan this QR code to send you help.
+        </p>
+    </div>
+{% endif %}
+
+                    </div>
+
+
+                    <!-- UPI STATUS -->
+
+                    <div class="upi-status">
+
+                        {% if upi_id %}
+
+                            <span class="upi-status-icon">
+                                ✓
+                            </span>
+
+                            <span>
+                                UPI ID saved
+                            </span>
+
+                        {% else %}
+
+                            <span class="upi-status-icon">
+                                ○
+                            </span>
+
+                            <span>
+                                No UPI ID added
+                            </span>
+
+                        {% endif %}
+
+
+                        {% if upi_qr_image %}
+
+                            <span class="upi-status-separator">
+                                •
+                            </span>
+
+                            <span>
+                                QR code saved
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- SAVE -->
+
+                    <button
+                        type="submit"
+                        class="save-button">
+
+                        <span>
+                            ₹
+                        </span>
+
+                        {% if upi_id or upi_qr_image %}
+                            Update Payment Details
+                        {% else %}
+                            Save Payment Details
+                        {% endif %}
+
+                    </button>
+
+                </form>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 DONATION GRAPH
+            ================================================== -->
+
+            <section class="glass-card graph-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            ACTIVITY
+                        </span>
+
+                        <h2>
+                            Donation Activity
+                        </h2>
+
+                        <p>
+                            Your successful money donations over time.
+                        </p>
+
+                    </div>
+
+                    <span class="heading-icon">
+                        📈
+                    </span>
+
+                </div>
+
+
+                <div class="chart-container">
+
+                    {% if donation_graph %}
+
+                        <canvas id="impactChart"></canvas>
+
+                    {% else %}
+
+                        <div class="empty-state">
+
+                            <div class="empty-icon">
+                                📊
+                            </div>
+
+                            <h3>
+                                No donation activity yet
+                            </h3>
+
+                            <p>
+                                Your successful donations will appear here.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 MONEY DONATION HISTORY
+            ================================================== -->
+
+            <section class="glass-card history-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            MONEY
+                        </span>
+
+                        <h2>
+                            Money Donations
+                        </h2>
+
+                        <p>
+                            Your successful money donation summary.
+                        </p>
+
+                    </div>
+
+                    <span class="heading-icon">
+                        💰
+                    </span>
+
+                </div>
+
+
+                <div class="history-list">
+
+                    {% if total_donations > 0 %}
+
+                        <div class="history-item">
+
+                            <div class="history-icon">
+                                ₹
+                            </div>
+
+
+                            <div class="history-details">
+
+                                <strong>
+                                    ₹{{ '%.2f'|format(donation_amount|float) }}
+                                </strong>
+
+                                <span>
+                                    {{ total_donations }}
+                                    successful donation{% if total_donations != 1 %}s{% endif %}
+                                </span>
+
+                            </div>
+
+
+                            <div class="history-meta">
+
+                                <span class="status-success">
+                                    Success
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="empty-state">
+
+                            <div class="empty-icon">
+                                💰
+                            </div>
+
+                            <h3>
+                                No money donations yet
+                            </h3>
+
+                            <p>
+                                Your successful money donations will appear here.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 ITEM DONATIONS
+            ================================================== -->
+
+            <section class="glass-card history-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            ITEMS
+                        </span>
+
+                        <h2>
+                            Item Donations
+                        </h2>
+
+                        <p>
+                            Items you have donated through CharityBridge.
+                        </p>
+
+                    </div>
+
+                    <span class="heading-icon">
+                        📦
+                    </span>
+
+                </div>
+
+
+                <div class="history-list">
+
+                    {% if items_donated > 0 %}
+
+                        <div class="history-item">
+
+                            <div class="history-icon">
+                                📦
+                            </div>
+
+
+                            <div class="history-details">
+
+                                <strong>
+                                    Item Donations
+                                </strong>
+
+                                <span>
+                                    {{ items_donated }}
+                                    item donation{% if items_donated != 1 %}s{% endif %}
+                                    recorded
+                                </span>
+
+                            </div>
+
+
+                            <div class="history-meta">
+
+                                <span>
+                                    Recorded
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="empty-state">
+
+                            <div class="empty-icon">
+                                📦
+                            </div>
+
+                            <h3>
+                                No item donations yet
+                            </h3>
+
+                            <p>
+                                Your donated items will appear here.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 HELP REQUEST HISTORY
+            ================================================== -->
+
+            <section class="glass-card history-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            REQUESTS
+                        </span>
+
+                        <h2>
+                            My Help Requests
+                        </h2>
+
+                        <p>
+                            Requests created from your account.
+                        </p>
+
+                    </div>
+
+                    <span class="heading-icon">
+                        📨
+                    </span>
+
+                </div>
+
+
+                <div class="history-list">
+
+                    {% if help_requests %}
+
+                        {% for item in help_requests %}
+
+                            <div class="history-item">
+
+                                <div class="history-icon">
+                                    📨
+                                </div>
+
+
+                                <div class="history-details">
+
+                                    <strong>
+                                        {{ item.request_type or 'Help Request' }}
+                                    </strong>
+
+
+                                    {% if item.description %}
+
+                                        <span>
+                                            {{ item.description }}
+                                        </span>
+
+                                    {% endif %}
+
+
+                                    {% if item.location %}
+
+                                        <span>
+                                            ⌖ {{ item.location }}
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <div class="history-meta">
+
+                                    <span>
+                                        {{ item.status or 'Pending' }}
+                                    </span>
+
+
+                                    <small>
+
+                                        {% if item.created_at and item.created_at.strftime is defined %}
+
+                                            {{ item.created_at.strftime('%d %b %Y, %I:%M %p') }}
+
+                                        {% else %}
+
+                                            {{ item.created_at or '' }}
+
+                                        {% endif %}
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="empty-state">
+
+                            <div class="empty-icon">
+                                📨
+                            </div>
+
+                            <h3>
+                                No help requests yet
+                            </h3>
+
+                            <p>
+                                Your help requests will appear here.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 RESPONSE HISTORY
+            ================================================== -->
+
+            <section class="glass-card history-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            RESPONSES
+                        </span>
+
+                        <h2>
+                            My Responses
+                        </h2>
+
+                        <p>
+                            Responses you have made to CharityBridge requests.
+                        </p>
+
+                    </div>
+
+                    <span class="heading-icon">
+                        💬
+                    </span>
+
+                </div>
+
+
+                <div class="history-list">
+
+                    {% if response_history %}
+
+                        {% for item in response_history %}
+
+                            <div class="history-item">
+
+                                <div class="history-icon">
+                                    🤝
+                                </div>
+
+
+                                <div class="history-details">
+
+                                    <strong>
+                                        {{ item.request_type or 'Request Response' }}
+                                    </strong>
+
+
+                                    {% if item.description %}
+
+                                        <span>
+                                            {{ item.description }}
+                                        </span>
+
+                                    {% endif %}
+
+
+                                    {% if item.location %}
+
+                                        <span>
+                                            ⌖ {{ item.location }}
+                                        </span>
+
+                                    {% endif %}
+
+
+                                    {% if item.message %}
+
+                                        <span>
+                                            {{ item.message }}
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <div class="history-meta">
+
+                                    <span>
+                                        {{ item.status or 'Recorded' }}
+                                    </span>
+
+
+                                    <small>
+
+                                        {% if item.created_at and item.created_at.strftime is defined %}
+
+                                            {{ item.created_at.strftime('%d %b %Y, %I:%M %p') }}
+
+                                        {% else %}
+
+                                            {{ item.created_at or '' }}
+
+                                        {% endif %}
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="empty-state">
+
+                            <div class="empty-icon">
+                                💬
+                            </div>
+
+                            <h3>
+                                No responses yet
+                            </h3>
+
+                            <p>
+                                Your request responses will appear here.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 RECENT ACTIVITY
+            ================================================== -->
+
+            <section class="glass-card history-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            LIVE HISTORY
+                        </span>
+
+                        <h2>
+                            Recent Activity
+                        </h2>
+
+                        <p>
+                            Your latest CharityBridge activity.
+                        </p>
+
+                    </div>
+
+                    <span class="heading-icon">
+                        ⚡
+                    </span>
+
+                </div>
+
+
+                <div class="history-list">
+
+                    {% if recent_activity %}
+
+                        {% for item in recent_activity %}
+
+                            <div class="history-item">
+
+                                <div class="history-icon">
+                                    📨
+                                </div>
+
+
+                                <div class="history-details">
+
+                                    <strong>
+                                        {{ item.request_type or 'Help Request' }}
+                                    </strong>
+
+
+                                    {% if item.description %}
+
+                                        <span>
+                                            {{ item.description }}
+                                        </span>
+
+                                    {% endif %}
+
+
+                                    {% if item.location %}
+
+                                        <span>
+                                            ⌖ {{ item.location }}
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <div class="history-meta">
+
+                                    <span>
+                                        {{ item.status or 'Recorded' }}
+                                    </span>
+
+
+                                    <small>
+
+                                        {% if item.created_at and item.created_at.strftime is defined %}
+
+                                            {{ item.created_at.strftime('%d %b %Y, %I:%M %p') }}
+
+                                        {% else %}
+
+                                            {{ item.created_at or '' }}
+
+                                        {% endif %}
+
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="empty-state">
+
+                            <div class="empty-icon">
+                                ✦
+                            </div>
+
+                            <h3>
+                                No recent activity
+                            </h3>
+
+                            <p>
+                                Your CharityBridge activity will appear here.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             PROFILE FAB
+        ====================================================== -->
+
+        <button
+            type="button"
+            class="profile-fab"
+            id="profileFab"
+            aria-label="Toggle profile content">
+
+            <span>✦</span>
+
+        </button>
+
+
+    </main>
+
+
+    <!-- =========================================================
+         CHART DATA
+    ========================================================== -->
+
+    <script id="profile-data" type="application/json">
+    {
+        "labels": [
+            {% for item in donation_graph %}
+                "{{ item.donation_date }}"{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ],
+
+        "values": [
+            {% for item in donation_graph %}
+                {{ item.daily_amount|float }}{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ]
+    }
+    </script>
+
+
+    <!-- =========================================================
+         PROFILE JAVASCRIPT
+    ========================================================== -->
+
+    <script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+
+</body>
+
+</html>

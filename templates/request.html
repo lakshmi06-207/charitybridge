@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CharityBridge | Request Help</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/request.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         LIVING SPACE BACKGROUND
+    ====================================================== -->
+
+    <div class="space-background">
+
+        <div class="stars stars-one"></div>
+        <div class="stars stars-two"></div>
+        <div class="stars stars-three"></div>
+
+        <div class="aurora aurora-one"></div>
+        <div class="aurora aurora-two"></div>
+        <div class="aurora aurora-three"></div>
+
+        <div class="light-orb orb-one"></div>
+        <div class="light-orb orb-two"></div>
+        <div class="light-orb orb-three"></div>
+
+        <div class="grid-floor"></div>
+
+    </div>
+
+
+    <!-- =====================================================
+         TOP CONTROLS
+    ====================================================== -->
+
+    <header class="top-bar">
+
+        <a href="{{ url_for('dashboard') }}" class="dashboard-button">
+            <span class="dashboard-icon">⌂</span>
+            <span>Dashboard</span>
+        </a>
+
+
+        <button type="button"
+                class="theme-button"
+                id="themeButton"
+                aria-label="Change background">
+            <span>⋮</span>
+        </button>
+
+    </header>
+
+
+    <!-- =====================================================
+         THEME PANEL
+    ====================================================== -->
+
+    <div class="theme-panel" id="themePanel">
+
+        <div class="theme-panel-header">
+            <span>Visual Atmosphere</span>
+            <button type="button" id="closeTheme">×</button>
+        </div>
+
+        <p>
+            Choose the atmosphere for your Request space.
+        </p>
+
+        <div class="theme-options">
+
+            <button type="button"
+                    class="theme-option active"
+                    data-theme="cosmic">
+                <span class="theme-dot cosmic-dot"></span>
+                Cosmic
+            </button>
+
+            <button type="button"
+                    class="theme-option"
+                    data-theme="aurora">
+                <span class="theme-dot aurora-dot"></span>
+                Aurora
+            </button>
+
+            <button type="button"
+                    class="theme-option"
+                    data-theme="ocean">
+                <span class="theme-dot ocean-dot"></span>
+                Ocean
+            </button>
+
+            <button type="button"
+                    class="theme-option"
+                    data-theme="royal">
+                <span class="theme-dot royal-dot"></span>
+                Royal
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN PAGE
+    ====================================================== -->
+
+    <main class="request-page">
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section class="request-hero">
+
+            <div class="hero-badge">
+                <span class="status-light"></span>
+                CHARITYBRIDGE • REQUEST
+            </div>
+
+            <h1>
+                Request
+                <span>Help</span>
+            </h1>
+
+            <p>
+                When you need support, create a request and connect
+                with people who can help through CharityBridge.
+            </p>
+
+        </section>
+
+
+        <!-- =================================================
+             MAIN GLASS REQUEST PANEL
+        ================================================== -->
+
+        <section class="request-glass-panel">
+
+            <div class="panel-heading">
+
+                <div>
+                    <span class="small-label">CREATE A REQUEST</span>
+
+                    <h2>
+                        Tell us what
+                        <span>you need</span>
+                    </h2>
+
+                    <p>
+                        Your request will be securely saved to your
+                        CharityBridge account.
+                    </p>
+                </div>
+
+                <div class="panel-symbol">
+                    <span>✦</span>
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 REAL LOGGED-IN USER
+            ============================================== -->
+
+            <div class="request-user-card">
+
+                <div class="user-avatar">
+
+                    {% if avatar_url %}
+                        <img src="{{ avatar_url }}"
+                             alt="{{ user_name }}">
+                    {% else %}
+                        <span>
+                            {{ (user_name or 'U')[:1]|upper }}
+                        </span>
+                    {% endif %}
+
+                </div>
+
+                <div class="user-details">
+
+                    <span class="user-label">
+                        REQUESTING AS
+                    </span>
+
+                    <strong>
+                        {{ user_name or 'User' }}
+                    </strong>
+
+                    <small>
+                        {{ user_email or 'Email not available' }}
+                    </small>
+
+                </div>
+
+                {% if user_verified %}
+                    <div class="verified-badge">
+                        ✓ VERIFIED
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <!-- =============================================
+                 REQUEST FORM
+            ============================================== -->
+
+            
+<form method="POST"
+      action="{{ url_for('request_page') }}"
+      class="request-form"
+      id="requestForm"
+      enctype="multipart/form-data">
+
+                <!-- REQUEST TYPE -->
+
+                <div class="form-group">
+
+                    <label for="request_type">
+                        What kind of help do you need?
+                    </label>
+
+                    <div class="select-wrapper">
+
+                        <select name="request_type"
+                                id="request_type"
+                                required>
+
+                            <option value="" selected disabled>
+                                Select help category
+                            </option>
+
+                            <option value="Food">
+                                🍱 Food
+                            </option>
+
+                            <option value="Blood">
+                                🩸 Blood
+                            </option>
+
+                            <option value="Clothes">
+                                👕 Clothes
+                            </option>
+
+                            <option value="Furniture">
+                                🪑 Furniture
+                            </option>
+
+                            <option value="Money">
+                                ₹ Money
+                            </option>
+
+                            <option value="Other">
+                                ✦ Other
+                            </option>
+
+                        </select>
+
+                        <span class="select-arrow">⌄</span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOCATION -->
+
+                <div class="form-group">
+
+                    <label for="location">
+                        Where is help needed?
+                    </label>
+
+                    <div class="input-glass">
+
+                        <span class="field-icon">⌖</span>
+
+                        <input type="text"
+                               id="location"
+                               name="location"
+                               placeholder="Enter city / area"
+                               maxlength="255"
+                               required>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUANTITY -->
+
+                <div class="form-group">
+
+                    <label for="quantity">
+                        Quantity
+                    </label>
+
+                    <div class="input-glass">
+
+                        <span class="field-icon">#</span>
+
+                        <input type="number"
+                               id="quantity"
+                               name="quantity"
+                               min="1"
+                               value="1"
+                               required>
+
+                    </div>
+                    
+<!-- MONEY AMOUNT AND OPTIONAL UPI QR -->
+<div class="money-fields" id="moneyFields" hidden>
+
+    <div class="form-group">
+        <label for="amount">Amount Needed (₹)</label>
+
+        <div class="input-glass">
+            <span class="field-icon">₹</span>
+<input
+    type="number"
+    id="amount"
+    name="amount"
+    min="1"
+    max="99999999"
+    step="1"
+    placeholder="Enter amount in rupees"
+    disabled
+>
+        <span class="field-help">
+            Enter the total amount you need.
+        </span>
+    </div>
+
+    <div class="form-group">
+        <label for="upi_qr_image">UPI QR Code (Optional)</label>
+
+        <div class="input-glass">
+            <input
+                type="file"
+                id="upi_qr_image"
+                name="upi_qr_image"
+                accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"
+                disabled
+            >
+        </div>
+
+        <span class="field-help">
+            Upload your UPI QR code in PNG, JPG, JPEG, or WEBP format.
+        </span>
+    </div>
+
+</div>
+
+
+                    <span class="field-help">
+                        Enter the number of items, people, units or
+                        amount required.
+                    </span>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="form-group">
+
+                    <div class="label-row">
+
+                        <label for="description">
+                            Describe your situation
+                        </label>
+
+                        <span id="characterCount">
+                            0 / 1000
+                        </span>
+
+                    </div>
+
+                    <div class="textarea-glass">
+
+                        <textarea id="description"
+                                  name="description"
+                                  maxlength="1000"
+                                  rows="6"
+                                  placeholder="Please explain what kind of support you need..."
+                                  required></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <div class="submit-area">
+
+                    <button type="submit"
+                            class="submit-request"
+                            id="submitRequest">
+
+                        <span class="submit-icon">✦</span>
+
+                        <span class="submit-text">
+                            Submit Help Request
+                        </span>
+
+                        <span class="submit-arrow">
+                            →
+                        </span>
+
+                    </button>
+
+                    <p>
+                        Your request will be stored securely in
+                        CharityBridge.
+                    </p>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- =================================================
+             REQUEST HISTORY
+        ================================================== -->
+
+        <section class="history-section">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="small-label">
+                        YOUR CHARITYBRIDGE ACTIVITY
+                    </span>
+
+                    <h2>
+                        Request
+                        <span>History</span>
+                    </h2>
+
+                    <p>
+                        Every request shown here comes from your
+                        CharityBridge account.
+                    </p>
+                </div>
+
+                <div class="history-count">
+                    <strong>{{ help_requests|length }}</strong>
+                    <span>Requests</span>
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 NO REQUESTS
+            ============================================== -->
+
+            {% if not help_requests %}
+
+                <div class="empty-history">
+
+                    <div class="empty-icon">
+                        ✦
+                    </div>
+
+                    <h3>
+                        No requests yet
+                    </h3>
+
+                    <p>
+                        Your submitted help requests will appear
+                        here.
+                    </p>
+
+                </div>
+
+            {% else %}
+
+
+                <!-- =========================================
+                     REAL REQUESTS
+                ========================================== -->
+
+                <div class="request-history-grid">
+
+                    {% for item in help_requests %}
+
+                        <article class="history-card">
+
+                            <div class="history-card-top">
+
+                                <div class="request-category">
+
+                                    <span class="category-icon">
+
+                                        {% if item.request_type == 'Food' %}
+                                            🍱
+                                        {% elif item.request_type == 'Blood' %}
+                                            🩸
+                                        {% elif item.request_type == 'Clothes' %}
+                                            👕
+                                        {% elif item.request_type == 'Furniture' %}
+                                            🪑
+                                        {% elif item.request_type == 'Money' %}
+                                            ₹
+                                        {% else %}
+                                            ✦
+                                        {% endif %}
+
+                                    </span>
+
+                                    <div>
+
+                                        <span class="category-label">
+                                            HELP REQUEST
+                                        </span>
+
+                                        <h3>
+                                            {{ item.request_type }}
+                                        </h3>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- REAL STATUS -->
+
+                                {% set current_status =
+                                    (item.status or 'Pending')|lower %}
+
+                                <span class="request-status status-{{ current_status|replace(' ', '-') }}">
+
+                                    {% if current_status == 'pending' %}
+                                        <span class="status-dot"></span>
+                                        Pending
+                                    {% elif current_status == 'accepted' %}
+                                        <span class="status-dot"></span>
+                                        Accepted
+                                    {% elif current_status == 'completed' %}
+                                        <span class="status-dot"></span>
+                                        Completed
+                                    {% elif current_status == 'resolved' %}
+                                        <span class="status-dot"></span>
+                                        Resolved
+                                    {% else %}
+                                        <span class="status-dot"></span>
+                                        {{ item.status or 'Pending' }}
+                                    {% endif %}
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="history-card-body">
+
+                                <p class="request-description">
+                                    {{ item.description or
+                                       'No description provided.' }}
+                                </p>
+
+
+                                <div class="request-meta">
+
+                                    <div class="meta-item">
+
+                                        <span class="meta-icon">
+                                            ⌖
+                                        </span>
+
+                                        <div>
+                                            <small>LOCATION</small>
+                                            <strong>
+                                                {{ item.location or
+                                                   'Not provided' }}
+                                            </strong>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="meta-item">
+
+                                        <span class="meta-icon">
+                                            #
+                                        </span>
+
+                                        <div>
+                                            <small>QUANTITY</small>
+                                            <strong>
+                                                {{ item.quantity or 1 }}
+                                            </strong>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="meta-item">
+
+                                        <span class="meta-icon">
+                                            ◷
+                                        </span>
+
+                                        <div>
+                                            <small>REQUESTED</small>
+                                            <strong>
+                                                {% if item.created_at %}
+                                                    {{ item.created_at.strftime('%d %b %Y, %I:%M %p') }}
+                                                {% else %}
+                                                    —
+                                                {% endif %}
+                                            </strong>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- =================================================
+             FOOTER MESSAGE
+        ================================================== -->
+
+        <section class="closing-message">
+
+            <div class="closing-line"></div>
+
+            <span>
+                CONNECT • CARE • CHANGE
+            </span>
+
+            <p>
+                Every request is a bridge waiting to be built.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         PROFILE FAB
+    ====================================================== -->
+
+    <div class="request-fab">
+
+        <span class="fab-glow"></span>
+
+        <span class="fab-icon">
+            ♡
+        </span>
+
+    </div>
+
+
+    <script src="{{ url_for('static', filename='js/request.js') }}"></script>
+
+</body>
+</html>

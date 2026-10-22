@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact | CharityBridge</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/contact.css') }}">
+</head>
+
+<body>
+
+    <!-- =========================================================
+         BACKGROUND
+    ========================================================== -->
+    <div class="contact-background"></div>
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+    <div class="background-glow glow-three"></div>
+
+    <!-- =========================================================
+         TOP DASHBOARD FAB
+    ========================================================== -->
+    <a href="{{ url_for('dashboard') }}"
+       class="dashboard-fab"
+       title="Go to Dashboard">
+
+        <span class="dashboard-icon">⌂</span>
+        <span class="dashboard-text">Dashboard</span>
+
+    </a>
+
+    <!-- =========================================================
+         THEME BUTTON
+    ========================================================== -->
+    <button id="themeToggle"
+            class="theme-fab"
+            type="button"
+            title="Change background">
+
+        <span>✦</span>
+
+    </button>
+
+
+    <!-- =========================================================
+         THEME PANEL
+    ========================================================== -->
+    <div id="themePanel" class="theme-panel">
+
+        <div class="theme-title">
+            Background
+        </div>
+
+        <button class="theme-option"
+                data-theme="default"
+                type="button">
+            <span class="theme-dot default-dot"></span>
+            Default
+        </button>
+
+        <button class="theme-option"
+                data-theme="pink"
+                type="button">
+            <span class="theme-dot pink-dot"></span>
+            Pink
+        </button>
+
+        <button class="theme-option"
+                data-theme="violet"
+                type="button">
+            <span class="theme-dot violet-dot"></span>
+            Violet
+        </button>
+
+        <button class="theme-option"
+                data-theme="blue"
+                type="button">
+            <span class="theme-dot blue-dot"></span>
+            Ocean
+        </button>
+
+        <button class="theme-option"
+                data-theme="gold"
+                type="button">
+            <span class="theme-dot gold-dot"></span>
+            Gold
+        </button>
+
+    </div>
+
+
+    <!-- =========================================================
+         RIGHT GLASS NAVIGATION
+    ========================================================== -->
+    <aside class="contact-rail">
+
+        <a href="{{ url_for('community') }}"
+           class="contact-rail-item">
+
+            <span class="rail-icon">♧</span>
+            <span class="rail-text">Community</span>
+
+        </a>
+
+
+        <a href="{{ url_for('chat') }}"
+           class="contact-rail-item">
+
+            <span class="rail-icon">♡</span>
+            <span class="rail-text">Community Chat</span>
+
+        </a>
+
+
+        <a href="{{ url_for('profile_page') }}"
+           class="contact-rail-item">
+
+            <span class="rail-icon">◉</span>
+            <span class="rail-text">Profile</span>
+
+        </a>
+
+    </aside>
+
+
+    <!-- =========================================================
+         MAIN PAGE
+    ========================================================== -->
+    <main class="contact-page">
+
+        <!-- Glassy text -->
+        <div class="glassy-text">
+            CONNECT • CARE • CHANGE
+        </div>
+
+
+        <!-- =====================================================
+             HEADER
+        ====================================================== -->
+        <section class="contact-heading">
+
+            <div class="heading-icon">
+                ♡
+            </div>
+
+            <p class="small-heading">
+                CHARITYBRIDGE
+            </p>
+
+            <h1>
+                Let's Build a Bridge
+                <span>Together</span>
+            </h1>
+
+            <p class="heading-description">
+                Have a question, suggestion, or need help with
+                CharityBridge? Send us a message and our team
+                will get back to you.
+            </p>
+
+        </section>
+
+
+        <!-- =====================================================
+             CONTACT CONTENT
+        ====================================================== -->
+        <section class="contact-wrapper">
+
+
+            <!-- =================================================
+                 CONTACT INFORMATION
+            ================================================== -->
+            <div class="contact-info glass-card">
+
+                <div class="card-glow"></div>
+
+                <p class="section-label">
+                    GET IN TOUCH
+                </p>
+
+                <h2>
+                    We're here to help.
+                </h2>
+
+                <p class="info-description">
+                    Whether you want to know more about donations,
+                    volunteering, requests, responses, or the
+                    CharityBridge community, feel free to contact us.
+                </p>
+
+
+                <!-- EMAIL -->
+                <div class="contact-detail">
+
+                    <div class="detail-icon">
+                        ✉
+                    </div>
+
+                    <div>
+                        <span class="detail-label">
+                            Email
+                        </span>
+
+                        <a href="mailto:{{ contact_email|default('support@charitybridge.org') }}"
+                           class="detail-value">
+
+                            {{ contact_email|default('support@charitybridge.org') }}
+
+                        </a>
+                    </div>
+
+                </div>
+
+
+                <!-- LOCATION -->
+                <div class="contact-detail">
+
+                    <div class="detail-icon">
+                        ◈
+                    </div>
+
+                    <div>
+                        <span class="detail-label">
+                            Location
+                        </span>
+
+                        <span class="detail-value">
+                            {{ contact_location|default('Bengaluru, Karnataka, India') }}
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- SUPPORT -->
+                <div class="contact-detail">
+
+                    <div class="detail-icon">
+                        ♧
+                    </div>
+
+                    <div>
+                        <span class="detail-label">
+                            Support
+                        </span>
+
+                        <span class="detail-value">
+                            CharityBridge Community Team
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- EXTRA GLASS MESSAGE -->
+                <div class="mini-glass-message">
+
+                    <span class="mini-message-icon">
+                        ✦
+                    </span>
+
+                    <div>
+                        <strong>
+                            Your voice matters.
+                        </strong>
+
+                        <p>
+                            Every message helps us improve the
+                            CharityBridge experience.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CONTACT FORM
+            ================================================== -->
+            <div class="contact-form-card glass-card">
+
+                <div class="card-glow"></div>
+
+                <p class="section-label">
+                    SEND A MESSAGE
+                </p>
+
+                <h2>
+                    How can we help?
+                </h2>
+
+                <form id="contactForm"
+                      action="{{ url_for('contact') }}"
+                      method="POST"
+                      novalidate>
+
+
+                    <!-- NAME -->
+                    <div class="form-group">
+
+                        <label for="name">
+                            Your Name
+                        </label>
+
+                        <div class="input-glass">
+
+                            <span class="input-icon">
+                                ◉
+                            </span>
+
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                value="{{ current_user.name if current_user else '' }}"
+                                placeholder="Enter your name"
+                                autocomplete="name"
+                                required>
+
+                        </div>
+
+                        <small class="field-error"
+                               id="nameError"></small>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-glass">
+
+                            <span class="input-icon">
+                                ✉
+                            </span>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value="{{ current_user.email if current_user else '' }}"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                required>
+
+                        </div>
+
+                        <small class="field-error"
+                               id="emailError"></small>
+
+                    </div>
+
+
+                    <!-- SUBJECT -->
+                    <div class="form-group">
+
+                        <label for="subject">
+                            Subject
+                        </label>
+
+                        <div class="input-glass">
+
+                            <span class="input-icon">
+                                ◇
+                            </span>
+
+                            <input
+                                type="text"
+                                id="subject"
+                                name="subject"
+                                placeholder="What is your message about?"
+                                required>
+
+                        </div>
+
+                        <small class="field-error"
+                               id="subjectError"></small>
+
+                    </div>
+
+
+                    <!-- MESSAGE -->
+                    <div class="form-group">
+
+                        <label for="message">
+                            Message
+                        </label>
+
+                        <div class="textarea-glass">
+
+                            <span class="textarea-icon">
+                                ✎
+                            </span>
+
+                            <textarea
+                                id="message"
+                                name="message"
+                                rows="6"
+                                maxlength="3000"
+                                placeholder="Write your message here..."
+                                required></textarea>
+
+                        </div>
+
+                        <div class="message-bottom">
+
+                            <small class="field-error"
+                                   id="messageError"></small>
+
+                            <span id="characterCount">
+                                0 / 3000
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+                    <button type="submit"
+                            id="sendButton"
+                            class="send-button">
+
+                        <span class="send-icon">
+                            ➤
+                        </span>
+
+                        <span id="sendButtonText">
+                            Send Message
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+                <!-- SUCCESS MESSAGE -->
+                <div id="successMessage"
+                     class="form-message success-message">
+
+                    <span>✓</span>
+
+                    <div>
+                        <strong>
+                            Message sent successfully.
+                        </strong>
+
+                        <p>
+                            Thank you for contacting CharityBridge.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- ERROR MESSAGE -->
+                <div id="errorMessage"
+                     class="form-message error-message">
+
+                    <span>!</span>
+
+                    <div>
+                        <strong>
+                            Something went wrong.
+                        </strong>
+
+                        <p>
+                            Please try again.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             BOTTOM GLASS MESSAGE
+        ====================================================== -->
+        <div class="bottom-glass">
+
+            <span>CHARITYBRIDGE</span>
+
+            <div class="bottom-line"></div>
+
+            <span>
+                Together, we build a bridge to hope.
+            </span>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================================
+         TOAST
+    ========================================================== -->
+    <div id="pageToast"
+         class="page-toast">
+
+        <span id="toastIcon">✓</span>
+
+        <span id="toastText">
+            Message sent successfully.
+        </span>
+
+    </div>
+
+
+    <script src="{{ url_for('static', filename='js/contact.js') }}"></script>
+
+</body>
+</html>

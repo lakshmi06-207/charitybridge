@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        CharityBridge | Bridging Hearts. Building Hope.
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/home.css') }}">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero" id="home">
+
+
+    <!-- =====================================================
+         BACKGROUND IMAGE
+    ====================================================== -->
+
+    <div class="hero-image"></div>
+
+
+    <!-- =====================================================
+         CINEMATIC OVERLAY
+    ====================================================== -->
+
+    <div class="dark-overlay"></div>
+
+
+    <!-- =====================================================
+         MOVING LIGHT
+    ====================================================== -->
+
+    <div class="sun-glow"></div>
+
+    <div class="light-beam beam-one"></div>
+
+    <div class="light-beam beam-two"></div>
+
+
+    <!-- =====================================================
+         PARTICLES
+    ====================================================== -->
+
+    <div class="particles"></div>
+
+
+    <!-- =====================================================
+         NAVIGATION
+    ====================================================== -->
+
+    <header class="navbar">
+
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                ♡
+            </div>
+
+            <div class="brand-text">
+
+                <strong>
+                    CHARITY<span>BRIDGE</span>
+                </strong>
+
+                <small>
+                    Bridging Hearts. Building Hope.
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAV LINKS -->
+
+        <nav class="nav-links">
+
+            <a href="home"
+               class="active">
+                Home
+            </a>
+
+            <a href="/about">
+                About Us
+            </a>
+
+           <a href="{{ url_for('how_it_works') }}">
+    How It Works
+</a>
+
+            <a
+    href="{{ url_for('donate') }}"
+    class="donate-entry-link"
+>
+    Donate
+</a>
+
+            <a href="/request_help">
+                Help Request
+            </a>
+
+            <a href="/volunteer">
+                Volunteer
+            </a>
+
+        </nav>
+
+
+        <!-- LOGIN -->
+
+        <a href="/login"
+           class="login-button">
+
+            Login / Sign Up
+
+        </a>
+
+
+    </header>
+
+
+
+    <!-- =====================================================
+         HERO CONTENT
+    ====================================================== -->
+
+    <main class="hero-content">
+
+
+        <div class="hero-left">
+
+
+            <!-- EYEBROW -->
+
+            <div class="eyebrow">
+
+                <span class="heart-icon">
+                    ♡
+                </span>
+
+                TOGETHER, WE CAN
+
+            </div>
+
+
+
+            <!-- MAIN TITLE -->
+
+            <h1>
+
+                BRIDGE THE GAP.
+
+                <br>
+
+                SHARE THE
+
+                <span>
+                    HOPE.
+                </span>
+
+            </h1>
+
+
+
+            <!-- DESCRIPTION -->
+
+            <p class="hero-description">
+
+                CharityBridge connects kind hearts with
+                people in need. Donate, help, volunteer
+                and be the reason someone smiles today.
+
+            </p>
+
+
+
+            <!-- BUTTONS -->
+
+            <div class="hero-buttons">
+
+
+                <a href="/donate"
+                   class="primary-button">
+
+                    <span>
+                        ♡
+                    </span>
+
+                    Donate Now
+
+                </a>
+
+
+                <a href="/request_help"
+                   class="secondary-button">
+
+                    <span>
+                        ♧
+                    </span>
+
+                    Request Help
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         BOTTOM INDIVIDUAL GLASS STATISTICS
+    ====================================================== -->
+
+    <section class="impact-section">
+
+
+        <!-- =================================================
+             DONATIONS
+        ================================================== -->
+
+        <div class="impact-card">
+
+            <div class="impact-icon">
+                ♡
+            </div>
+
+
+            <div class="impact-content">
+
+                <div class="impact-number">
+
+                    <strong class="counter"
+                            data-target="{{ donations_count }}">
+
+                        0
+
+                    </strong>
+
+                    <span>
+                        +
+                    </span>
+
+                </div>
+
+
+                <p>
+                    DONATIONS DELIVERED
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             LIVES IMPACTED
+        ================================================== -->
+
+        <div class="impact-card">
+
+            <div class="impact-icon">
+                ♧
+            </div>
+
+
+            <div class="impact-content">
+
+                <div class="impact-number">
+
+                    <strong class="counter"
+                            data-target="{{ lives_impacted }}">
+
+                        0
+
+                    </strong>
+
+                    <span>
+                        +
+                    </span>
+
+                </div>
+
+
+                <p>
+                    LIVES IMPACTED
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ACTIVE VOLUNTEERS
+        ================================================== -->
+
+        <div class="impact-card">
+
+            <div class="impact-icon">
+                ♡
+            </div>
+
+
+            <div class="impact-content">
+
+                <div class="impact-number">
+
+                    <strong class="counter"
+                            data-target="{{ volunteers_count }}">
+
+                        0
+
+                    </strong>
+
+                    <span>
+                        +
+                    </span>
+
+                </div>
+
+
+                <p>
+                    ACTIVE VOLUNTEERS
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             COMMUNITY MEMBERS
+        ================================================== -->
+
+        <div class="impact-card">
+
+            <div class="impact-icon">
+                ◎
+            </div>
+
+
+            <div class="impact-content">
+
+                <div class="impact-number">
+
+                    <strong class="counter"
+                            data-target="{{ cities_count }}">
+
+                        0
+
+                    </strong>
+
+                    <span>
+                        +
+                    </span>
+
+                </div>
+
+
+                <p>
+                    COMMUNITY MEMBERS
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         LIVE STATUS
+    ====================================================== -->
+
+    <div class="live-status">
+
+        <span class="live-dot"></span>
+
+        <span>
+            CHARITYBRIDGE • MAKING AN IMPACT
+        </span>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SCROLL INDICATOR
+    ====================================================== -->
+
+    <div class="scroll-indicator">
+
+        <span></span>
+
+        Scroll to explore
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     ABOUT SECTION
+========================================================= -->
+
+<section class="dummy-section"
+         id="about">
+
+
+    <div>
+
+        <small>
+            CHARITYBRIDGE
+        </small>
+
+
+        <h2>
+            Technology with Humanity.
+        </h2>
+
+
+        <p>
+            A bridge between people who want to help
+            and people who need support.
+        </p>
+
+    </div>
+
+
+</section>
+
+
+
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+
+
+</body>
+
+</html>

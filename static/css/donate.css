@@ -1,0 +1,1441 @@
+/* =========================================================
+   CHARITYBRIDGE - DONATION PAGE
+   CLEAR GLASS + BRIGHT BACKGROUND
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    background: #050712;
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   BACKGROUND IMAGE
+========================================================= */
+
+.donate-background {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -10;
+
+    background-image:
+        linear-gradient(
+            rgba(3, 6, 18, 0.22),
+            rgba(3, 5, 15, 0.58)
+        ),
+        url("../images/login.png");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-repeat: no-repeat;
+
+    transform: scale(1.03);
+
+    animation: backgroundZoom 18s ease-in-out infinite alternate;
+}
+
+
+@keyframes backgroundZoom {
+
+    from {
+        transform: scale(1.03);
+    }
+
+    to {
+        transform: scale(1.08);
+    }
+
+}
+
+
+/* =========================================================
+   MOVING LIGHTS
+========================================================= */
+
+.background-light {
+
+    position: fixed;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: -8;
+
+    filter: blur(80px);
+
+    opacity: 0.35;
+}
+
+
+.light-one {
+
+    width: 350px;
+    height: 350px;
+
+    left: -120px;
+    top: 20%;
+
+    background: rgba(117, 72, 255, 0.55);
+
+    animation: lightMoveOne 10s infinite alternate ease-in-out;
+}
+
+
+.light-two {
+
+    width: 400px;
+    height: 400px;
+
+    right: -150px;
+    top: 35%;
+
+    background: rgba(0, 220, 255, 0.45);
+
+    animation: lightMoveTwo 13s infinite alternate ease-in-out;
+}
+
+
+.light-three {
+
+    width: 250px;
+    height: 250px;
+
+    left: 45%;
+    bottom: -120px;
+
+    background: rgba(255, 125, 65, 0.3);
+
+    animation: lightMoveThree 9s infinite alternate ease-in-out;
+}
+
+
+@keyframes lightMoveOne {
+
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(100px, -60px);
+    }
+
+}
+
+
+@keyframes lightMoveTwo {
+
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(-100px, 70px);
+    }
+
+}
+
+
+@keyframes lightMoveThree {
+
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(60px, -80px);
+    }
+
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+
+    position: sticky;
+
+    top: 0;
+
+    height: 76px;
+
+    width: 100%;
+
+    padding: 0 5%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background: rgba(4, 6, 15, 0.55);
+
+    backdrop-filter: blur(18px);
+
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+
+    z-index: 100;
+}
+
+
+.logo {
+
+    text-decoration: none;
+
+    font-size: 21px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    color: white;
+
+    transition: 0.3s;
+}
+
+
+.logo:hover {
+    transform: translateY(-2px);
+}
+
+
+.logo-heart {
+
+    color: #8b68ff;
+
+    margin-right: 6px;
+
+    text-shadow:
+        0 0 15px #8b68ff;
+}
+
+
+.logo-blue {
+
+    color: #50eaff;
+
+    text-shadow:
+        0 0 15px rgba(80,234,255,0.5);
+}
+
+
+.navbar nav {
+
+    display: flex;
+
+    gap: 32px;
+}
+
+
+.navbar nav a {
+
+    position: relative;
+
+    padding: 8px 0;
+
+    text-decoration: none;
+
+    color: rgba(255,255,255,0.7);
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+
+.navbar nav a:hover,
+.navbar nav a.active {
+
+    color: white;
+}
+
+
+.navbar nav a::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: 0;
+
+    width: 0;
+
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        #7c5cff,
+        #54efff
+    );
+
+    box-shadow:
+        0 0 10px #54efff;
+
+    transition: 0.3s;
+}
+
+
+.navbar nav a:hover::after,
+.navbar nav a.active::after {
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.donation-page {
+
+    width: 100%;
+
+    max-width: 1250px;
+
+    margin: auto;
+
+    padding: 80px 40px 100px;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.donation-intro {
+
+    text-align: center;
+
+    max-width: 800px;
+
+    margin: 0 auto 50px;
+
+    animation: introEnter 1s ease both;
+}
+
+
+@keyframes introEnter {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(35px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+.intro-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 9px 17px;
+
+    border: 1px solid rgba(92,232,255,0.4);
+
+    border-radius: 50px;
+
+    background: rgba(20,35,65,0.35);
+
+    backdrop-filter: blur(15px);
+
+    color: #67edff;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+
+.intro-badge span {
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #5beaff;
+
+    box-shadow:
+        0 0 14px #5beaff;
+
+    animation: pulse 1.5s infinite;
+}
+
+
+@keyframes pulse {
+
+    50% {
+        transform: scale(1.7);
+        opacity: 0.5;
+    }
+
+}
+
+
+.donation-intro h1 {
+
+    margin-top: 25px;
+
+    font-size: clamp(55px, 8vw, 105px);
+
+    line-height: 0.9;
+
+    font-weight: 900;
+
+    letter-spacing: -5px;
+
+    text-transform: uppercase;
+}
+
+
+.donation-intro h1 span {
+
+    display: block;
+
+    font-style: italic;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8d6bff,
+            #4eeaff,
+            #64f0db
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+
+    text-shadow:
+        0 0 35px rgba(70,220,255,0.2);
+}
+
+
+.donation-intro p {
+
+    max-width: 650px;
+
+    margin: 25px auto 0;
+
+    color: rgba(255,255,255,0.78);
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   MAIN GLASS
+========================================================= */
+
+.donation-glass {
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 50px;
+
+    border-radius: 35px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.18),
+            rgba(255,255,255,0.055)
+        );
+
+    border: 1px solid rgba(255,255,255,0.25);
+
+    backdrop-filter: blur(20px);
+
+    -webkit-backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,0.35),
+        inset 0 0 50px rgba(255,255,255,0.025);
+
+    animation: glassEnter 1.2s ease both;
+}
+
+
+@keyframes glassEnter {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(50px)
+            scale(0.97);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+.glass-glow {
+
+    position: absolute;
+
+    width: 400px;
+
+    height: 400px;
+
+    right: -180px;
+
+    top: -180px;
+
+    border-radius: 50%;
+
+    background: rgba(55,225,255,0.18);
+
+    filter: blur(80px);
+
+    pointer-events: none;
+}
+
+
+.glass-lines {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0.25;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.05) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.05) 1px,
+            transparent 1px
+        );
+
+    background-size: 70px 70px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent
+        );
+}
+
+
+/* =========================================================
+   DONATION HEART
+========================================================= */
+
+.donation-heart {
+
+    display: flex;
+
+    justify-content: center;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+.heart-ring {
+
+    width: 80px;
+    height: 80px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(115,85,255,0.8),
+            rgba(50,225,255,0.8)
+        );
+
+    box-shadow:
+        0 0 35px rgba(65,220,255,0.3);
+
+    animation: heartFloat 3s ease-in-out infinite;
+}
+
+
+.heart-ring i {
+
+    font-size: 30px;
+
+    color: white;
+
+    text-shadow:
+        0 0 15px white;
+}
+
+
+@keyframes heartFloat {
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.donation-heading {
+
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+
+    margin: 30px auto 40px;
+}
+
+
+.donation-heading small {
+
+    color: #64eaff;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 4px;
+}
+
+
+.donation-heading h2 {
+
+    margin-top: 10px;
+
+    font-size: clamp(35px, 5vw, 58px);
+
+    letter-spacing: -2px;
+}
+
+
+.donation-heading h2 strong {
+
+    color: #60eadd;
+
+    font-style: italic;
+
+    text-shadow:
+        0 0 25px rgba(80,240,220,0.3);
+}
+
+
+.donation-heading p {
+
+    max-width: 650px;
+
+    margin: 15px auto 0;
+
+    color: rgba(255,255,255,0.65);
+
+    line-height: 1.7;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   OPTIONS
+========================================================= */
+
+.donation-options {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 18px;
+}
+
+
+.donation-option {
+
+    position: relative;
+
+    min-height: 210px;
+
+    padding: 25px;
+
+    border-radius: 22px;
+
+    border: 1px solid rgba(255,255,255,0.14);
+
+    background:
+        rgba(255,255,255,0.07);
+
+    backdrop-filter: blur(12px);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.4s,
+        border-color 0.4s,
+        background 0.4s,
+        box-shadow 0.4s;
+}
+
+
+.donation-option:hover {
+
+    transform: translateY(-10px);
+
+    border-color:
+        rgba(76,231,255,0.55);
+
+    background:
+        rgba(70,220,255,0.09);
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,0.25),
+        0 0 30px rgba(70,220,255,0.08);
+}
+
+
+.option-icon {
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(110,82,255,0.7),
+            rgba(50,225,255,0.65)
+        );
+
+    box-shadow:
+        0 0 20px rgba(65,220,255,0.15);
+
+    margin-bottom: 20px;
+}
+
+
+.option-icon i {
+
+    font-size: 19px;
+
+    color: white;
+}
+
+
+.donation-option h3 {
+
+    font-size: 20px;
+
+    margin-bottom: 10px;
+}
+
+
+.donation-option p {
+
+    color: rgba(255,255,255,0.55);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+.option-arrow {
+
+    position: absolute;
+
+    right: 22px;
+
+    bottom: 20px;
+
+    color: #62eaff;
+
+    font-size: 20px;
+
+    transition: 0.3s;
+}
+
+
+.donation-option:hover .option-arrow {
+
+    transform:
+        translateX(7px);
+}
+
+
+/* =========================================================
+   DONATION FORM
+========================================================= */
+
+.donation-form-area {
+
+    position: relative;
+
+    z-index: 2;
+
+    margin-top: 40px;
+
+    padding: 35px;
+
+    border-radius: 25px;
+
+    background:
+        rgba(3,7,18,0.38);
+
+    border: 1px solid rgba(255,255,255,0.13);
+
+    backdrop-filter: blur(18px);
+}
+
+
+.form-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 30px;
+}
+
+
+.form-number {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(90,235,255,0.4);
+
+    color: #65eaff;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+.form-header small {
+
+    color: #65eaff;
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+}
+
+
+.form-header h3 {
+
+    margin-top: 4px;
+
+    font-size: 23px;
+}
+
+
+.form-row {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+}
+
+
+.form-group {
+
+    margin-bottom: 20px;
+}
+
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: rgba(255,255,255,0.55);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+
+    width: 100%;
+
+    padding: 15px 17px;
+
+    border-radius: 13px;
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    background:
+        rgba(255,255,255,0.08);
+
+    color: white;
+
+    outline: none;
+
+    font-family: inherit;
+
+    transition: 0.3s;
+}
+
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+
+    color:
+        rgba(255,255,255,0.35);
+}
+
+
+.form-group select option {
+
+    background: #101322;
+
+    color: white;
+}
+
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+
+    border-color:
+        rgba(78,230,255,0.65);
+
+    box-shadow:
+        0 0 20px rgba(70,220,255,0.08);
+}
+
+
+.form-group textarea {
+
+    resize: vertical;
+
+    min-height: 110px;
+}
+
+
+.donate-button {
+
+    width: 100%;
+
+    border: none;
+
+    padding: 17px 22px;
+
+    border-radius: 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    cursor: pointer;
+
+    color: #061017;
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7f67ff,
+            #50e8ff,
+            #68efdb
+        );
+
+    box-shadow:
+        0 12px 35px rgba(60,220,255,0.15);
+
+    transition: 0.35s;
+}
+
+
+.donate-button:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 18px 45px rgba(60,220,255,0.25);
+}
+
+
+/* =========================================================
+   LOGIN REQUIRED
+========================================================= */
+
+.login-required {
+
+    max-width: 850px;
+
+    margin: 40px auto 0;
+
+    padding: 25px 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    border-radius: 25px;
+
+    background:
+        rgba(255,255,255,0.07);
+
+    border: 1px solid rgba(255,255,255,0.16);
+
+    backdrop-filter: blur(18px);
+}
+
+
+.login-circle {
+
+    width: 55px;
+    height: 55px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7258ff,
+            #42ddff
+        );
+
+    box-shadow:
+        0 0 25px rgba(70,220,255,0.2);
+}
+
+
+.login-circle i {
+
+    color: white;
+
+    font-size: 18px;
+}
+
+
+.login-required small {
+
+    color: #65eaff;
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+}
+
+
+.login-required h3 {
+
+    margin-top: 5px;
+
+    font-size: 16px;
+}
+
+
+.login-required p {
+
+    margin-top: 4px;
+
+    color: rgba(255,255,255,0.5);
+
+    font-size: 11px;
+}
+
+
+.login-button {
+
+    margin-left: auto;
+
+    flex-shrink: 0;
+
+    padding: 13px 18px;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    border: 1px solid rgba(91,232,255,0.35);
+
+    background:
+        rgba(65,220,255,0.08);
+
+    transition: 0.3s;
+}
+
+
+.login-button:hover {
+
+    background:
+        rgba(65,220,255,0.15);
+
+    border-color:
+        #5eeaff;
+
+    transform:
+        translateY(-2px);
+}
+
+
+.login-button i {
+
+    margin-left: 8px;
+
+    color: #63eaff;
+}
+
+
+/* =========================================================
+   IMPACT
+========================================================= */
+
+.impact-strip {
+
+    margin-top: 60px;
+
+    padding: 25px 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 35px;
+
+    border-radius: 22px;
+
+    background:
+        rgba(2,5,15,0.35);
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    backdrop-filter: blur(15px);
+}
+
+
+.impact-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.impact-item > span {
+
+    color: #61eaff;
+
+    font-size: 10px;
+
+    font-weight: 900;
+}
+
+
+.impact-item strong {
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+}
+
+
+.impact-item p {
+
+    margin-top: 3px;
+
+    color: rgba(255,255,255,0.4);
+
+    font-size: 9px;
+}
+
+
+.impact-line {
+
+    width: 1px;
+
+    height: 35px;
+
+    background:
+        rgba(255,255,255,0.12);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+
+    padding: 45px 5% 25px;
+
+    border-top:
+        1px solid rgba(255,255,255,0.1);
+
+    background:
+        rgba(2,4,12,0.45);
+
+    backdrop-filter: blur(15px);
+}
+
+
+.footer h3 {
+
+    font-size: 18px;
+
+    letter-spacing: 1px;
+}
+
+
+.footer h3 span {
+
+    color: #55eaff;
+}
+
+
+.footer p {
+
+    margin-top: 8px;
+
+    color: rgba(255,255,255,0.45);
+
+    font-size: 11px;
+}
+
+
+.footer-copy {
+
+    margin-top: 30px;
+
+    padding-top: 18px;
+
+    border-top:
+        1px solid rgba(255,255,255,0.06);
+
+    color:
+        rgba(255,255,255,0.25);
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 950px) {
+
+    .donation-options {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .navbar {
+
+        padding: 0 20px;
+
+    }
+
+    .navbar nav {
+
+        gap: 14px;
+
+    }
+
+    .navbar nav a {
+
+        font-size: 10px;
+
+    }
+
+    .donation-page {
+
+        padding:
+            55px 18px 70px;
+
+    }
+
+    .donation-glass {
+
+        padding: 30px 20px;
+
+        border-radius: 25px;
+
+    }
+
+    .donation-options {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .form-row {
+
+        grid-template-columns: 1fr;
+
+        gap: 0;
+
+    }
+
+    .login-required {
+
+        flex-direction: column;
+
+        text-align: center;
+
+    }
+
+    .login-button {
+
+        margin-left: 0;
+
+        width: 100%;
+
+        text-align: center;
+
+    }
+
+    .impact-strip {
+
+        flex-direction: column;
+
+        gap: 20px;
+
+    }
+
+    .impact-line {
+
+        width: 80%;
+
+        height: 1px;
+
+    }
+
+}

@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    background: #f5f8f7;
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar */
+.navbar-brand {
+    font-size: 23px;
+}
+
+/* Page Heading */
+h1 {
+    color: #087f5b;
+    font-weight: bold;
+}
+
+/* Delivery Card */
+.delivery-card {
+    max-width: 700px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.delivery-card h4 {
+    color: #087f5b;
+    margin-bottom: 20px;
+}
+
+.delivery-card p {
+    color: #555;
+}
+
+/* Delivery Status */
+.status {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 30px 0;
+    padding: 15px;
+    background: #f1f8f5;
+    border-radius: 10px;
+}
+
+.status span {
+    color: #888;
+    font-size: 13px;
+}
+
+.status .done {
+    color: #087f5b;
+    font-weight: bold;
+}
+
+.status .active {
+    color: #e67e22;
+    font-weight: bold;
+}
+
+/* Button */
+.btn-success {
+    background: #087f5b;
+    border: none;
+    border-radius: 8px;
+}
+
+.btn-success:hover {
+    background: #065f46;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+
+    .delivery-card {
+        margin: 20px 15px;
+        padding: 20px;
+    }
+
+    .status {
+        flex-direction: column;
+    }
+
+}
