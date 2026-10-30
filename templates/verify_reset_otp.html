@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Reset OTP | CharityBridge</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #071b3a, #30205e, #111c42);
+            color: white;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 430px;
+            padding: 40px 32px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 22px;
+            background: rgba(255,255,255,0.09);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            margin-bottom: 15px;
+            font-size: 28px;
+        }
+
+        p {
+            margin-bottom: 25px;
+            color: #d7d9ec;
+            line-height: 1.6;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            outline: none;
+            background: rgba(255,255,255,0.12);
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            letter-spacing: 6px;
+        }
+
+        input::placeholder {
+            color: #c5c8dc;
+            letter-spacing: 2px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #7865ff, #a34de0);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .flash {
+            margin-bottom: 18px;
+            padding: 12px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.12);
+            color: #fff;
+            line-height: 1.5;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 22px;
+            color: #d9d4ff;
+            text-decoration: none;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Verify Your OTP</h1>
+
+        <p>
+            We've sent a 6-digit password reset code
+            to your registered email address.
+            Enter the code below to continue.
+        </p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="flash">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST"
+              action="{{ url_for('verify_reset_otp') }}">
+
+            <input
+                type="text"
+                name="otp"
+                placeholder="Enter 6-digit OTP"
+                maxlength="6"
+                pattern="[0-9]{6}"
+                inputmode="numeric"
+                autocomplete="one-time-code"
+                required
+            >
+
+            <button type="submit">
+                VERIFY OTP
+            </button>
+
+        </form>
+
+        <a href="{{ url_for('forgot_password') }}" class="back">
+            ← Request a New OTP
+        </a>
+
+    </div>
+
+</body>
+</html>

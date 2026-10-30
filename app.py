@@ -1,4 +1,3 @@
-
 from dotenv import load_dotenv
 import os
 import json
@@ -2389,6 +2388,76 @@ CharityBridge Team
 
         return False
     
+# ============================================================
+# SEND PASSWORD RESET OTP USING GMAIL
+# Separate from registration OTP
+# ============================================================
+
+def send_password_reset_otp(receiver_email, otp):
+
+    if not GMAIL_APP_PASSWORD:
+        print("GMAIL_APP_PASSWORD is not configured.")
+        return False
+
+    try:
+
+        message = EmailMessage()
+
+        message["From"] = GMAIL_SENDER
+        message["To"] = receiver_email
+        message["Subject"] = "CharityBridge - Password Reset OTP"
+
+        message.set_content(
+            f"""
+CharityBridge - Password Reset
+
+Hello,
+
+We received a request to reset your CharityBridge account password.
+
+Your password reset OTP is:
+
+{otp}
+
+This OTP is valid for 10 minutes.
+
+If you did not request a password reset, please ignore this email.
+
+Do not share this OTP with anyone.
+
+Regards,
+CharityBridge Team
+"""
+        )
+
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+
+            server.starttls()
+
+            server.login(
+                GMAIL_SENDER,
+                GMAIL_APP_PASSWORD
+            )
+
+            server.send_message(message)
+
+        print(
+            "Password reset OTP sent successfully to:",
+            receiver_email
+        )
+
+        return True
+
+    except Exception as e:
+
+        print(
+            "Password reset email error:",
+            e
+        )
+
+        return False
+
+    
     
 # ============================================================
 # SEND VOLUNTEER WORKFLOW EMAIL
@@ -2535,7 +2604,6 @@ def register():
             )
 
             try:
-
                 cursor.execute(
                     """
                     SELECT
@@ -2546,11 +2614,15 @@ def register():
                     FROM email_otps
                     WHERE user_id = %s
                     AND used_at IS NULL
+                    AND purpose = 'verification'
                     ORDER BY id DESC
                     LIMIT 1
                     """,
                     (pending_user_id,)
                 )
+                               
+
+              
 
                 otp_record = cursor.fetchone()
 
@@ -2917,15 +2989,15 @@ def register():
             # =================================================
             # REMOVE OLD UNUSED OTPS
             # =================================================
-
             cursor.execute(
-                """
-                DELETE FROM email_otps
-                WHERE user_id = %s
-                AND used_at IS NULL
-                """,
-                (user_id,)
-            )
+    """
+    DELETE FROM email_otps
+    WHERE user_id = %s
+    AND used_at IS NULL
+    AND purpose = 'verification'
+    """,
+    (user_id,)
+)
 
             # =================================================
             # SAVE NEW OTP
@@ -3029,6 +3101,313 @@ def register():
         "register.html",
         otp_required=False
     )
+
+# ============================================================
+# FORGOT PASSWORD - SEND RESET OTP
+# ============================================================
+
+@app.route("/forgot-password", methods=["GET", "POST"])
+def forgot_password():
+
+    if request.method == "POST":
+
+        email = request.form.get("email", "").strip().lower()
+
+        if not email:
+            flash("Please enter your registered email address.", "error")
+            return render_template("forgot_password.html")
+
+        connection = db
+
+        if connection is None:
+            flash("Database connection failed.", "error")
+            return render_template("forgot_password.html")
+
+        cursor = connection.cursor(dictionary=True)
+
+        try:
+
+            cursor.execute(
+                """
+                SELECT id, email
+                FROM users
+                WHERE email = %s
+                AND email_verified = 1
+                """,
+                (email,)
+            )
+
+            user = cursor.fetchone()
+
+            if not user:
+                flash(
+                    "If this email is registered, password reset instructions will be sent.",
+                    "success"
+                )
+                return render_template("forgot_password.html")
+
+            user_id = user["id"]
+
+            # Generate 6-digit OTP
+            otp = f"{secrets.randbelow(1000000):06d}"
+
+            # Hash OTP
+            otp_hash = generate_password_hash(otp)
+
+            expires_at = datetime.now() + timedelta(minutes=10)
+
+            # Delete only previous unused password-reset OTPs
+            cursor.execute(
+                """
+                DELETE FROM email_otps
+                WHERE user_id = %s
+                AND used_at IS NULL
+                AND purpose = 'password_reset'
+                """,
+                (user_id,)
+            )
+
+            # Save new password-reset OTP
+            cursor.execute(
+                """
+                INSERT INTO email_otps
+                (
+                    user_id,
+                    otp_hash,
+                    expires_at,
+                    attempts,
+                    purpose
+                )
+                VALUES (%s, %s, %s, 0, 'password_reset')
+                """,
+                (
+                    user_id,
+                    otp_hash,
+                    expires_at
+                )
+            )
+
+            connection.commit()
+
+            # Send password-reset email
+            email_sent = send_password_reset_otp(
+                email,
+                otp
+            )
+
+            if not email_sent:
+
+                cursor.execute(
+                    """
+                    UPDATE email_otps
+                    SET used_at = NOW()
+                    WHERE user_id = %s
+                    AND purpose = 'password_reset'
+                    AND used_at IS NULL
+                    """,
+                    (user_id,)
+                )
+
+                connection.commit()
+
+                flash(
+                    "Unable to send OTP. Please try again later.",
+                    "error"
+                )
+
+                return render_template("forgot_password.html")
+
+            # Store pending reset information
+            session["password_reset_user_id"] = user_id
+            session.pop("password_reset_verified", None)
+
+            flash(
+                "A password-reset OTP has been sent to your registered email.",
+                "success"
+            )
+
+            return redirect(
+                url_for("verify_reset_otp")
+            )
+
+        except Error as e:
+
+            connection.rollback()
+
+            print("Forgot password error:", e)
+
+            flash(
+                "Something went wrong. Please try again.",
+                "error"
+            )
+
+            return render_template("forgot_password.html")
+
+        finally:
+
+            cursor.close()
+
+    return render_template("forgot_password.html")
+@app.route("/verify-reset-otp", methods=["GET", "POST"])
+def verify_reset_otp():
+
+    user_id = session.get("password_reset_user_id")
+
+    if not user_id:
+        flash("Please request a password reset first.", "error")
+        return redirect(url_for("forgot_password"))
+
+    if request.method == "POST":
+
+        otp = request.form.get("otp", "").strip()
+
+        if not otp:
+            flash("Please enter the OTP.", "error")
+            return render_template("verify_reset_otp.html")
+
+        connection = db
+
+        if connection is None:
+            flash("Database connection failed.", "error")
+            return render_template("verify_reset_otp.html")
+
+        cursor = connection.cursor(dictionary=True)
+
+        try:
+            cursor.execute(
+                """
+                SELECT id, otp_hash, expires_at, attempts
+                FROM email_otps
+                WHERE user_id = %s
+                AND purpose = 'password_reset'
+                AND used_at IS NULL
+                ORDER BY id DESC
+                LIMIT 1
+                """,
+                (user_id,)
+            )
+
+            otp_record = cursor.fetchone()
+
+            if not otp_record:
+                flash("OTP not found. Please request a new OTP.", "error")
+                return render_template("verify_reset_otp.html")
+
+            if otp_record["attempts"] >= 5:
+                flash("Too many attempts. Please request a new OTP.", "error")
+                return render_template("verify_reset_otp.html")
+
+            if otp_record["expires_at"] < datetime.now():
+                flash("OTP expired. Please request a new OTP.", "error")
+                return render_template("verify_reset_otp.html")
+
+            if not check_password_hash(otp_record["otp_hash"], otp):
+                cursor.execute(
+                    """
+                    UPDATE email_otps
+                    SET attempts = attempts + 1
+                    WHERE id = %s
+                    """,
+                    (otp_record["id"],)
+                )
+                connection.commit()
+
+                flash("Incorrect OTP. Please try again.", "error")
+                return render_template("verify_reset_otp.html")
+
+            session["password_reset_verified"] = True
+
+            flash("OTP verified successfully.", "success")
+
+            return redirect(url_for("reset_password"))
+
+        except Error as e:
+            connection.rollback()
+            print("Reset OTP verification error:", e)
+            flash("Something went wrong. Please try again.", "error")
+            return render_template("verify_reset_otp.html")
+
+        finally:
+            cursor.close()
+
+    return render_template("verify_reset_otp.html")
+
+@app.route("/reset-password", methods=["GET", "POST"])
+def reset_password():
+
+    user_id = session.get("password_reset_user_id")
+
+    if not user_id or not session.get("password_reset_verified"):
+        flash("Please verify your password reset OTP first.", "error")
+        return redirect(url_for("forgot_password"))
+
+    if request.method == "POST":
+
+        new_password = request.form.get("new_password", "")
+        confirm_password = request.form.get("confirm_password", "")
+
+        if not new_password or not confirm_password:
+            flash("Please fill in both password fields.", "error")
+            return render_template("reset_password.html")
+
+        if new_password != confirm_password:
+            flash("Passwords do not match.", "error")
+            return render_template("reset_password.html")
+
+        if len(new_password) < 8:
+            flash("Password must contain at least 8 characters.", "error")
+            return render_template("reset_password.html")
+
+        connection = db
+
+        if connection is None:
+            flash("Database connection failed.", "error")
+            return render_template("reset_password.html")
+
+        cursor = connection.cursor()
+
+        try:
+            cursor.execute(
+                """
+                UPDATE users
+                SET password = %s
+                WHERE id = %s
+                """,
+                (generate_password_hash(new_password), user_id)
+            )
+
+            cursor.execute(
+                """
+                UPDATE email_otps
+                SET used_at = NOW()
+                WHERE user_id = %s
+                AND purpose = 'password_reset'
+                AND used_at IS NULL
+                """,
+                (user_id,)
+            )
+
+            connection.commit()
+
+            session.pop("password_reset_user_id", None)
+            session.pop("password_reset_verified", None)
+
+            flash("Your password has been reset successfully. Please log in.", "success")
+
+            return redirect(url_for("login"))
+
+        except Error as e:
+            connection.rollback()
+            print("Password reset error:", e)
+            flash("Unable to reset password. Please try again.", "error")
+            return render_template("reset_password.html")
+
+        finally:
+            cursor.close()
+
+    return render_template("reset_password.html")
+
+
 
 
 # ============================================================
