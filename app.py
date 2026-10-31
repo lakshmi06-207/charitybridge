@@ -95,7 +95,6 @@ app.secret_key = "charitybridge_secret_key"
 # ============================================================
 # DATABASE CONNECTION
 # ============================================================
-
 MYSQL_HOST = "localhost"
 MYSQL_USER = "root"
 MYSQL_PASSWORD = "varsha06@207"
@@ -6883,12 +6882,16 @@ hr.upi_qr_image,
 
     # ============================================================
     # CLOSE CURSOR
-    # ============================================================
-
+    #=============================================================
     finally:
-
-        cursor.close()
-
+        if cursor is not None:
+            try:
+                cursor.close()
+            except Exception as close_error:
+                app.logger.warning(
+                    "Response page cursor cleanup failed: %s",
+                    close_error
+                )
 
 
 
