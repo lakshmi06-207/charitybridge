@@ -86,7 +86,7 @@ button {
 .dashboard-page {
     position: relative;
     min-height: 100vh;
-    overflow: clip;
+    overflow:  visible;
 }
 
 
@@ -1981,5 +1981,42 @@ body[data-theme="rose"] .background-layer {
     .stats-grid,
     .lower-grid {
         grid-template-columns: minmax(0, 1fr);
+    }
+}
+/* ============================================================
+   RUDDER — MOVES WITH WEBPAGE SCROLL
+============================================================ */
+
+.rudder-button {
+    position: absolute !important;
+
+    top: 120px !important;
+    bottom: auto !important;
+
+    right: calc(var(--menu-width) + 48px) !important;
+    left: auto !important;
+
+    z-index: 99999 !important;
+
+    transform: none;
+}
+
+/* Collapsed sidebar */
+body.menu-collapsed .rudder-button {
+    right: calc(var(--menu-collapsed) + 48px) !important;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+    .rudder-button {
+        right: 30px !important;
+        top: 120px !important;
+    }
+}
+
+@media (max-width: 650px) {
+    .rudder-button {
+        right: 20px !important;
+        top: 120px !important;
     }
 }
