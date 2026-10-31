@@ -1168,7 +1168,7 @@ button {
 ============================================================ */
 
 .rudder-button {
-   position: fixed;
+   position: absolute;
 
     right: calc(var(--menu-width) + 48px);
 
